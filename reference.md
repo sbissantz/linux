@@ -24,7 +24,6 @@ Information quadrega as a *system administrator*:
 |`man 5 <command>`| Show me the file formats & conventions man page of `<command>` (e.g., configuration files like `passwd`) |
 |`man 8 <command>`| Show me	the system administration tools & daemons man page of `<command>` (i.e., commands that require root or other administrative privileges to use) |
 
-
 ### Using the Shell
 
 
@@ -33,57 +32,86 @@ Information quadrega as a *system administrator*:
 formula: 
 
 ```
-ls [option] [file/dir][file-matching metacharacter]
+ls [option] [file/dir/pattern]
 ```
 
-|`ls`| List files |
+|`ls`| List files in the current directory |
 
 |`ls -a`| List me all files (i.e. hidden file, like dotfiles, and non-hidden files) |
 |`ls -S`| List me the files sorted by size |
 |`ls -t`| List me the files sorted by modification time |
 |`ls -F`| List me the files with a file-type indicator (i.e., `*/=>@|`) |
+|`ls -l`| List in long format |
 
-ls {{c1::-ld}}	option(s)	List info about directory	...instead of files			Cloze
-ls {{c1::-R}}	option	List recursively	...from current dir			Cloze
+| `ls -ld`|	List info about directories (i.e., instead of files) |
+| `ls -R` |	List recursively |
 
+| `ls --hide <pattern>` |	List; but hide `<pattern>` |
+| `ls --color=auto` | List different file/dir types in different colors	|
 
-ls {{c1::--hide}}{{c1::=}}{{c1::<pattern>}}	flag	List; but hide &lt;pattern&gt;				Cloze
+| `ls | wc -w` | Print the number of files in a directory |
 
+**File matching metacharacters**
+see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expressions/Regular_expression_metacharacters.htm>
 
+| `.` | Match any single character |
+| `*` | The preceding item will be matched zero or more times |
+| `?` | The preceding item is optional and will be matched, at most, once |
+| `[a,b,c]` | Match the denoted items within the brackets  |
+| `[a-c]` | Match the range of items within the brackets |
+| `[a-z]` | Match any letter |
 
+**Examples**
 
+|`ls a*`| List any file that begins with `a` |
+|`ls *e`| List any file that ends with `a` |
+|`ls *c*`| List any file that contains `c` |
+|`ls [a,b,c]*`| List any file that starts with `a,b,c` |
+|`ls *[a-z]*`| List any file that contains a letter |
 
-
-ls {{c1::a*}}	file-matching metacharacter	List any file that beginns with 'a'				Cloze
-
-ls {{c1::*e}}	file-matching metacharacter	List any file that end with 'e'				Cloze
-
-ls {{c1::*c*}}	file-matching metacharacter	List any file that contains 'c'				Cloze
-
-ls {{c1::[a,b,c]*}}	file-matching metacharacter	List any file that starts with 'a', 'b', or 'c'				Cloze
-
-ls {{c1::*[a,b,c]}}	file-matching metacharacter	List any file that ends with 'a', 'b', or 'c'				Cloze
-
-ls {{c1::[a-z]*}}	file-matching metacharacter	List any file that starts with a letter				Cloze
-
-ls {{c1::*[a-z]}}	file-matching metacharacter	List any file that ends with a letter				Cloze
-
-
-
-
-
-ls {{c1::--color}}{{c1::=}}{{c1::auto}}	flag	List different file/dir types in different colors				Cloze
-
-ls {{c1::-l}}	option	List in long format	more info about file size and directories			Cloze
-
-ls | wc -w	snippet	Print the number of files in a directory				linux_01_code
+#### Add (files, directories & symlinks )
 
 
+mkdir {{c1::-p}}	option	Make&nbsp;<i>parent</i> directory as needed				Cloze
+
+touch	command	Create an empty file				linux_01_code
+
+{s1,s2,..,sN}	brace expansion characters	A (space-separated) list		touch a_{1,3,5}	a_1 a_3 a_5	linux_01_code
+
+ln	command	Make links between files		ln -s apple pointer_to_apple	pointer_to_apple	linux_01_code
+
+
+#### Move
+
+
+mv <file> {{c1::~}}<br>cp &lt;file&gt; {{c1::~}}	argument	Copy/move file to home directory		mv -v projects/stanmisc ~	renamed 'projects/stanmisc/' -&gt; '/home/steven/stanmisc'&nbsp;	Cloze
 
 
 
 
-rm -I		Prompt once before removing more than three files
+
+#### Remove
+
+formula: 
+
+```
+rm [option] [file/dir/pattern]
+```
+
+| `rm <file>` |	Remove or unlink the file |
+| `rm *` | Remove all files in the current directory |	
+
+
+
+| `rm -i` |	Prompt before every removal |
+| `rm -I` | Prompt once before removing more than three files |
+| `rm -f` | Remove immediately ; don't prompt |
+
+| `rmdir` | Remove an empty directory |
+| `rm -r` | Remove a directory and its contents recursively |
+
+
+
 
 
 sort {{c1::-f}}&nbsp;	option	Sort files ignoring upper an lowercase				Cloze
@@ -96,16 +124,12 @@ tar {{c1::-f}} {{c1::<file>}}&nbsp;	option and argument	Archive &lt;file&gt;				
 
 
 
-mkdir {{c1::-p}}	option	Make&nbsp;<i>parent</i> directory as needed				Cloze
-
-touch	command	Create an empty file				linux_01_code
 
 
 echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
 
 alias {{c1::<shortcut>}}{{c1::=}}{{c1::'&lt;command(s)&gt;'}}	formula	Alias formula		alias l='ls -l'		Cloze
 
-rm {{c1::*}}	argument	Remove all files in the current directory		cd baz ; rm -v *	removed 'foo'	Cloze
 
 cp {{c1::-a}}	optin	Copy but mantain time stamps and permissions		cp -av foo /baz ; ls -l foo	-rw-rw-r--. 1 steven steven 0 Nov 23 08:02 foo 	Cloze
 
@@ -119,11 +143,8 @@ cp {{c1::-r}}	option	Copy recursively&nbsp;		cp -rv baz&nbsp;	'baz/' -> 'Downloa
 
 [regular char]	command line completion	Command, alias or function name		nv<Tab>	nvim	linux_01_code
 
-?	file-matching metacharacter	Match a single character		ls -ld dotels?&nbsp;	drwxrwxrwx. 1 steven steven 450 Sep&nbsp; 3 10:42 dotelse/&nbsp;	linux_01_code
 
-*	file-matching metacharacter	Match any number of characters		ls \*	.bash_aliases* .todolist .bash_history&nbsp; &nbsp;	linux_01_code
-
-<command> {{c1::&gt;}} &lt;file&gt;	file-matching metacharacter	Overwrite with the output of &lt;command&gt; the content of &lt;file&gt;				Cloze
+<command> {{c1::&>;}} &lt;file&gt;	file-matching metacharacter	Overwrite with the output of &lt;command&gt; the content of &lt;file&gt;				Cloze
 
 [command] {{c1::>&gt;}} [file]	file-matching metacharacter	Direct the output of [command] to [file]	append at the end			Cloze
 
@@ -133,13 +154,16 @@ cp {{c1::-r}}	option	Copy recursively&nbsp;		cp -rv baz&nbsp;	'baz/' -> 'Downloa
 
 $	command line completion	Shell Variable	..from current shell	$R<TAB>	$R_ENVIRON_USER	linux_01_code
 
+
+
 let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
 
 bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM / 16" | bc` ; <br>echo RESULT	64	linux_01_code
 
 expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	BIGNUM=1024<br>RESULT=`expr $BIGNUM / 16` ; echo $RESULT	64	linux_01_code
 
-{s1,s2,..,sN}	brace expansion characters	A (space-separated) list		touch a_{1,3,5}	a_1 a_3 a_5	linux_01_code
+
+
 
 and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;		linux_01_code
 
@@ -150,8 +174,6 @@ mail	command	Send mail message to a local account				linux_01_code
 
 <div><span>wc</span><br></div>	command	print newline, word, and byte counts for each file				linux_01_code
 
-[...]	file-matching metacharacters	Match any one of the characters between the brackets		ls [abw]*[ne]		linux_01_code
-
 
 declare	command	Get a list (messy) of environmental variables	..use with '| grep'			linux_01_code
 
@@ -161,13 +183,16 @@ pwd	command	Show me my current working directory				linux_01_code
 
 history	command	Print command history	&nbsp; &nbsp; 1&nbsp; exit <br>&nbsp;&nbsp;&nbsp; 2&nbsp; R&nbsp;			linux_01_code
 
-set	command	Set shell options				linux_01_code
 
 tty[x]	who -uH output	The [x]th virtual console&nbsp;	...on the monitor connected to the computer		steven&nbsp;&nbsp; tty2&nbsp; &nbsp;2021-11-09 07:37 00:43&nbsp; &nbsp;4265 (tty2)&nbsp;<br>	linux_01_code
 
 COMMENT	who -uH	The name of the remote computer	..from which the user is logged in		NAME&nbsp; PID COMMENT <br>&nbsp; &nbsp; &nbsp; steven&nbsp; &nbsp; 5235 <u>(91.10.107.103)&nbsp;</u>	linux_01_code
 
+
+set	command	Set shell options				linux_01_code
+
 set -o vi	snippet	Set vi to edit shell command lines	..put in .bashrc for permanent change			linux_01_code
+
 
 sort	command	Sort lines of text files				linux_01_code
 
@@ -181,9 +206,7 @@ export	command	Sets an&nbsp;<i>attribute</i> for a&nbsp;<i>shell variable</i>\(^
 source&nbsp;	command	Read and execute files from current shell		echo "foo" >&gt; .bashrc ; source .bashrc		linux_01_code
 
 
-ln	command	Make links between files		ln -s apple pointer_to_apple	pointer_to_apple	linux_01_code
 
-rm	command	Remove or unlink files		rm -v foo	removed 'foo'&nbsp;	linux_01_code
 
 tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
 
@@ -212,9 +235,7 @@ id	command	Print user and group information	uid=1000(steven) gid=1000(steven) gr
 
 ### Moving Around in the file system
 
-
-
-and>	file-redirection metacharacter	Redirect a <commands&gt; error message <i>and</i> output to &lt;file&gt;		[command] &amp;&gt; [file]		linux_01_code
+&>	file-redirection metacharacter	Redirect a <commands&gt; error message <i>and</i> output to &lt;file&gt;		[command] &amp;&gt; [file]		linux_01_code
 
 cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
@@ -294,7 +315,8 @@ cp	command	Copy (multiple) source file(s)		cp -v foo /baz/bar	'foo' -> '/baz'&nb
 
 mkdir	command	Make directory		mkdir bar ; ls bar	bar/	linux_01_code
 
-rmdir	command	Remove an <i>empty</i> directory		mkdir baz ; rmdir -v	rmdir: removing directory, 'baz'	linux_01_code
+
+
 
 mv	command	Move and rename a file		mv -v baz/foo baz/bar	renamed 'test' -> 'testi'	linux_01_code
 
@@ -420,13 +442,6 @@ ps {{c1::aux}}	options	Fully list all\(^*\) processes for <i>all</i> users on th
 
 ps {{c1::ux}}	options	Fully\(^*\) list <i>user</i> processes running on your system	\(^*\)all infos and including background processes	ps ux | less	USER PID %CPU %MEM VSZ RSS TTY ... TIME COMMAND <br>steven 3995 0.1&nbsp; 0.0 224616&nbsp; 6160&nbsp;pts/1&nbsp;0:00 bash <br>steven 4029 0.0&nbsp; 0.0 225568&nbsp; 3660 pts/1 0:00 ps u 	Cloze
 
-rm {{c1::-i}}	option	Promt before every removal		rm -i tst_1	rm: remove regular empty file 'tst_1'?	Cloze
-
-rm&nbsp;{{c1::-f}}	option	Remove immediately ; don't prompt		mkdir -p baz/bazi_sub ; rm -rfv baz&nbsp;	removed directory 'baz/bazi_sub' <br>removed directory 'baz'&nbsp;	Cloze
-
-rm&nbsp;{{c1::-r}}	command	Remove directory and its contents recursively		mkdir -p baz/bazi_sub ; rm -rv baz	removed directory 'baz/bazi_sub' <br>removed directory 'baz'&nbsp;	Cloze
-
-mv <file> {{c1::~}}<br>cp &lt;file&gt; {{c1::~}}	argument	Copy/move file to home directory		mv -v projects/stanmisc ~	renamed 'projects/stanmisc/' -&gt; '/home/steven/stanmisc'&nbsp;	Cloze
 
 
 {{c1::kill}} {{c1::<signal>}} {{c1::&lt;pid&gt;}}	kill formula	Kill formula		kill -SIGHUP 104321	[1]&nbsp; + hangup &nbsp; &nbsp; nvim	Cloze
