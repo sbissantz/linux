@@ -71,50 +71,54 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 
 #### Add (files, directories & symlinks )
 
+| `touch <file>` | Create an empty file |
+|||
+| `mkdir <dir>` | Make directory <dir>
+| `mkdir -p </dir/subdir>` |	Make parent directory `<dir>` as needed
+|||
+| `ln <file_1> <file_2>` |Make links between files |		
+| `ln -s <file_1> <file_2>` | Make a symbolic link betwen <file_1> <file_2> |
 
-mkdir {{c1::-p}}	option	Make&nbsp;<i>parent</i> directory as needed				Cloze
+**Brace Expansion Characters**
 
-touch	command	Create an empty file				linux_01_code
+|`{s1,s2,..}`| A (space-separated) list |
+|`{}{}`| Use brace 1 as prefix for brace 2 |
+|`{<START>..<END>}` | Specify the range to be used |
 
-{s1,s2,..,sN}	brace expansion characters	A (space-separated) list		touch a_{1,3,5}	a_1 a_3 a_5	linux_01_code
+**Examples**
 
-ln	command	Make links between files		ln -s apple pointer_to_apple	pointer_to_apple	linux_01_code
+| `touch a_{1,3,5}`	| `a_1 a_3 a_5` |
+| `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
+| `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
 
+#### Move & rename
 
-#### Move
+```
+mv [option] [file/dir/pattern]
+```
 
+| `mv <old_file> <new_file>` | Rename `<old_file>` to `<new_file>`|	
+|||
+| `mv <file> <path>` | Copy/move file to home directory |	
+| `mv <file> ~` | Rename/Move file to home directory |	
 
-mv <file> {{c1::~}}<br>cp &lt;file&gt; {{c1::~}}	argument	Copy/move file to home directory		mv -v projects/stanmisc ~	renamed 'projects/stanmisc/' -&gt; '/home/steven/stanmisc'&nbsp;	Cloze
-
-
-
-
-
-#### Remove
-
-formula: 
+#### Remove & unlink
 
 ```
 rm [option] [file/dir/pattern]
 ```
 
-| `rm <file>` |	Remove or unlink the file |
+| `rm <file>` |	Remove or unlink the `<file>` |
 | `rm *` | Remove all files in the current directory |	
-
-
-
+| `rm -f` | Remove immediately ; don't prompt |
 | `rm -i` |	Prompt before every removal |
 | `rm -I` | Prompt once before removing more than three files |
-| `rm -f` | Remove immediately ; don't prompt |
-
+|||
 | `rmdir` | Remove an empty directory |
 | `rm -r` | Remove a directory and its contents recursively |
 
+#### Archiving 
 
-
-
-
-sort {{c1::-f}}&nbsp;	option	Sort files ignoring upper an lowercase				Cloze
 
 tar {{c1::-c}}	option	Create a new archive				Cloze
 
@@ -124,6 +128,7 @@ tar {{c1::-f}} {{c1::<file>}}&nbsp;	option and argument	Archive &lt;file&gt;				
 
 
 
+sort {{c1::-f}}&nbsp;	option	Sort files ignoring upper an lowercase				Cloze
 
 
 echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
@@ -336,9 +341,6 @@ date	command	Show me the current date and time zone		date	Tue Feb 15 08:45:04 AM
 
 !<n>	command line recall	Run command &lt;n&gt; from histroy file		date&nbsp;; !1002	date  <br>Fri Dec 24 06:46:12 AM CET 2021&nbsp;	linux_01_code
 
-{}{}...	brace expansion characters	Use brace 1 as prefix for brace 2,...		echo {a..b}-{1..3}	a-1 a-2 a-3 b-1 b-2 b-3	linux_01_code
-
-{<START>..&lt;END&gt;}	brace expansion characters	Specify the range to be used		echo {a..b<span>}-{1..2}</span>	a-1 a-2 b-1 b-2 c-1 c-2	linux_01_code
 
 '$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
 
