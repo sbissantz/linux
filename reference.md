@@ -26,6 +26,12 @@ Information quadrega as a *system administrator*:
 
 ### Using the Shell
 
+#### Command line completion
+
+| `[regular char]<TAB>` | Complete with a Command, alias or function name |
+| `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
+| `~<TAB>` | Complete a username (e.g., root) |
+| `$<TAB>` | Complete with a shell variable |
 
 #### list 
 
@@ -72,10 +78,10 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 #### Add (files, directories & symlinks )
 
 | `touch <file>` | Create an empty file |
-|||
+| | |
 | `mkdir <dir>` | Make directory <dir>
 | `mkdir -p </dir/subdir>` |	Make parent directory `<dir>` as needed
-|||
+| | |
 | `ln <file_1> <file_2>` |Make links between files |		
 | `ln -s <file_1> <file_2>` | Make a symbolic link betwen <file_1> <file_2> |
 
@@ -91,6 +97,18 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 | `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
 | `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
 
+#### Copy
+
+```
+cp [option] [files/dirs/pattern] [destination]
+```
+
+| `cp -r` | Copy recursively |
+| `cp -v` | Copy with a verbose message |
+| `cp -i` | Copy but prompt before overwriting |
+| `cp -f` | Copy and force to overwrite |
+| `cp -a` | Copy but maintain time stamps and permissions |
+
 #### Move & rename
 
 ```
@@ -98,7 +116,7 @@ mv [option] [file/dir/pattern]
 ```
 
 | `mv <old_file> <new_file>` | Rename `<old_file>` to `<new_file>`|	
-|||
+| | |
 | `mv <file> <path>` | Copy/move file to home directory |	
 | `mv <file> ~` | Rename/Move file to home directory |	
 
@@ -119,12 +137,23 @@ rm [option] [file/dir/pattern]
 
 #### Archiving 
 
+```
+tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
+```
 
-tar {{c1::-c}}	option	Create a new archive				Cloze
+| `tar -c` | Create a new archive |
+| `tar -v` | Give verbose message |
+| `tar -f <files>` | Archive `<files>` |
 
-tar {{c1::-v}}	option	Verbose message when archiving				Cloze
+**Useful examples**
 
-tar {{c1::-f}} {{c1::<file>}}&nbsp;	option and argument	Archive &lt;file&gt;				Cloze
+| `tar -cvf project.tar project` | Create an archive `project.tar` from `project`
+| `tar -zcvf project.tar.gz project` | Create a *compressed* archive `project.tar` from `project`
+
+
+
+
+
 
 
 
@@ -136,17 +165,12 @@ echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>
 alias {{c1::<shortcut>}}{{c1::=}}{{c1::'&lt;command(s)&gt;'}}	formula	Alias formula		alias l='ls -l'		Cloze
 
 
-cp {{c1::-a}}	optin	Copy but mantain time stamps and permissions		cp -av foo /baz ; ls -l foo	-rw-rw-r--. 1 steven steven 0 Nov 23 08:02 foo 	Cloze
-
-cp {{c1::-r}}	option	Copy recursively&nbsp;		cp -rv baz&nbsp;	'baz/' -> 'Downloads/baz' <br>'baz/sub_1' -&gt; 'Downloads/baz/sub_1'&nbsp;	Cloze
 
 {{c1::export}} {{c1::<VAR>}}{{c1::=}}{{c1::&lt;value(s)&gt;}}	formula	Shell variable formula		export EDITOR=nvim ; echo $EDITOR	nvim	Cloze
 
 \[ nonprinting chars \]	prompt character (omit space)	Include a sequence of nonprinting chars	e.g. color effects, blink			linux_01_code
 
-@	command line completion	Hostname	..from /etc/hosts	ssh localhost@g<TAB>	ssh localhost@github.cim	linux_01_code
 
-[regular char]	command line completion	Command, alias or function name		nv<Tab>	nvim	linux_01_code
 
 
 <command> {{c1::&>;}} &lt;file&gt;	file-matching metacharacter	Overwrite with the output of &lt;command&gt; the content of &lt;file&gt;				Cloze
@@ -155,9 +179,6 @@ cp {{c1::-r}}	option	Copy recursively&nbsp;		cp -rv baz&nbsp;	'baz/' -> 'Downloa
 
 
 
-~	command line completion	username		~ro<TAB>	~root/	linux_01_code
-
-$	command line completion	Shell Variable	..from current shell	$R<TAB>	$R_ENVIRON_USER	linux_01_code
 
 
 
@@ -316,7 +337,6 @@ r	permission set	Readable file			drwxrwxrwx	linux_01_code
 
 2>	file-redirection metacharacter	Redirect error message		command 2&gt; /dev/null		linux_01_code
 
-cp	command	Copy (multiple) source file(s)		cp -v foo /baz/bar	'foo' -> '/baz'&nbsp;	linux_01_code
 
 mkdir	command	Make directory		mkdir bar ; ls bar	bar/	linux_01_code
 
