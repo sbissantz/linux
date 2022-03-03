@@ -8,6 +8,8 @@
 
 Information quadrega as a *general user*:
 
+| Syntax | Description |
+| ------ | ----------- |
 |`type <command>`| Show me location & type of `<command>` |
 |`info <command>`| Show me the info document of `<command>` |
 |`man <command>`| Show me the command manual of `<command>` |
@@ -20,6 +22,8 @@ Note: if `man -k` does not give output, initialize the man page data base:
 
 Information quadrega as a *system administrator*:
 
+| Syntax | Description |
+| ------ | ----------- |
 |`man 1 <command>`| Show me the user commands man page of the `<command>` (i.e., commands that can be run from shell by a regular user) |
 |`man 5 <command>`| Show me the file formats & conventions man page of `<command>` (e.g., configuration files like `passwd`) |
 |`man 8 <command>`| Show me	the system administration tools & daemons man page of `<command>` (i.e., commands that require root or other administrative privileges to use) |
@@ -28,6 +32,8 @@ Information quadrega as a *system administrator*:
 
 #### Command line completion
 
+| Syntax | Description |
+| ------ | ----------- |
 | `[regular char]<TAB>` | Complete with a Command, alias or function name |
 | `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
 | `~<TAB>` | Complete a username (e.g., root) |
@@ -41,25 +47,25 @@ formula:
 ls [option] [file/dir/pattern]
 ```
 
+| Syntax | Description |
+| ------ | ----------- |
 |`ls`| List files in the current directory |
-
 |`ls -a`| List me all files (i.e. hidden file, like dotfiles, and non-hidden files) |
 |`ls -S`| List me the files sorted by size |
 |`ls -t`| List me the files sorted by modification time |
 |`ls -F`| List me the files with a file-type indicator (i.e., `*/=>@|`) |
 |`ls -l`| List in long format |
-
 | `ls -ld`|	List info about directories (i.e., instead of files) |
 | `ls -R` |	List recursively |
-
 | `ls --hide <pattern>` |	List; but hide `<pattern>` |
 | `ls --color=auto` | List different file/dir types in different colors	|
-
 | `ls | wc -w` | Print the number of files in a directory |
 
 **File matching metacharacters**
 see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expressions/Regular_expression_metacharacters.htm>
 
+| Syntax | Description |
+| ------ | ----------- |
 | `.` | Match any single character |
 | `*` | The preceding item will be matched zero or more times |
 | `?` | The preceding item is optional and will be matched, at most, once |
@@ -69,6 +75,8 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 
 **Examples**
 
+| Syntax | Description |
+| ------ | ----------- |
 |`ls a*`| List any file that begins with `a` |
 |`ls *e`| List any file that ends with `a` |
 |`ls *c*`| List any file that contains `c` |
@@ -77,6 +85,8 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 
 #### Add (files, directories & symlinks )
 
+| Syntax | Description |
+| ------ | ----------- |
 | `touch <file>` | Create an empty file |
 | | |
 | `mkdir <dir>` | Make directory <dir>
@@ -87,12 +97,16 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 
 **Brace Expansion Characters**
 
+| Syntax | Description |
+| ------ | ----------- |
 |`{s1,s2,..}`| A (space-separated) list |
 |`{}{}`| Use brace 1 as prefix for brace 2 |
 |`{<START>..<END>}` | Specify the range to be used |
 
 **Examples**
 
+| Syntax | Description |
+| ------ | ----------- |
 | `touch a_{1,3,5}`	| `a_1 a_3 a_5` |
 | `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
 | `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
@@ -103,6 +117,8 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 cp [option] [files/dirs/pattern] [destination]
 ```
 
+| Syntax | Description |
+| ------ | ----------- |
 | `cp -r` | Copy recursively |
 | `cp -v` | Copy with a verbose message |
 | `cp -i` | Copy but prompt before overwriting |
@@ -115,6 +131,8 @@ cp [option] [files/dirs/pattern] [destination]
 mv [option] [file/dir/pattern]
 ```
 
+| Syntax | Description |
+| ------ | ----------- |
 | `mv <old_file> <new_file>` | Rename `<old_file>` to `<new_file>`|	
 | | |
 | `mv <file> <path>` | Copy/move file to home directory |	
@@ -126,12 +144,14 @@ mv [option] [file/dir/pattern]
 rm [option] [file/dir/pattern]
 ```
 
+| Syntax | Description |
+| ------ | ----------- |
 | `rm <file>` |	Remove or unlink the `<file>` |
 | `rm *` | Remove all files in the current directory |	
 | `rm -f` | Remove immediately ; don't prompt |
 | `rm -i` |	Prompt before every removal |
 | `rm -I` | Prompt once before removing more than three files |
-|||
+| | |
 | `rmdir` | Remove an empty directory |
 | `rm -r` | Remove a directory and its contents recursively |
 
@@ -141,16 +161,46 @@ rm [option] [file/dir/pattern]
 tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 ```
 
+tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
+
+| Syntax | Description |
+| ------ | ----------- |
 | `tar -c` | Create a new archive |
 | `tar -v` | Give verbose message |
 | `tar -f <files>` | Archive `<files>` |
 
 **Useful examples**
 
+| Syntax | Description |
+| ------ | ----------- |
 | `tar -cvf project.tar project` | Create an archive `project.tar` from `project`
 | `tar -zcvf project.tar.gz project` | Create a *compressed* archive `project.tar` from `project`
 
+#### General user and machine info 
 
+| Syntax | Description |
+| ------ | ----------- |
+| `who` | Show me who is logged in |
+| `whoami` | Show me who am I (i.e., prints only the name in `who`) |
+| | |
+| `hostname` | Show me my computer's host name |
+| | |
+| `uname` |	Show me the type of system running |
+| | |
+| `id` | Show me user and group ID |
+
+#### History & command line recall
+
+| Syntax | Description |
+| ------ | ----------- |
+| `history` |	Show me the command history |
+| | |
+| `! - 2` | Run the penultimate command from history |	
+| `!<n>` | Run command `<n>` from my command history |
+| `!!` | Run previous command from history file |	
+| `!?<string>?` |	Run command from histroy file containing `<string>` |	
+| | |
+| `fc <number(s)>` | Display command(s) from history; execute `<number>` afterwards |
 
 
 
@@ -158,7 +208,6 @@ tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 
 
 sort {{c1::-f}}&nbsp;	option	Sort files ignoring upper an lowercase				Cloze
-
 
 echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
 
@@ -181,7 +230,6 @@ alias {{c1::<shortcut>}}{{c1::=}}{{c1::'&lt;command(s)&gt;'}}	formula	Alias form
 
 
 
-
 let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
 
 bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM / 16" | bc` ; <br>echo RESULT	64	linux_01_code
@@ -190,11 +238,9 @@ expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	B
 
 
 
-
 and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;		linux_01_code
 
 
-fc [number(s)]	command	Display command(s) from history; execute [number] afterwards				linux_01_code
 
 mail	command	Send mail message to a local account				linux_01_code
 
@@ -207,7 +253,8 @@ alias&nbsp;	command	Show me all aliases				linux_01_code
 
 pwd	command	Show me my current working directory				linux_01_code
 
-history	command	Print command history	&nbsp; &nbsp; 1&nbsp; exit <br>&nbsp;&nbsp;&nbsp; 2&nbsp; R&nbsp;			linux_01_code
+
+
 
 
 tty[x]	who -uH output	The [x]th virtual console&nbsp;	...on the monitor connected to the computer		steven&nbsp;&nbsp; tty2&nbsp; &nbsp;2021-11-09 07:37 00:43&nbsp; &nbsp;4265 (tty2)&nbsp;<br>	linux_01_code
@@ -224,6 +271,11 @@ sort	command	Sort lines of text files				linux_01_code
 
 less	command	Page through output side by side	..usefull with large files			linux_01_code
 
+<Space>	less command	Move by page				linux_01_code
+
+<Enter>	less command	Move by line				linux_01_code
+
+
 
 echo	command	Print text on the screen		echo "Hello"	Hello	linux_01_code
 
@@ -233,29 +285,18 @@ source&nbsp;	command	Read and execute files from current shell		echo "foo" >&gt;
 
 
 
-
-tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
-
-
 su	command	<br>Open a shell as a new user	..often root (sudo)			linux_01_code
-
-<Space>	less command	Move by page				linux_01_code
-
-<Enter>	less command	Move by line				linux_01_code
-
-uname	command	Print type of system running		uname	Linux	linux_01_code
-
-<command>&nbsp;<b>$</b>( &lt;commands&gt; )&nbsp;	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
-
-who	command	Show me who is logged in		who	steven&nbsp;&nbsp; tty2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2021-09-18 11:31 (tty2)&nbsp;	linux_01_code
-
-whoami	command	Show me my user name			steven	linux_01_code
-
-hostname	command	Show me my computer's hostname				linux_01_code
 
 exit	command	Quit from a shell				linux_01_code
 
-id	command	Print user and group information	uid=1000(steven) gid=1000(steven) groups=1000(steven),10(wheel)			linux_01_code
+
+
+
+<command>&nbsp;<b>$</b>( &lt;commands&gt; )&nbsp;	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
+
+
+
+
 
 
 
@@ -349,17 +390,14 @@ date	command	Show me the current date and time zone		date	Tue Feb 15 08:45:04 AM
 
 {{c1::date}} {{c1::'+%...'}}	formula	Date formula	see: man date for formats			Cloze
 
-!!	command line recall	Run previous command from history file		date ; !!	date  <br>Fri Dec 24 06:46:12 AM CET 2021&nbsp;	linux_01_code
 
-!?<string>?	command line recall	Run command from histroy file containing &lt;string&gt;		date ; !?dat?	date <br>Fri Dec 24 06:45:04 AM CET 2021&nbsp;	linux_01_code
 
 ;	command expansion character	Run a sequence of commands		date ; echo "hello"	Thu Nov 18 09:04:50 AM CET 2021 <br>hello&nbsp;	linux_01_code
 
 %D	date format	Date	%m/%d/%y	date '+%D'	11/25/21	linux_01_code
 
-! - 2	comman lne recall	Run the penultimate command from history		date <br>echo "test"<br>! - 2	Sat Jan&nbsp; 8 11:49:10 AM CET 2022	linux_01_code
 
-!<n>	command line recall	Run command &lt;n&gt; from histroy file		date&nbsp;; !1002	date  <br>Fri Dec 24 06:46:12 AM CET 2021&nbsp;	linux_01_code
+
 
 
 '$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
