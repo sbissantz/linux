@@ -1,8 +1,8 @@
 # Command reference for Linux 
 
-
 ## Becoming a Linux Power User
 
+---
 
 ### Getting help
 
@@ -16,7 +16,14 @@ Information quadrega as a *general user*:
 |`man -k <command>`| Search the name & summary section of all manpages for `<command>` |
 | `<command> --help` | Show me the reference manual of `<command>` |
 
-Note: if `man -k` does not give output, initialize the man page data base:
+**Useful example**
+
+| `man <command> | less` | Page through a manual side by side (..usefull with large files)
+| <Space> | Move by page |
+| <Enter> | Move by page |
+
+
+*Note*: if `man -k` does not give output, initialize the man page data base:
 
 | mandb | Initialize the man page database |
 
@@ -28,13 +35,47 @@ Information quadrega as a *system administrator*:
 |`man 5 <command>`| Show me the file formats & conventions man page of `<command>` (e.g., configuration files like `passwd`) |
 |`man 8 <command>`| Show me	the system administration tools & daemons man page of `<command>` (i.e., commands that require root or other administrative privileges to use) |
 
+---
+
+#### General user and machine info 
+
+| Syntax | Description |
+| ------ | ----------- |
+| `who` | Show me who is logged in |
+| `who -u` | Show me who is is logged |
+| `who -H` | Show me a header to prescribe the info |
+| `whoami` | Show me who am I (i.e., prints only the name in `who`) |
+| | |
+| `hostname` | Show me my computer's host name |
+| | |
+| `uname` |	Show me the type of system running |
+| | |
+| `id` | Show me user and group ID |
+
+**Useful examples**
+
+| `who -uH` | Show me who is logged in with a header to prescribe the information | 
+
+**Important Output**
+
+| `tty[x]` | The [x]th virtual console on the monitor connected to the computer |
+| `COMMENT`| The name of the remote computer from which a user is logged in |
+
+---
+
 ### Using the Shell
 
 #### Command line completion
 
+formula: 
+
+```
+<symbol><TAB>
+```
+
 | Syntax | Description |
 | ------ | ----------- |
-| `[regular char]<TAB>` | Complete with a Command, alias or function name |
+| `<regular char><TAB>` | Complete with a Command, alias or function name |
 | `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
 | `~<TAB>` | Complete a username (e.g., root) |
 | `$<TAB>` | Complete with a shell variable |
@@ -59,7 +100,6 @@ ls [option] [file/dir/pattern]
 | `ls -R` |	List recursively |
 | `ls --hide <pattern>` |	List; but hide `<pattern>` |
 | `ls --color=auto` | List different file/dir types in different colors	|
-| `ls | wc -w` | Print the number of files in a directory |
 
 **File matching metacharacters**
 see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expressions/Regular_expression_metacharacters.htm>
@@ -73,10 +113,12 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 | `[a-c]` | Match the range of items within the brackets |
 | `[a-z]` | Match any letter |
 
-**Examples**
+**Useful Examples**
 
 | Syntax | Description |
 | ------ | ----------- |
+| `ls | wc -w` | Print the number of files in a directory |
+| | |
 |`ls a*`| List any file that begins with `a` |
 |`ls *e`| List any file that ends with `a` |
 |`ls *c*`| List any file that contains `c` |
@@ -161,8 +203,6 @@ rm [option] [file/dir/pattern]
 tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 ```
 
-tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
-
 | Syntax | Description |
 | ------ | ----------- |
 | `tar -c` | Create a new archive |
@@ -176,24 +216,11 @@ tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
 | `tar -cvf project.tar project` | Create an archive `project.tar` from `project`
 | `tar -zcvf project.tar.gz project` | Create a *compressed* archive `project.tar` from `project`
 
-#### General user and machine info 
-
-| Syntax | Description |
-| ------ | ----------- |
-| `who` | Show me who is logged in |
-| `whoami` | Show me who am I (i.e., prints only the name in `who`) |
-| | |
-| `hostname` | Show me my computer's host name |
-| | |
-| `uname` |	Show me the type of system running |
-| | |
-| `id` | Show me user and group ID |
-
 #### History & command line recall
 
 | Syntax | Description |
 | ------ | ----------- |
-| `history` |	Show me the command history |
+| `history` | Show me my command history |
 | | |
 | `! - 2` | Run the penultimate command from history |	
 | `!<n>` | Run command `<n>` from my command history |
@@ -202,100 +229,117 @@ tar	command	Archive files		tar cvzf file file.tar.gz *c		linux_01_code
 | | |
 | `fc <number(s)>` | Display command(s) from history; execute `<number>` afterwards |
 
+### Sorting
+
+Sorts lines of text files
+
+| Syntax | Description |
+| ------ | ----------- |
+| sort -f |	Sort files ignoring upper an lowercase |
+
+### Aliasing
+
+formula: 
+
+```
+alias <shortcut>='<command><option>'
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| alias | Show me all my aliases |
 
 
 
 
 
-sort {{c1::-f}}&nbsp;	option	Sort files ignoring upper an lowercase				Cloze
-
-echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
-
-alias {{c1::<shortcut>}}{{c1::=}}{{c1::'&lt;command(s)&gt;'}}	formula	Alias formula		alias l='ls -l'		Cloze
-
-
-
-{{c1::export}} {{c1::<VAR>}}{{c1::=}}{{c1::&lt;value(s)&gt;}}	formula	Shell variable formula		export EDITOR=nvim ; echo $EDITOR	nvim	Cloze
-
-\[ nonprinting chars \]	prompt character (omit space)	Include a sequence of nonprinting chars	e.g. color effects, blink			linux_01_code
 
 
 
 
 <command> {{c1::&>;}} &lt;file&gt;	file-matching metacharacter	Overwrite with the output of &lt;command&gt; the content of &lt;file&gt;				Cloze
 
-[command] {{c1::>&gt;}} [file]	file-matching metacharacter	Direct the output of [command] to [file]	append at the end			Cloze
+[command] >> [file]	file-matching metacharacter	Direct the output of [command] to [file]	append at the end
+[command] > [file]	file-matching metacharacter	Direct the output of [command] to [file]	overwrite at the end
+
+
+and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
+mail	command	Send mail message to a local account
 
 
 
 
 
-let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
-
-bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM / 16" | bc` ; <br>echo RESULT	64	linux_01_code
-
-expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	BIGNUM=1024<br>RESULT=`expr $BIGNUM / 16` ; echo $RESULT	64	linux_01_code
-
-
-
-and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;		linux_01_code
-
-
-
-mail	command	Send mail message to a local account				linux_01_code
-
-<div><span>wc</span><br></div>	command	print newline, word, and byte counts for each file				linux_01_code
-
-
-declare	command	Get a list (messy) of environmental variables	..use with '| grep'			linux_01_code
-
-alias&nbsp;	command	Show me all aliases				linux_01_code
-
-pwd	command	Show me my current working directory				linux_01_code
 
 
 
 
 
-tty[x]	who -uH output	The [x]th virtual console&nbsp;	...on the monitor connected to the computer		steven&nbsp;&nbsp; tty2&nbsp; &nbsp;2021-11-09 07:37 00:43&nbsp; &nbsp;4265 (tty2)&nbsp;<br>	linux_01_code
 
-COMMENT	who -uH	The name of the remote computer	..from which the user is logged in		NAME&nbsp; PID COMMENT <br>&nbsp; &nbsp; &nbsp; steven&nbsp; &nbsp; 5235 <u>(91.10.107.103)&nbsp;</u>	linux_01_code
 
+
+
+
+
+
+
+
+export	command	Sets an&nbsp;<i>attribute</i> for a&nbsp;<i>shell variable</i>\(^*\)	\(^*\)<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables</a>	export EDITOR=nvim ; echo $EDITOR	nvim	linux_01_code
+
+source	command	Read and execute files from current shell		echo "foo" >> .bashrc ; source .bashrc
 
 set	command	Set shell options				linux_01_code
 
 set -o vi	snippet	Set vi to edit shell command lines	..put in .bashrc for permanent change			linux_01_code
 
 
-sort	command	Sort lines of text files				linux_01_code
+declare	command	Get a list (messy) of environmental variables	..use with '| grep'			linux_01_code
 
-less	command	Page through output side by side	..usefull with large files			linux_01_code
-
-<Space>	less command	Move by page				linux_01_code
-
-<Enter>	less command	Move by line				linux_01_code
-
-
-
-echo	command	Print text on the screen		echo "Hello"	Hello	linux_01_code
-
-export	command	Sets an&nbsp;<i>attribute</i> for a&nbsp;<i>shell variable</i>\(^*\)	\(^*\)<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables</a>	export EDITOR=nvim ; echo $EDITOR	nvim	linux_01_code
-
-source&nbsp;	command	Read and execute files from current shell		echo "foo" >&gt; .bashrc ; source .bashrc		linux_01_code
-
-
-
-su	command	<br>Open a shell as a new user	..often root (sudo)			linux_01_code
-
-exit	command	Quit from a shell				linux_01_code
-
-
-
+printenv!!
 
 <command>&nbsp;<b>$</b>( &lt;commands&gt; )&nbsp;	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
 
+{{c1::export}} {{c1::<VAR>}}{{c1::=}}{{c1::&lt;value(s)&gt;}}	formula	Shell variable formula		export EDITOR=nvim ; echo $EDITOR	nvim	Cloze
 
+echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
 
+echo	command	Print text on the screen		echo "Hello"	Hello	linux_01_code
+
+'$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
+
+$BASH	environment variable	The full pathname of the bash command		echo $BASH	/usr/bin/bash	linux_01_code
+
+$BASH_VERSION	environment variable	The version of the bash command		echo $BASH_VERSION	5.1.0(1)-release	linux_01_code
+
+$HISTCMD	environment variable	The number of the current command in the history list		echo $HISTCMD	986	linux_01_code
+
+$HISTFILE	environment variable	The location of the history file		echo $HISTFILE	/home/steven/.bash_history	linux_01_code
+
+$HISTSIZE	environment variable	The number of history entries		echo $HITSFILESIZE	1000	linux_01_code
+
+$HOME	environment variable	the path of the home directory		echo $HOME	/home/steven	linux_01_code
+
+$HOSTTYPE	environment variable	The computer architecture		echo $HOSTTYPE	x86_64	linux_01_code
+
+&nbsp;$OSTYPE	environment variable	Current OS		echo $OSTYPE	linux-gnu	linux_01_code
+
+<div>$PATH</div>	environment variable	The current path		echo $PATH	/home/steven/.local/bin:/home/steven/bin:/usr/lib64/	linux_01_code
+
+$PROMPT_COMMAND	environment variable	The command which runs each time before prompt is displayed		echo $PROMPT_COMMAND	history -a	linux_01_code
+
+$PS1	environment variable	The prompt of my shell		echo $PS1	[\u@\h \W]\$&nbsp;	linux_01_code
+
+$PWD	environment variable	The working directory		echo $PWD	/home/steven/dotelse	linux_01_code
+
+$RANDOM	environment variable	A random number between 0 and 99999		echo $RANDOM	3872	linux_01_code
+
+$SHELL	environment variable	The current shell	/bin/bash	echo $SHELL	/bin/bash	linux_01_code
+
+$TMOUT	environment variable&nbsp;	The time (without receiving input) till shell goes idle (exits)	..useful to set as a security feature	echo $TMOUT	180	linux_01_code
+
+$USER	environment variable	The user name		echo $USER	steven	linux_01_code
+
+$OLDPWD	enviroment variable	The working directory before cd-ing into the current one		cd ~/projects/R/ ; echo $OLDPWD	/home/steven	linux_01_code
 
 
 
@@ -308,7 +352,10 @@ cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># 
 
 cd	command	Change directory		cd /Pictures ; pwd	/home/steven/Pictures	linux_01_code
 
-$OLDPWD	enviroment variable	The working directory before cd-ing into the current one		cd ~/projects/R/ ; echo $OLDPWD	/home/steven	linux_01_code
+pwd	command	Show me my current working directory				linux_01_code
+
+cd $OLDPWD
+
 
 -&nbsp;	letter file mode bit	Turn off permission		chmod -v a-w bar/	mode of 'baz/' retained as 0555 (r-xr-xr-x)&nbsp;	linux_01_code
 
@@ -399,40 +446,6 @@ date	command	Show me the current date and time zone		date	Tue Feb 15 08:45:04 AM
 
 
 
-
-'$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
-
-$BASH	environment variable	The full pathname of the bash command		echo $BASH	/usr/bin/bash	linux_01_code
-
-$BASH_VERSION	environment variable	The version of the bash command		echo $BASH_VERSION	5.1.0(1)-release	linux_01_code
-
-$HISTCMD	environment variable	The number of the current command in the history list		echo $HISTCMD	986	linux_01_code
-
-$HISTFILE	environment variable	The location of the history file		echo $HISTFILE	/home/steven/.bash_history	linux_01_code
-
-$HISTSIZE	environment variable	The number of history entries		echo $HITSFILESIZE	1000	linux_01_code
-
-$HOME	environment variable	the path of the home directory		echo $HOME	/home/steven	linux_01_code
-
-$HOSTTYPE	environment variable	The computer architecture		echo $HOSTTYPE	x86_64	linux_01_code
-
-&nbsp;$OSTYPE	environment variable	Current OS		echo $OSTYPE	linux-gnu	linux_01_code
-
-<div>$PATH</div>	environment variable	The current path		echo $PATH	/home/steven/.local/bin:/home/steven/bin:/usr/lib64/	linux_01_code
-
-$PROMPT_COMMAND	environment variable	The command which runs each time before prompt is displayed		echo $PROMPT_COMMAND	history -a	linux_01_code
-
-$PS1	environment variable	The prompt of my shell		echo $PS1	[\u@\h \W]\$&nbsp;	linux_01_code
-
-$PWD	environment variable	The working directory		echo $PWD	/home/steven/dotelse	linux_01_code
-
-$RANDOM	environment variable	A random number between 0 and 99999		echo $RANDOM	3872	linux_01_code
-
-$SHELL	environment variable	The current shell	/bin/bash	echo $SHELL	/bin/bash	linux_01_code
-
-$TMOUT	environment variable&nbsp;	The time (without receiving input) till shell goes idle (exits)	..useful to set as a security feature	echo $TMOUT	180	linux_01_code
-
-$USER	environment variable	The user name		echo $USER	steven	linux_01_code
 
 
 
@@ -580,6 +593,13 @@ nice	command&nbsp;	Start a process (<command>) with a given &lt;priority&gt;\(^*
 ### Writing simple shell scripts
 
 
+let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
+
+bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM / 16" | bc` ; <br>echo RESULT	64	linux_01_code
+
+expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	BIGNUM=1024<br>RESULT=`expr $BIGNUM / 16` ; echo $RESULT	64	linux_01_code
+
+
 Execute a shell script	2 ways to launch a shell script	<ol><li>{{c1::bash <script>}}</li><li>{{c2::#!/bin/bash}}</li></ol>		Cloze		
 
 Execute a shell script	2 ways to launch a shell script	<ol><li>{{c1::bash <script>}}</li><li>{{c2::#!/bin/bash}}</li></ol>		Cloze		
@@ -664,6 +684,7 @@ if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>{{c1::else}}<br>&nbsp; &nbsp;expr2<b
 
 ## Search & Find 
 
+sudo find	root command	Find <i>all</i> files/dirs\(^*\) live&nbsp;	\(^*\)below that point in the fs	sudo mkdir baz ; sudo find baz	baz	linux_01_code
 b	file size character	Bytes		find $HOME -size -2b	/home/steven/dead.letter <br>/home/steven/.profile&nbsp;	linux_01_code
 
 k	file size character	Kilobytes		find $HOME -size -2kb	/home/steven/.gitconfig <br>/home/steven/.lesshst&nbsp;	linux_01_code
@@ -682,7 +703,6 @@ grep	command	Within ...\(^*\), show me all&nbsp;lines&nbsp;that match the [patte
 help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
 
 
-sudo find	root command	Find <i>all</i> files/dirs\(^*\) live&nbsp;	\(^*\)below that point in the fs	sudo mkdir baz ; sudo find baz	baz	linux_01_code
 
 locate	command	Search for a string in the mlocate database		locate .bashrc	/etc/skel/.bashrc	linux_01_code
 
@@ -917,10 +937,21 @@ system directories	<ol><li>{{c1::/usr/local/bin}}</li><li>{{c1::/usr/local/sbin}
 
 
 
+## Becoming someone else
+
+| Syntax | Description |
+| ------ | ----------- |
+| su | Open a shell as a new user |
+| sudo su | Open a shell as root (Attention: permanently!) |
+| su - <user> | Open a shell as <user> |
+| | |
+| logout | logout from a shell |
+| exit | Quit from a shell |
+
 
 ## System Admin
 
-{{c1::su}} {{c1::-}} {{c1::<user>}}	command and arguments	Open a new shell as &lt;user&gt;		su - steven	Password:  <br>[steven@eryn ~]$ 	Cloze
+
 
 
 dmesg	command	List detected hardware and drivers loaded	e.g. kernel, boot_image, usb, ethernet	dmesg | grep "wlp4s0"&nbsp;	[94262.147773] wlp4s0: authenticate with 18:82:8c:c1:0a:be <br>[94262.169543] wlp4s0: send auth to 18:82:8c:c1:0a:be (try 1/3)&nbsp;	linux_01_code
