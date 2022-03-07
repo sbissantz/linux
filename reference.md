@@ -229,7 +229,7 @@ tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 | | |
 | `fc <number(s)>` | Display command(s) from history; execute `<number>` afterwards |
 
-### Sorting
+### Sort
 
 Sorts lines of text files
 
@@ -237,7 +237,7 @@ Sorts lines of text files
 | ------ | ----------- |
 | sort -f |	Sort files ignoring upper an lowercase |
 
-### Aliasing
+### Alias
 
 formula: 
 
@@ -249,104 +249,90 @@ alias <shortcut>='<command><option>'
 | ------ | ----------- |
 | alias | Show me all my aliases |
 
+### Shell variables
+
+formula:
+
+```
+export <VAR>=<value(s)>
+
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `set` | Set a shell option |
+| `export` | Set an attribute for a shell variable |
+| `echo` | Print text on the screen (..useful to display the values of shell variables) |
+| `printenv` | Get a full list of all environment variables (..use with `| grep=...`) |
+| `declare` | Get a list (messy) of environmental variables	(..use with `| grep=...`) |
+
+**Useful examples**
+
+| Syntax | Description |
+| ------ | ----------- |
+| `set -o vi` | Set vi to edit shell command lines (Note:..put in .bashrc for permanent change) |
+| `export EDITOR=nvim` | Set the attribute 'nvim' for the shell variable `EDITOR` 
+| `echo $EDITOR` | Show me the value behind the `EDITOR` shell variable
+
+**Important shell variables**
+
+For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables>	
+
+| Syntax | Description |
+| ------ | ----------- |
+| `$BASH` |	The full pathname of the bash command |
+| `$BASH_VERSION` |	The version of the bash command |
+| `$HISTCMD` | The number of the current command in the history list |
+| `$HISTFILE` |	The location of the history file |
+| `$HISTSIZE` |	The number of history entries |
+| `$HOME` |	The path of the home directory |
+| `$HOSTTYPE` |	The computer architecture |
+| `$OSTYPE` | Current OS |
+| `$PATH` | The current path |
+| `$PROMPT_COMMAND` | The command which runs each time before prompt is displayed |
+| `$PS1` | The prompt of my shell |
+| `$PWD` | The working directory |	
+| `$RANDOM` | A random number between 0 and 99999 |
+| `$SHELL` | The current shell	
+| `$TMOUT` | The time (without receiving input) till shell goes idle (exits) (..useful to set as a security feature) |
+| `$USER` | The user name |
+| `$OLDPWD` | The working directory before cd-ing into the current one |
+
+## Sourcing files
+
+| Syntax | Description |
+| ------ | ----------- |
+| source | Read and execute files from current shell |
+
+### Echo & file matching metacharacters
+
+| Syntax | Description |
+| ------ | ----------- |
+| `echo` | Print text on the screen (..useful to display the values of shell variables) |
+| `echo -n` |	Do not output the trailing newline |
 
 
 
 
 
-
-
-
-<command> {{c1::&>;}} &lt;file&gt;	file-matching metacharacter	Overwrite with the output of &lt;command&gt; the content of &lt;file&gt;				Cloze
-
-[command] >> [file]	file-matching metacharacter	Direct the output of [command] to [file]	append at the end
-[command] > [file]	file-matching metacharacter	Direct the output of [command] to [file]	overwrite at the end
-
-
-and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
-mail	command	Send mail message to a local account
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export	command	Sets an&nbsp;<i>attribute</i> for a&nbsp;<i>shell variable</i>\(^*\)	\(^*\)<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables</a>	export EDITOR=nvim ; echo $EDITOR	nvim	linux_01_code
-
-source	command	Read and execute files from current shell		echo "foo" >> .bashrc ; source .bashrc
-
-set	command	Set shell options				linux_01_code
-
-set -o vi	snippet	Set vi to edit shell command lines	..put in .bashrc for permanent change			linux_01_code
-
-
-declare	command	Get a list (messy) of environmental variables	..use with '| grep'			linux_01_code
-
-printenv!!
-
-<command>&nbsp;<b>$</b>( &lt;commands&gt; )&nbsp;	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
-
-{{c1::export}} {{c1::<VAR>}}{{c1::=}}{{c1::&lt;value(s)&gt;}}	formula	Shell variable formula		export EDITOR=nvim ; echo $EDITOR	nvim	Cloze
-
-echo {{c1::-n}}	option	Do not output the trailing newline&nbsp;		#!/bin/bash<br>N=0<br>until [ $N -ge 3 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123	Cloze
-
-echo	command	Print text on the screen		echo "Hello"	Hello	linux_01_code
-
-'$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
-
-$BASH	environment variable	The full pathname of the bash command		echo $BASH	/usr/bin/bash	linux_01_code
-
-$BASH_VERSION	environment variable	The version of the bash command		echo $BASH_VERSION	5.1.0(1)-release	linux_01_code
-
-$HISTCMD	environment variable	The number of the current command in the history list		echo $HISTCMD	986	linux_01_code
-
-$HISTFILE	environment variable	The location of the history file		echo $HISTFILE	/home/steven/.bash_history	linux_01_code
-
-$HISTSIZE	environment variable	The number of history entries		echo $HITSFILESIZE	1000	linux_01_code
-
-$HOME	environment variable	the path of the home directory		echo $HOME	/home/steven	linux_01_code
-
-$HOSTTYPE	environment variable	The computer architecture		echo $HOSTTYPE	x86_64	linux_01_code
-
-&nbsp;$OSTYPE	environment variable	Current OS		echo $OSTYPE	linux-gnu	linux_01_code
-
-<div>$PATH</div>	environment variable	The current path		echo $PATH	/home/steven/.local/bin:/home/steven/bin:/usr/lib64/	linux_01_code
-
-$PROMPT_COMMAND	environment variable	The command which runs each time before prompt is displayed		echo $PROMPT_COMMAND	history -a	linux_01_code
-
-$PS1	environment variable	The prompt of my shell		echo $PS1	[\u@\h \W]\$&nbsp;	linux_01_code
-
-$PWD	environment variable	The working directory		echo $PWD	/home/steven/dotelse	linux_01_code
-
-$RANDOM	environment variable	A random number between 0 and 99999		echo $RANDOM	3872	linux_01_code
-
-$SHELL	environment variable	The current shell	/bin/bash	echo $SHELL	/bin/bash	linux_01_code
-
-$TMOUT	environment variable&nbsp;	The time (without receiving input) till shell goes idle (exits)	..useful to set as a security feature	echo $TMOUT	180	linux_01_code
-
-$USER	environment variable	The user name		echo $USER	steven	linux_01_code
-
-$OLDPWD	enviroment variable	The working directory before cd-ing into the current one		cd ~/projects/R/ ; echo $OLDPWD	/home/steven	linux_01_code
 
 
 
 
 ### Moving Around in the file system
 
+mail	command	Send mail message to a local account
+
+
+
 &>	file-redirection metacharacter	Redirect a <commands&gt; error message <i>and</i> output to &lt;file&gt;		[command] &amp;&gt; [file]		linux_01_code
+
+| `<command> > <file>` | Direct the output of `<command>` to `<file>` -- overwrite at the end |
+| `<command> >> <file>` | Direct the output of `<command>` to `<file>` -- append at the end |
+| `<command> &>` | Overwrite with the output of `<command>` the content of `<file>` |
+<command>$( <commands> );	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
+
+
 
 cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
@@ -462,10 +448,10 @@ wc {{c1::-m}}	option	Print the char count		ls | wc -m	164	Cloze
 cut	command	Remove sections of lines of files and text		grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	linux_01_code
 
 
-
-
-
 ### Managing Running Processes
+
+and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
+
 
 {{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
 
@@ -592,6 +578,8 @@ nice	command&nbsp;	Start a process (<command>) with a given &lt;priority&gt;\(^*
 
 ### Writing simple shell scripts
 
+
+'$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
 
 let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
 
@@ -1090,3 +1078,4 @@ lspci {{c1::-v...v}}	flag	Get more...more verbose output	e.g. drivers			Cloze
 Assign Partition to Directory	/usr \(\rightarrow\) /usr	<ol><li>{{c1::Attackers can't remove/replace system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
 
 
+"Bash uses untyped variables"
