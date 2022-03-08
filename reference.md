@@ -6,6 +6,8 @@
 
 ### Getting help
 
+Being able to help yourself is a loyal companion!
+
 Information quadrega as a *general user*:
 
 | Syntax | Description |
@@ -37,7 +39,10 @@ Information quadrega as a *system administrator*:
 
 ---
 
-#### General user and machine info 
+### General user and machine info 
+
+To find out about yourself and the machine your working with, helps to achieve
+anything!
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -63,22 +68,18 @@ Information quadrega as a *system administrator*:
 
 ---
 
-### Using the Shell
+### Get orientation!
 
-#### Command line completion
+Since you found out about yourself, you have to orientate!
 
-formula: 
+- `pwd`
+- `ls`
 
-```
-<symbol><TAB>
-```
+---
 
-| Syntax | Description |
-| ------ | ----------- |
-| `<regular char><TAB>` | Complete with a Command, alias or function name |
-| `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
-| `~<TAB>` | Complete a username (e.g., root) |
-| `$<TAB>` | Complete with a shell variable |
+#### print working directory  
+
+| `pwd` | Show me the working directory I'm currently at |
 
 #### list 
 
@@ -87,6 +88,8 @@ formula:
 ```
 ls [option] [file/dir/pattern]
 ```
+
+cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -152,6 +155,61 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 | `touch a_{1,3,5}`	| `a_1 a_3 a_5` |
 | `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
 | `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
+
+---
+
+### Navigating in the file system
+
+Once you have your bearings, you will know where to go! But how?
+
+
+
+
+| `cd <path>` | Bring me to path! |
+
+
+
+
+
+#### Change directory
+
+**Useful examples**
+
+| `cd $OLDPWD` | Bring me pack to the origin (i.e., before cd-ing to `<path>`)
+
+I found it useful to alias `cd $OLDPWD` to `cb` (change back) to be able to
+jump right back to where I left off.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Using the Shell
+
+#### Command line completion
+
+formula: 
+
+```
+<symbol><TAB>
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `<regular char><TAB>` | Complete with a Command, alias or function name |
+| `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
+| `~<TAB>` | Complete a username (e.g., root) |
+| `$<TAB>` | Complete with a shell variable |
 
 #### Copy
 
@@ -311,36 +369,20 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | `echo` | Print text on the screen (..useful to display the values of shell variables) |
 | `echo -n` |	Do not output the trailing newline |
 
+## File Re-direction metacharacters
 
+| `<command> > <file>` | Direct the output of `<command>` to `<file>` -- overwrite at the end |
+| `<command> >> <file>` | Direct the output of `<command>` to `<file>` -- append at the end |
+| `<command> 2> <file>` | Redirect a `<command>`'s error message and output to `<file>` |
+| `<command> &> <file>` | Redirect a `<commands>`'s error message and output to `<file>` |
 
-
-
-
-
-
-
-### Moving Around in the file system
 
 mail	command	Send mail message to a local account
 
 
 
-&>	file-redirection metacharacter	Redirect a <commands&gt; error message <i>and</i> output to &lt;file&gt;		[command] &amp;&gt; [file]		linux_01_code
-
-| `<command> > <file>` | Direct the output of `<command>` to `<file>` -- overwrite at the end |
-| `<command> >> <file>` | Direct the output of `<command>` to `<file>` -- append at the end |
-| `<command> &>` | Overwrite with the output of `<command>` the content of `<file>` |
-<command>$( <commands> );	command substitution	Make the output &lt;command&gt; the <i>argument</i> for other &lt;commands&gt;		vi $(find /home | grep foo)		linux_01_code
-
-
-
 cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
-cd	command	Change directory		cd /Pictures ; pwd	/home/steven/Pictures	linux_01_code
-
-pwd	command	Show me my current working directory				linux_01_code
-
-cd $OLDPWD
 
 
 -&nbsp;	letter file mode bit	Turn off permission		chmod -v a-w bar/	mode of 'baz/' retained as 0555 (r-xr-xr-x)&nbsp;	linux_01_code
@@ -409,10 +451,8 @@ t	permission set	Sticky bit is set for directory	User can add items but root mus
 
 r	permission set	Readable file			drwxrwxrwx	linux_01_code
 
-2>	file-redirection metacharacter	Redirect error message		command 2&gt; /dev/null		linux_01_code
 
 
-mkdir	command	Make directory		mkdir bar ; ls bar	bar/	linux_01_code
 
 
 
