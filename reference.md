@@ -4,11 +4,10 @@
 
 ---
 
-### Getting help
+### Help!
 
-Being able to help yourself is a loyal companion!
-
-Information quadrega as a *general user*:
+Being able to help yourself is a loyal companion! It comes in the form of the
+*Information quadrega* for the *general user*:
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -18,18 +17,17 @@ Information quadrega as a *general user*:
 |`man -k <command>`| Search the name & summary section of all manpages for `<command>` |
 | `<command> --help` | Show me the reference manual of `<command>` |
 
-**Useful example**
+**Useful Examples**
 
 | `man <command> | less` | Page through a manual side by side (..usefull with large files)
-| <Space> | Move by page |
-| <Enter> | Move by page |
-
+| `<Space>` | Move by page |
+| `<Enter>` | Move by page |
 
 *Note*: if `man -k` does not give output, initialize the man page data base:
 
-| mandb | Initialize the man page database |
+| `mandb` | Initialize the man page database |
 
-Information quadrega as a *system administrator*:
+*Information quadrega* for the *system administrator*:
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -41,8 +39,8 @@ Information quadrega as a *system administrator*:
 
 ### General user and machine info 
 
-To find out about yourself and the machine your working with, helps to achieve
-anything!
+To find out about yourself--and in Linux the machine your working with--,
+helps you to achieve anything!
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -68,28 +66,21 @@ anything!
 
 ---
 
-### Get orientation!
+### Orientate where you are! 
 
 Since you found out about yourself, you have to orientate!
 
-- `pwd`
-- `ls`
-
----
-
-#### print working directory  
+#### pwd
 
 | `pwd` | Show me the working directory I'm currently at |
 
-#### list 
+#### ls 
 
 formula: 
 
 ```
 ls [option] [file/dir/pattern]
 ```
-
-cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -128,7 +119,42 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 |`ls [a,b,c]*`| List any file that starts with `a,b,c` |
 |`ls *[a-z]*`| List any file that contains a letter |
 
-#### Add (files, directories & symlinks )
+### cat
+
+| Syntax | Description |
+| ------ | ----------- |
+| `cat <file>` | Show me what `<file>` contains |
+
+**Useful Examples**
+
+| Syntax | Description |
+| ------ | ----------- |
+| `cat <file> | less` | Page through the content of a file |
+
+---
+
+### Navigate the file system!
+
+Once you have your bearings, you will know where to go! But how?
+
+#### cd
+
+| Syntax | Description |
+| ------ | ----------- |
+| `cd <path>` | Bring me to path! |
+
+**Useful examples**
+
+| `cd $OLDPWD` | Bring me pack to the origin (i.e., before cd-ing to `<path>`)
+
+I found it useful to alias `cd $OLDPWD` to `cb` (change back) to be able to
+jump right back to where I left off.
+
+---
+
+### Shape your environment! 
+
+#### Add! (files, directories & symlinks)
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -156,62 +182,7 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 | `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
 | `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
 
----
-
-### Navigating in the file system
-
-Once you have your bearings, you will know where to go! But how?
-
-
-
-
-| `cd <path>` | Bring me to path! |
-
-
-
-
-
-#### Change directory
-
-**Useful examples**
-
-| `cd $OLDPWD` | Bring me pack to the origin (i.e., before cd-ing to `<path>`)
-
-I found it useful to alias `cd $OLDPWD` to `cb` (change back) to be able to
-jump right back to where I left off.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Using the Shell
-
-#### Command line completion
-
-formula: 
-
-```
-<symbol><TAB>
-```
-
-| Syntax | Description |
-| ------ | ----------- |
-| `<regular char><TAB>` | Complete with a Command, alias or function name |
-| `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
-| `~<TAB>` | Complete a username (e.g., root) |
-| `$<TAB>` | Complete with a shell variable |
-
-#### Copy
+#### Copy!
 
 ```
 cp [option] [files/dirs/pattern] [destination]
@@ -225,7 +196,7 @@ cp [option] [files/dirs/pattern] [destination]
 | `cp -f` | Copy and force to overwrite |
 | `cp -a` | Copy but maintain time stamps and permissions |
 
-#### Move & rename
+#### Move & rename!
 
 ```
 mv [option] [file/dir/pattern]
@@ -255,7 +226,7 @@ rm [option] [file/dir/pattern]
 | `rmdir` | Remove an empty directory |
 | `rm -r` | Remove a directory and its contents recursively |
 
-#### Archiving 
+#### Archiv!
 
 ```
 tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
@@ -307,13 +278,122 @@ alias <shortcut>='<command><option>'
 | ------ | ----------- |
 | alias | Show me all my aliases |
 
+#### Command line completion
+
+formula: 
+
+```
+<symbol><TAB>
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `<regular char><TAB>` | Complete with a Command, alias or function name |
+| `@<TAB>` | Complete with a hostname (..from `/etc/hosts`) |
+| `~<TAB>` | Complete a username (e.g., root) |
+| `$<TAB>` | Complete with a shell variable |
+
+
+### Permissions! 
+
+
+#### Permission sets
+
+There are what I call *letter file mode bits* and the normal *numerical file
+mode bits*.
+
+##### Object indicators
+
+| Syntax | Description |
+| ------ | ----------- |
+| -	| File indicator	
+| d	| Directory indicator	
+| l	| Symbolic link
+	
+##### File mode bits 
+
+| Syntax | Description |
+| ------ | ----------- |
+| `u`| Permissions for the user |		
+| `g`| Permission for the (assigned) group |
+| `o`| Permissions for others |		
+| `a`| Permissions for all |
+|||
+| `+` | Turn on permission |
+| `-` | Turn on permission |
+|||
+| `r`| Readable |
+| `w`| Writable |	
+| `x`| Executable |
+| `s`| User can run but only root can execute |
+| `t`| Sticky bit is set for directory |
+|||
+| `4` | Readable | 
+| `2`| Writeable |
+| `1`| Execute permission |
+| `0`| No permission |
+
+**Useful examples**
+
+`644`
+`666`
+
+`777`
+`775`
+
+
+#### chmod
+
+
+
+chmod	command	Change a <file>'s permission set according to &lt;filemodebits&gt;	i.e., file permissions	chmod 700 .ssh/ ; ls -ld .ssh/&nbsp;	drwx------.	linux_01_code
+
+chmod {{c1::-R}}	option	Change file's permission recursively		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
+
+{{c1::chmod}} {{c1::<filemodebits>}} {{c1::file}}&nbsp;	formula	Chmod <i>numerical</i> filemodebits formula		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
+
+{{c1::chmod}} {{c1::<ugoa>}}{{c1::&lt;+-=&gt;}}{{c1::&lt;rwxst&gt;}} {{c1::&lt;file&gt;}}	formula	Chmod&nbsp;<i>letter</i> filemodebits formula		chmod -v a+w baz/	mode of 'baz/' changed from 0555 (r-xr-xr-x) to 0777 (rwxrwxrwx)	Cloze
+
+#### chown
+
+chown	command	Make ...\(^*\) new owner of <file>	\(^*\)user, group	sudo mkdir baz ; sudo chown steven ~/baz ; ls -ld baz/	drwxr-xr-x. 1 steven steven 0 baz/	linux_01_code
+
+{{c1::chown}} {{c1::<user>}} {{c1::&lt;file&gt;}}	formula	Chown formula	Make &lt;user&gt; new owner of &lt;file&gt;	sudo chown steven baz/ ; ls -ld baz	drwxr-xr-x. 1 steven steven baz/	Cloze
+
+chown {{c1::-R}}		Change file ownership recursively		chown -R baz ; ls -l baz	drwxrwxr-x. 1 steven steven 0 sub_1/ <br>drwxrwxr-x. 1 steven steven 0 sub_2/	Cloze
+
+chown {{c1::<user>}}{{c1:: :}}{{c1::&lt;group&gt;}} {{c1::&lt;file&gt;}}	arguments	Make &lt;user&gt; and &lt;group&gt; new owner of &lt;file&gt;		chown steven:committer crunchy_doku/ ; s -ld baz	drwxr-xr-x. 1 steven steven 0 crunchy_doku/&nbsp;	Cloze
+
+#### umask
+
+umask	command	Display or set default file permission		umask	2	linux_01_code
+
+umask&nbsp;{{c1::000}}	umask value	Full open file/dir permission		umask 000; touch foo; mkdir baz; ls -ld foo bar	drwxrwxrwx. 1 steven steven 0 Nov 19 10:02 bar/ <br>-rw-rw-rw-. 1 steven steven 0 Nov 19 10:02 foo&nbsp;	Cloze
+
+umask {{c1::002}}	umask value	Default file/dir permission		umask 002; touch foo; mkdir baz; ls -ld foo baz	drwxrwxr-x. 1 steven steven 0 Nov 19 10:20 baz/ <br>-rw-rw-r--. 1 steven steven 0 Nov 19 10:20 foo&nbsp;	Cloze
+
+umask {{c1::022}}	umask value	Root file/dir permission		umask 022; touch foo; mkdir baz; ls -ld foo baz	drwxr-xr-x. 1 steven steven 0 Nov 19 10:18 baz/ <br>-rw-r--r--. 1 steven steven 0 Nov 19 10:18 foo&nbsp;	Cloze
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Shell variables
 
 formula:
 
 ```
 export <VAR>=<value(s)>
-
 ```
 
 | Syntax | Description |
@@ -377,6 +457,9 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | `<command> &> <file>` | Redirect a `<commands>`'s error message and output to `<file>` |
 
 
+
+
+
 mail	command	Send mail message to a local account
 
 
@@ -385,71 +468,6 @@ cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># 
 
 
 
--&nbsp;	letter file mode bit	Turn off permission		chmod -v a-w bar/	mode of 'baz/' retained as 0555 (r-xr-xr-x)&nbsp;	linux_01_code
-
-{{c1::chown}} {{c1::<user>}} {{c1::&lt;file&gt;}}	formula	Chown formula	Make &lt;user&gt; new owner of &lt;file&gt;	sudo chown steven baz/ ; ls -ld baz	drwxr-xr-x. 1 steven steven baz/	Cloze
-
-
-chmod {{c1::-R}}	option	Change file's permission recursively		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
-
-
-{{c1::chmod}} {{c1::<filemodebits>}} {{c1::file}}&nbsp;	formula	Chmod <i>numerical</i> filemodebits formula		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
-
-{{c1::chmod}} {{c1::<ugoa>}}{{c1::&lt;+-=&gt;}}{{c1::&lt;rwxst&gt;}} {{c1::&lt;file&gt;}}	formula	Chmod&nbsp;<i>letter</i> filemodebits formula		chmod -v a+w baz/	mode of 'baz/' changed from 0555 (r-xr-xr-x) to 0777 (rwxrwxrwx)	Cloze
-
-s	permission set	User can run but only root can execute		ls -l /bin/mount	-rwsr-xr-x.	linux_01_code
-
-x	permission set	Executable file		ls -l ibm-touchpad.sh	-rwxrwxrwx.	linux_01_code
-
-
-chown {{c1::-R}}		Change file ownership recursively		chown -R baz ; ls -l baz	drwxrwxr-x. 1 steven steven 0 sub_1/ <br>drwxrwxr-x. 1 steven steven 0 sub_2/	Cloze
-
-chown {{c1::<user>}}{{c1:: :}}{{c1::&lt;group&gt;}} {{c1::&lt;file&gt;}}	arguments	Make &lt;user&gt; and &lt;group&gt; new owner of &lt;file&gt;		chown steven:committer crunchy_doku/ ; s -ld baz	drwxr-xr-x. 1 steven steven 0 crunchy_doku/&nbsp;	Cloze
-
-
-umask&nbsp;{{c1::000}}	umask value	Full open file/dir permission		umask 000; touch foo; mkdir baz; ls -ld foo bar	drwxrwxrwx. 1 steven steven 0 Nov 19 10:02 bar/ <br>-rw-rw-rw-. 1 steven steven 0 Nov 19 10:02 foo&nbsp;	Cloze
-
-umask {{c1::002}}	umask value	Default file/dir permission		umask 002; touch foo; mkdir baz; ls -ld foo baz	drwxrwxr-x. 1 steven steven 0 Nov 19 10:20 baz/ <br>-rw-rw-r--. 1 steven steven 0 Nov 19 10:20 foo&nbsp;	Cloze
-
-umask {{c1::022}}	umask value	Root file/dir permission		umask 022; touch foo; mkdir baz; ls -ld foo baz	drwxr-xr-x. 1 steven steven 0 Nov 19 10:18 baz/ <br>-rw-r--r--. 1 steven steven 0 Nov 19 10:18 foo&nbsp;	Cloze
-
-
-chown	command	Make ...\(^*\) new owner of <file>	\(^*\)user, group	sudo mkdir baz ; sudo chown steven ~/baz ; ls -ld baz/	drwxr-xr-x. 1 steven steven 0 baz/	linux_01_code
-
-umask	command	Display or set default file permission		umask	2	linux_01_code
-
--	file mode bit	File		ls -l foo	-rw-r--r--.&nbsp;<br>	linux_01_code
-
-d	file mode bit	Directory		ls -ld baz	drwxrwxrwx	linux_01_code
-
-
-a	letter file mode bit	Permissions for all		chmod -v a-w baz/	mode of 'baz/' changed from 0774 (rwxrwxr--) to 0664 (rw-rw-r--)&nbsp;	linux_01_code
-
-+	letter file mode bit	Turn on permission		chmod -v a+w baz/	mode of 'baz/' changed from 0555 (r-xr-xr-x) to 0777 (rwxrwxrwx)&nbsp;	linux_01_code
-
-o	letter file mode bit	Permission for others		chmod -v o-wx baz/	mode of 'baz/' changed from 0775 (rwxrwxr-x) to 0744 (rwxr--r--)&nbsp;	linux_01_code
-
-u	letter file mode bit	Permission for the user		chmod -v u+x baz/	mode of 'baz/' changed from 0555 (r-xr-xr-x) to 0755 (rwxr-xr-x)&nbsp;	linux_01_code
-
-g	letter file mode bit	Permission for the (assigned) group&nbsp;		chmod -v ug+wx baz/	mode of 'baz/' changed from 0755 (rwxr-xr-x) to 0777 (rwxrwxrwx)	linux_01_code
-
-w	permission set	Writable file		chmod + w test.txt ; ls test.txt	drwxrwxrwx	linux_01_code
-
-0	numerical file mode bit	No permission		chmod 000 foo.txt ; sudo ls foo.txt	----------.	linux_01_code
-
-1	numerical file mode bit	Execute permission		chmod 100 foo.txt ; ls -l foo.txt	---x------	linux_01_code
-
-2	numerical file mode bit	Write permission		chmod 200 foo.txt ; ls -l foo.txt	---w------	linux_01_code
-
-4	numerical file mode bit	Read permission		chmod 400 foo.txt ; ls -l foo.txt	b-r--------.	linux_01_code
-
-chmod	command	Change a <file>'s permission set according to &lt;filemodebits&gt;	i.e., file permissions	chmod 700 .ssh/ ; ls -ld .ssh/&nbsp;	drwx------.	linux_01_code
-
-l	file mode bit	Symbolic link			lrwxrwxrwx	linux_01_code
-
-t	permission set	Sticky bit is set for directory	User can add items but root must delete		drwxrwxr-t	linux_01_code
-
-r	permission set	Readable file			drwxrwxrwx	linux_01_code
 
 
 
