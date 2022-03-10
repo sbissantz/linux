@@ -119,6 +119,15 @@ see also: <https://help.relativity.com/9.3/Content/Relativity/Regular_expression
 |`ls [a,b,c]*`| List any file that starts with `a,b,c` |
 |`ls *[a-z]*`| List any file that contains a letter |
 
+**Useful Output Indicators**
+
+In the `ls` output you might find:
+
+| `./` | Current directory |
+| `../` | Parent directory |
+| `total` |	The total amount of diskspace of the listed objects| 
+
+
 ### cat
 
 | Syntax | Description |
@@ -153,6 +162,8 @@ jump right back to where I left off.
 ---
 
 ### Shape your environment! 
+
+After you've explored your filescape you can shape it!
 
 #### Add! (files, directories & symlinks)
 
@@ -296,6 +307,7 @@ formula:
 
 ### Permissions! 
 
+A filedom flourishes more quickly with rules!
 
 #### Permission sets
 
@@ -333,59 +345,76 @@ mode bits*.
 | `1`| Execute permission |
 | `0`| No permission |
 
-**Useful examples**
-
-`644`
-`666`
-
-`777`
-`775`
-
-
 #### chmod
 
+    `chmod` changes file mode bits.
 
+- Numerical formula: 
 
-chmod	command	Change a <file>'s permission set according to &lt;filemodebits&gt;	i.e., file permissions	chmod 700 .ssh/ ; ls -ld .ssh/&nbsp;	drwx------.	linux_01_code
+```
+chmod <option> <filemodebits> <pattern>
+```
 
-chmod {{c1::-R}}	option	Change file's permission recursively		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
+- Literal formula: 
 
-{{c1::chmod}} {{c1::<filemodebits>}} {{c1::file}}&nbsp;	formula	Chmod <i>numerical</i> filemodebits formula		chmod -v -R 555 baz/	mode of 'baz' retained as 0555 (r-xr-xr-x)&nbsp;	Cloze
+```
+chmod <option> <ugoa><+-><rwxst> <pattern>
+```
 
-{{c1::chmod}} {{c1::<ugoa>}}{{c1::&lt;+-=&gt;}}{{c1::&lt;rwxst&gt;}} {{c1::&lt;file&gt;}}	formula	Chmod&nbsp;<i>letter</i> filemodebits formula		chmod -v a+w baz/	mode of 'baz/' changed from 0555 (r-xr-xr-x) to 0777 (rwxrwxrwx)	Cloze
+| `chmod` | Change permission sets of files | 
+| `chmod -R <dir>`  | Change `<dir>`'s permission set recursively|
+| `chmod -v <files>`  | Verbosely change `<files>`'s permission set|
+
+**Useful examples**
+
+| `chmod 664 <file>` | Default file permission |
+| `chmod 666 <file>` | Full open file permission |
+| `chmod 775 <dir>` | Default dir permission |
+| `chmod 777 <dir>` | Full open dir permission |
+
 
 #### chown
 
-chown	command	Make ...\(^*\) new owner of <file>	\(^*\)user, group	sudo mkdir baz ; sudo chown steven ~/baz ; ls -ld baz/	drwxr-xr-x. 1 steven steven 0 baz/	linux_01_code
+    `chown` changes file ownership
 
-{{c1::chown}} {{c1::<user>}} {{c1::&lt;file&gt;}}	formula	Chown formula	Make &lt;user&gt; new owner of &lt;file&gt;	sudo chown steven baz/ ; ls -ld baz	drwxr-xr-x. 1 steven steven baz/	Cloze
+```
+chown <option> <user,group> <pattern> 
+```
 
-chown {{c1::-R}}		Change file ownership recursively		chown -R baz ; ls -l baz	drwxrwxr-x. 1 steven steven 0 sub_1/ <br>drwxrwxr-x. 1 steven steven 0 sub_2/	Cloze
+```
+chown <option> <user>:<group> <pattern> 
+```
 
-chown {{c1::<user>}}{{c1:: :}}{{c1::&lt;group&gt;}} {{c1::&lt;file&gt;}}	arguments	Make &lt;user&gt; and &lt;group&gt; new owner of &lt;file&gt;		chown steven:committer crunchy_doku/ ; s -ld baz	drwxr-xr-x. 1 steven steven 0 crunchy_doku/&nbsp;	Cloze
+Note: Here we make `<user>` *and* `<group>` the new owner of files
+
+| Syntax | Description |
+| ------ | ----------- |
+| `chown` | Make a user/group new owner of some files | 
+| `chmod -R <dir>`  | Change file ownership recursively |
+
 
 #### umask
 
-umask	command	Display or set default file permission		umask	2	linux_01_code
-
-umask&nbsp;{{c1::000}}	umask value	Full open file/dir permission		umask 000; touch foo; mkdir baz; ls -ld foo bar	drwxrwxrwx. 1 steven steven 0 Nov 19 10:02 bar/ <br>-rw-rw-rw-. 1 steven steven 0 Nov 19 10:02 foo&nbsp;	Cloze
-
-umask {{c1::002}}	umask value	Default file/dir permission		umask 002; touch foo; mkdir baz; ls -ld foo baz	drwxrwxr-x. 1 steven steven 0 Nov 19 10:20 baz/ <br>-rw-rw-r--. 1 steven steven 0 Nov 19 10:20 foo&nbsp;	Cloze
-
-umask {{c1::022}}	umask value	Root file/dir permission		umask 022; touch foo; mkdir baz; ls -ld foo baz	drwxr-xr-x. 1 steven steven 0 Nov 19 10:18 baz/ <br>-rw-r--r--. 1 steven steven 0 Nov 19 10:18 foo&nbsp;	Cloze
+    `umask` sets default file permissions
 
 
+formula:
 
+```
+umask <umask_value> ; touch/mkdir <file/dir>
+```
 
+| Syntax | Description |
+| ------ | ----------- |
+| `umask` |	Display the default file permissions |
 
+**Useful examples**
 
-
-
-
-
-
-
-
+| Syntax | Description |
+| ------ | ----------- |
+| `umask 000` | Full open file/dir permission | 
+| `umask 002` | Default file/dir permission | 
+| `umask 022` | Root file/dir permission | 
 
 
 ### Shell variables
@@ -451,10 +480,128 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 
 ## File Re-direction metacharacters
 
+| Syntax | Description |
+| ------ | ----------- |
 | `<command> > <file>` | Direct the output of `<command>` to `<file>` -- overwrite at the end |
 | `<command> >> <file>` | Direct the output of `<command>` to `<file>` -- append at the end |
 | `<command> 2> <file>` | Redirect a `<command>`'s error message and output to `<file>` |
 | `<command> &> <file>` | Redirect a `<commands>`'s error message and output to `<file>` |
+
+### Search & Find!
+
+Confucius says: If you cannot `ls` the content of a directory you won't `find`
+anything within! This implies:
+
+| Syntax | Description |
+| ------ | ----------- |
+| `find` |  Find files you have access to (e.g., user-readable files) |
+| `sudo find` |  Find all files |
+
+
+
+b	file size character	Bytes		find $HOME -size -2b	/home/steven/dead.letter <br>/home/steven/.profile&nbsp;	linux_01_code
+
+k	file size character	Kilobytes		find $HOME -size -2kb	/home/steven/.gitconfig <br>/home/steven/.lesshst&nbsp;	linux_01_code
+
+G	file size character	Giga Byte		sudo find -size +2G	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
+
+M	file size character	Megabyte		sudo find -size +2M	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
+
+find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poing in the fs	find bash*	.bash_history <br>.bash_logout <br>.bash_profile <br>.bashrc&nbsp;	linux_01_code
+
+tr&nbsp;	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
+
+
+grep	command	Within ...\(^*\), show me all&nbsp;lines&nbsp;that match the [patterns]	\(^*\)a file, text, standard output	grep alias ~/.bash_aliases	<font color="#a40000">alias</font> rm='rm -iv' <br><font color="#a40000">alias</font> rmdir='rmdir -v'&nbsp;	linux_01_code
+
+help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
+
+
+
+locate	command	Search for a string in the mlocate database		locate .bashrc	/etc/skel/.bashrc	linux_01_code
+
+updatedb	root command	Update the database for locate\(^*\)	\(^*\)runs once every day automatically			linux_01_code
+
+
+
+
+find {{c1::-size}} {{c1::+<size>}}	action and argument	Find files above &lt;size&gt;		find -size +5G	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
+
+find {{c1::-type}} {{c1::f}} {{c1::-perm}} {{c1::/002}}	actions and arguments	Find every <file> that is writeable for &lt;others&gt;\(^*\)	\(^*\)regardless of how the other are set	find -type f -perm /002	./projects/stanmisc/rethinking/.basr <br>./projects/stanmisc/rethinking/ch_10.R	Cloze
+
+find <path> {{c1::-cmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of change		find . -cmin -1	./.local/state/wireplumber/restore-stream&nbsp;	Cloze
+
+find <path> {{c1::-mmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of metadata access		find . -mmin -1	./.bash_history	Cloze
+
+find <path> {{c1::-perm}} {{c1::-&lt;filemodebit&gt;}}	action and arguments	Find files that match <i>all</i> &lt;perm&gt;issions	\(^*\)user AND group AND others	find . -perm -222 -type d -ls	./test_2&nbsp;	Cloze
+
+find <path> {{c1::-perm /&lt;filemodebit&gt;}}	action and argument	Find files that match <i>any</i> &lt;perm&gt;ission\(^*\)	\(^*\)user OR group OR others	find . -perm /664&nbsp;	./test_2<br>./test_3	Cloze
+
+find <path> {{c1::-type}} {{c1::d}}	action and argument	Find only directories		find . -type d	/home/steven/./baz&nbsp;	Cloze
+
+find <path> {{c1::-iname}} {{&lt;pattern&gt;}}	action and argument	Find a <i>case insensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -iname *pass*	find: ‘/etc/grub.d’: Permission denied&nbsp;	Cloze
+
+find <path> {{c1::-name}} {{c1::&lt;pattern&gt;}}	action and argument	Find a case <i>sensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -name passwd	find: ‘/etc/audit’: Permission denied&nbsp;	Cloze
+
+find <path> {{c1::-perm}} {{c1::&lt;filemodebit&gt;}}	action and argument	Find files that match the &lt;perm&gt;ission set as a whole		find /usr/bin -perm 755 -ls	714878&nbsp; -rwxr-xr-x root 29 17:59 /usr/bin/nmcli&nbsp;	Cloze
+
+find <path> {{c1::-not}} -user/-group &lt;user/group&gt;	action	Find all files that are <i>not</i>&nbsp;owned by user/group		find /var/spool -not -user root -ls	drwx------ /var/spool/abrt-upload&nbsp;	Cloze
+
+find <path> {{c1::-amin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of access		find $HOME -cmin -1	/home/steven/.local/share/gnome-shell&nbsp;	Cloze
+
+find <path> {{c1::-ctime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of change		find $HOME -ctime -3	/home/steven/baz/test_1	Cloze
+
+find {{c1::-group}} {{<group>}}	action and argument	Find files by &lt;group&gt;		find $HOME -group steven	/home/steven/.bash_profile <br>/home/steven/.bash_aliases&nbsp;	Cloze
+
+find {{c1::-size}} {{c1::-<size>}}	action and argument	Find files <i>below</i> &lt;size&gt;		find $HOME -size -1M	/home/steven/Rlibs/4.1/StanHeaders/libs	Cloze
+
+find files {{c1::-user}} {{c1::<user>}}	action and argument	Find files by &lt;user&gt;\(^*\)	\(^*\)I.e.: the owner	find $HOME -user steven	/home/steven/.lesshst <br>/home/steven/.bash_history	Cloze
+
+find [options] {{c1::-exec}} {{c1::command}} {{c1:: {} }} {{c1:: \;}}	action and argument	Execute <command> on each file found		find $HOME -user steven -and -size +1G -exec echo "I found " {} \;	I found&nbsp; /home/steven/Videos/taichi/lesson1.mp4	Cloze
+
+find <path> -user &lt;user&gt; {{c1::-and}} -size &lt;size&gt;	action	Find all files that are owned by &lt;user&gt; <i>and</i> has &lt;size&gt;		find $HOME -user steven -and -size +1G&nbsp;	/home/steven/Videos/taichi/lesson1.mp4	Cloze
+
+find <path> {{c1::\(}} -user &lt;user&gt; {{c1::-or}} -group &lt;group&gt; {{c1::\ )}}	actions	Find all files that are owned by &lt;user&gt; <i>or</i> &lt;group&gt;		find $HOME \( -user steven -or -group steven \) -ls	...<br>/home/steven/.lesshst <br>/home/steven/.bash_history&nbsp;	Cloze
+
+find <path> {{c1::-atime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of access		find baz -atime -3	baz/ <br>baz/test_1	Cloze
+
+find <point>&nbsp;{{c1::-ls}}	action	Find and list long\(^*\)	\(^*\)find with permission set	find baz -ls	321224&nbsp; 0 drwxr-xr-x 1 root baz&nbsp;	Cloze
+
+find <path> {{c1::-mtime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of metadata access		find baz -mtime -1	./.var/app/net.ankiweb.Anki/cache/tmp/mpv.st47dflo	Cloze
+
+find <path> {{c1::-type f}}	action and argument	Find only files		find baz -type f	baz/test_1&nbsp;	Cloze
+
+find baz [options] {{c1::-ok}} {{c1::command}} {{c1::{} }} {{c1::\;}}	action and argument	Execute <command> on each file found\(^*\)	\(^*\)query if its okay	find baz -type f -ok rm {} \;&nbsp;	&lt; rm ... baz/test_1 &gt; ? y <br>&lt; rm ... baz/test_2 &gt; ? y&nbsp;	Cloze
+
+{{c1::grep}} {{c1::-i}} "[pattern]" <file>	comman and option	Within &lt;file&gt;, <i>case-insensitively</i> show me all&nbsp;lines&nbsp;that match the [patterns]		grep -i "desktop" /etc/services	sco-dtmgr&nbsp; 617/tcp&nbsp; #<u>Desktop</u> Administration Server <br>sco-dtmgr&nbsp; 617/udp #<u>Desktop</u> Administration Server	Cloze
+
+grep {{c1::--color}} "[patterns]" <file>	flag	Within &lt;file&gt;, show me all lines that match the "[pattern]"&nbsp;<i>in color</i>		grep -ri --color root /etc/sysconfig	/etc/sysconfig/kdump:# <font color="#a40000">root</font>	Cloze
+
+{{c1::grep}} {{c1::-r}} "[patterns]" <dir>	command, option and argument	Within &lt;dir&gt;\(^*\), <i>recursively</i>&nbsp;find me all lines that match the [patterns]	\(^*\)and all it's files	grep -ri peerdns /usr/share/doc/	/usr/share/do/setup.html ...option "usepeerdns"<br>/usr/share/doc/NEWS.md&nbsp;"PPPOPTIONS=usepeerdns"	Cloze
+
+{{c1::grep}} {{c1::-rl}} "[pattern]" <dir>	option&nbsp;	Within &lt;dir&gt;, find me all&nbsp;<i>files</i>\(^*\)&nbsp;where the lines match the [pattern]	\(^*\)suppressing the search pattern	grep -rl "dagitty" /stanmisc/rethinking	projects/stanmisc/rethinking/ch_11.R <br>projects/stanmisc/rethinking/ch_05.R <br>projects/stanmisc/rethinking/counterfactual_plot.R 	Cloze
+
+{{c1::grep}} {{c1::-v}} "[patterns]" <file>	option	Within &lt;file&gt;\(^*\), show me all&nbsp;lines&nbsp;that <i>don't</i> match the [patterns]		grep -vi desktop /etc/services	prosharevideo&nbsp;&nbsp; 5714/tcp&nbsp; # proshare conf video <br>prosharevideo&nbsp;&nbsp; 5714/udp # proshare conf video&nbsp;	Cloze
+
+cut {{c1::-f<n>}} {{c1::-d'&lt;symbol&gt;'}} {{c1::-}}	arguments	Cut the &lt;n\(^{th}\)&gt; field delimited by &lt;symbol&gt;\(^*\)	\(^*\)reading from standard output	grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	Cloze
+
+{{c1::grep}} {{c1::"[patterns]"}} {{c1::<file>}}	formula	Grep formula		grep desktop /etc/services	desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/tcp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA <br>desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/udp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA&nbsp;	Cloze
+
+[command] {{c1::| grep "[pattern]"}}	options	Find the lines that match a "[pattern]" in <i>standard</i> <i>output</i>		cat .bash_aliases | grep --color grep	alias <font color="#a40000">grep</font>='<font color="#a40000">grep</font> --color=auto'	Cloze
+
+locate {{c1::-i}} {{c1::<file>}}	option and argument	Locate &lt;file&gt; ignoring case distinctions		locate -i dir_color	/etc/DIR_COLORS <br>/etc/DIR_COLORS.lightbgcolor&nbsp;	Cloze
+
+find {{c1::-size}} {{c1::+<size1>}} {{c1::-size}} {{c1::-&lt;size2&gt;}}	action and arguments	Find files <i>between</i> &lt;size1&gt; &amp; &lt;size2&gt;		sudo find -size +500M -size +2G&nbsp;	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -465,11 +612,6 @@ mail	command	Send mail message to a local account
 
 
 cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
-
-
-
-
-
 
 
 
@@ -505,7 +647,7 @@ wc {{c1::-m}}	option	Print the char count		ls | wc -m	164	Cloze
 
 cut	command	Remove sections of lines of files and text		grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	linux_01_code
 
-
+e
 ### Managing Running Processes
 
 and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
@@ -728,112 +870,6 @@ if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>{{c1::else}}<br>&nbsp; &nbsp;expr2<b
 
 
 
-## Search & Find 
-
-sudo find	root command	Find <i>all</i> files/dirs\(^*\) live&nbsp;	\(^*\)below that point in the fs	sudo mkdir baz ; sudo find baz	baz	linux_01_code
-b	file size character	Bytes		find $HOME -size -2b	/home/steven/dead.letter <br>/home/steven/.profile&nbsp;	linux_01_code
-
-k	file size character	Kilobytes		find $HOME -size -2kb	/home/steven/.gitconfig <br>/home/steven/.lesshst&nbsp;	linux_01_code
-
-G	file size character	Giga Byte		sudo find -size +2G	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
-
-M	file size character	Megabyte		sudo find -size +2M	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
-
-find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poing in the fs	find bash*	.bash_history <br>.bash_logout <br>.bash_profile <br>.bashrc&nbsp;	linux_01_code
-
-tr&nbsp;	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
-
-
-grep	command	Within ...\(^*\), show me all&nbsp;lines&nbsp;that match the [patterns]	\(^*\)a file, text, standard output	grep alias ~/.bash_aliases	<font color="#a40000">alias</font> rm='rm -iv' <br><font color="#a40000">alias</font> rmdir='rmdir -v'&nbsp;	linux_01_code
-
-help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
-
-
-
-locate	command	Search for a string in the mlocate database		locate .bashrc	/etc/skel/.bashrc	linux_01_code
-
-updatedb	root command	Update the database for locate\(^*\)	\(^*\)runs once every day automatically			linux_01_code
-
-
-ls	command	List the files/dirs in currrent directory		ls	limbing/&nbsp;&nbsp;&nbsp; Documents/&nbsp; gnu.png*&nbsp; Pictures/&nbsp; Rlibs/&nbsp;&nbsp;&nbsp; studies/	linux_01_code
-
-./	ls -a output	Current directory		ls -a	./&nbsp; ../&nbsp; R/&nbsp; stats/&nbsp; testtheory/&nbsp; vim/&nbsp;	linux_01_code
-
-/etc/skel	system directory	Global configs copied to any <i>new</i> user's <i>/home/user</i>\(^*\)	\(^*\)i.e.: when he/she is added to the system	ls -a /etc/skel	.bash_logout&nbsp; .bash_profile&nbsp; .bashrc	linux_01_code
-
-../	ls -a output	Parent directory		ls -a projects	./&nbsp; ../&nbsp; R/&nbsp; stats/&nbsp; testtheory/&nbsp; vim/	linux_01_code
-
-total	ls -l output	The total amount of diskspace in the ls-list		ls -l	total 96 <br>drwxrwxrwx. 1 steven steven climbing/&nbsp;<br>	linux_01_code
-
-
-find {{c1::-size}} {{c1::+<size>}}	action and argument	Find files above &lt;size&gt;		find -size +5G	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
-
-find {{c1::-type}} {{c1::f}} {{c1::-perm}} {{c1::/002}}	actions and arguments	Find every <file> that is writeable for &lt;others&gt;\(^*\)	\(^*\)regardless of how the other are set	find -type f -perm /002	./projects/stanmisc/rethinking/.basr <br>./projects/stanmisc/rethinking/ch_10.R	Cloze
-
-find <path> {{c1::-cmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of change		find . -cmin -1	./.local/state/wireplumber/restore-stream&nbsp;	Cloze
-
-find <path> {{c1::-mmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of metadata access		find . -mmin -1	./.bash_history	Cloze
-
-find <path> {{c1::-perm}} {{c1::-&lt;filemodebit&gt;}}	action and arguments	Find files that match <i>all</i> &lt;perm&gt;issions	\(^*\)user AND group AND others	find . -perm -222 -type d -ls	./test_2&nbsp;	Cloze
-
-find <path> {{c1::-perm /&lt;filemodebit&gt;}}	action and argument	Find files that match <i>any</i> &lt;perm&gt;ission\(^*\)	\(^*\)user OR group OR others	find . -perm /664&nbsp;	./test_2<br>./test_3	Cloze
-
-find <path> {{c1::-type}} {{c1::d}}	action and argument	Find only directories		find . -type d	/home/steven/./baz&nbsp;	Cloze
-
-find <path> {{c1::-iname}} {{&lt;pattern&gt;}}	action and argument	Find a <i>case insensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -iname *pass*	find: ‘/etc/grub.d’: Permission denied&nbsp;	Cloze
-
-find <path> {{c1::-name}} {{c1::&lt;pattern&gt;}}	action and argument	Find a case <i>sensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -name passwd	find: ‘/etc/audit’: Permission denied&nbsp;	Cloze
-
-find <path> {{c1::-perm}} {{c1::&lt;filemodebit&gt;}}	action and argument	Find files that match the &lt;perm&gt;ission set as a whole		find /usr/bin -perm 755 -ls	714878&nbsp; -rwxr-xr-x root 29 17:59 /usr/bin/nmcli&nbsp;	Cloze
-
-find <path> {{c1::-not}} -user/-group &lt;user/group&gt;	action	Find all files that are <i>not</i>&nbsp;owned by user/group		find /var/spool -not -user root -ls	drwx------ /var/spool/abrt-upload&nbsp;	Cloze
-
-find <path> {{c1::-amin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of access		find $HOME -cmin -1	/home/steven/.local/share/gnome-shell&nbsp;	Cloze
-
-find <path> {{c1::-ctime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of change		find $HOME -ctime -3	/home/steven/baz/test_1	Cloze
-
-find {{c1::-group}} {{<group>}}	action and argument	Find files by &lt;group&gt;		find $HOME -group steven	/home/steven/.bash_profile <br>/home/steven/.bash_aliases&nbsp;	Cloze
-
-find {{c1::-size}} {{c1::-<size>}}	action and argument	Find files <i>below</i> &lt;size&gt;		find $HOME -size -1M	/home/steven/Rlibs/4.1/StanHeaders/libs	Cloze
-
-find files {{c1::-user}} {{c1::<user>}}	action and argument	Find files by &lt;user&gt;\(^*\)	\(^*\)I.e.: the owner	find $HOME -user steven	/home/steven/.lesshst <br>/home/steven/.bash_history	Cloze
-
-find [options] {{c1::-exec}} {{c1::command}} {{c1:: {} }} {{c1:: \;}}	action and argument	Execute <command> on each file found		find $HOME -user steven -and -size +1G -exec echo "I found " {} \;	I found&nbsp; /home/steven/Videos/taichi/lesson1.mp4	Cloze
-
-find <path> -user &lt;user&gt; {{c1::-and}} -size &lt;size&gt;	action	Find all files that are owned by &lt;user&gt; <i>and</i> has &lt;size&gt;		find $HOME -user steven -and -size +1G&nbsp;	/home/steven/Videos/taichi/lesson1.mp4	Cloze
-
-find <path> {{c1::\(}} -user &lt;user&gt; {{c1::-or}} -group &lt;group&gt; {{c1::\ )}}	actions	Find all files that are owned by &lt;user&gt; <i>or</i> &lt;group&gt;		find $HOME \( -user steven -or -group steven \) -ls	...<br>/home/steven/.lesshst <br>/home/steven/.bash_history&nbsp;	Cloze
-
-find <path> {{c1::-atime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of access		find baz -atime -3	baz/ <br>baz/test_1	Cloze
-
-find <point>&nbsp;{{c1::-ls}}	action	Find and list long\(^*\)	\(^*\)find with permission set	find baz -ls	321224&nbsp; 0 drwxr-xr-x 1 root baz&nbsp;	Cloze
-
-find <path> {{c1::-mtime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of metadata access		find baz -mtime -1	./.var/app/net.ankiweb.Anki/cache/tmp/mpv.st47dflo	Cloze
-
-find <path> {{c1::-type f}}	action and argument	Find only files		find baz -type f	baz/test_1&nbsp;	Cloze
-
-find baz [options] {{c1::-ok}} {{c1::command}} {{c1::{} }} {{c1::\;}}	action and argument	Execute <command> on each file found\(^*\)	\(^*\)query if its okay	find baz -type f -ok rm {} \;&nbsp;	&lt; rm ... baz/test_1 &gt; ? y <br>&lt; rm ... baz/test_2 &gt; ? y&nbsp;	Cloze
-
-{{c1::grep}} {{c1::-i}} "[pattern]" <file>	comman and option	Within &lt;file&gt;, <i>case-insensitively</i> show me all&nbsp;lines&nbsp;that match the [patterns]		grep -i "desktop" /etc/services	sco-dtmgr&nbsp; 617/tcp&nbsp; #<u>Desktop</u> Administration Server <br>sco-dtmgr&nbsp; 617/udp #<u>Desktop</u> Administration Server	Cloze
-
-grep {{c1::--color}} "[patterns]" <file>	flag	Within &lt;file&gt;, show me all lines that match the "[pattern]"&nbsp;<i>in color</i>		grep -ri --color root /etc/sysconfig	/etc/sysconfig/kdump:# <font color="#a40000">root</font>	Cloze
-
-{{c1::grep}} {{c1::-r}} "[patterns]" <dir>	command, option and argument	Within &lt;dir&gt;\(^*\), <i>recursively</i>&nbsp;find me all lines that match the [patterns]	\(^*\)and all it's files	grep -ri peerdns /usr/share/doc/	/usr/share/do/setup.html ...option "usepeerdns"<br>/usr/share/doc/NEWS.md&nbsp;"PPPOPTIONS=usepeerdns"	Cloze
-
-{{c1::grep}} {{c1::-rl}} "[pattern]" <dir>	option&nbsp;	Within &lt;dir&gt;, find me all&nbsp;<i>files</i>\(^*\)&nbsp;where the lines match the [pattern]	\(^*\)suppressing the search pattern	grep -rl "dagitty" /stanmisc/rethinking	projects/stanmisc/rethinking/ch_11.R <br>projects/stanmisc/rethinking/ch_05.R <br>projects/stanmisc/rethinking/counterfactual_plot.R 	Cloze
-
-{{c1::grep}} {{c1::-v}} "[patterns]" <file>	option	Within &lt;file&gt;\(^*\), show me all&nbsp;lines&nbsp;that <i>don't</i> match the [patterns]		grep -vi desktop /etc/services	prosharevideo&nbsp;&nbsp; 5714/tcp&nbsp; # proshare conf video <br>prosharevideo&nbsp;&nbsp; 5714/udp # proshare conf video&nbsp;	Cloze
-
-cut {{c1::-f<n>}} {{c1::-d'&lt;symbol&gt;'}} {{c1::-}}	arguments	Cut the &lt;n\(^{th}\)&gt; field delimited by &lt;symbol&gt;\(^*\)	\(^*\)reading from standard output	grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	Cloze
-
-{{c1::grep}} {{c1::"[patterns]"}} {{c1::<file>}}	formula	Grep formula		grep desktop /etc/services	desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/tcp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA <br>desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/udp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA&nbsp;	Cloze
-
-[command] {{c1::| grep "[pattern]"}}	options	Find the lines that match a "[pattern]" in <i>standard</i> <i>output</i>		cat .bash_aliases | grep --color grep	alias <font color="#a40000">grep</font>='<font color="#a40000">grep</font> --color=auto'	Cloze
-
-locate {{c1::-i}} {{c1::<file>}}	option and argument	Locate &lt;file&gt; ignoring case distinctions		locate -i dir_color	/etc/DIR_COLORS <br>/etc/DIR_COLORS.lightbgcolor&nbsp;	Cloze
-
-find {{c1::-size}} {{c1::+<size1>}} {{c1::-size}} {{c1::-&lt;size2&gt;}}	action and arguments	Find files <i>between</i> &lt;size1&gt; &amp; &lt;size2&gt;		sudo find -size +500M -size +2G&nbsp;	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
-
 ## shortcuts
 
 Ctrl + Alt + Tab	Shortcut	<div>Select different views<br></div>				linux_01_code
@@ -958,6 +994,8 @@ head	command&nbsp;	Output only the <i>first</i> parts of a file/standard output\
 
 /usr/share/man/man8	system folder	A list of all administrative commands	I.e.: Intented for the system administrator	ls /usr/share/man/man8 | less	clock.8.gz <br>cockpit-tls.8.gz&nbsp;	linux_01_code
 
+
+/etc/skel	system directory	Global configs copied to any <i>new</i> user's <i>/home/user</i>\(^*\)	\(^*\)i.e.: when he/she is added to the system	ls -a /etc/skel	.bash_logout&nbsp; .bash_profile&nbsp; .bashrc	linux_01_code
 
 /home	system directory	User Home Directories	Major location of&nbsp;<i>personal</i>&nbsp;config files	ls ~/.*	.R .ssh .local .vim&nbsp;	linux_01_code
 
