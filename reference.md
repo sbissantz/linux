@@ -70,9 +70,13 @@ helps you to achieve anything!
 
 Since you found out about yourself, you have to orientate!
 
+---
+
 #### pwd
 
 | `pwd` | Show me the working directory I'm currently at |
+
+---
 
 #### ls 
 
@@ -127,6 +131,7 @@ In the `ls` output you might find:
 | `../` | Parent directory |
 | `total` |	The total amount of diskspace of the listed objects| 
 
+---
 
 ### cat
 
@@ -165,6 +170,8 @@ jump right back to where I left off.
 
 After you've explored your filescape you can shape it!
 
+---
+
 #### Add! (files, directories & symlinks)
 
 | Syntax | Description |
@@ -193,6 +200,8 @@ After you've explored your filescape you can shape it!
 | `mkdir {a..b}-{1..3}` | `a1/ b2/ c3/` |
 | `touch {a..b>}-{1..2}` | `a-1 a-2 b-1 b-2 c-1 c-2`|
 
+---
+
 #### Copy!
 
 ```
@@ -207,6 +216,8 @@ cp [option] [files/dirs/pattern] [destination]
 | `cp -f` | Copy and force to overwrite |
 | `cp -a` | Copy but maintain time stamps and permissions |
 
+---
+
 #### Move & rename!
 
 ```
@@ -219,6 +230,8 @@ mv [option] [file/dir/pattern]
 | | |
 | `mv <file> <path>` | Copy/move file to home directory |	
 | `mv <file> ~` | Rename/Move file to home directory |	
+
+---
 
 #### Remove & unlink
 
@@ -236,6 +249,8 @@ rm [option] [file/dir/pattern]
 | | |
 | `rmdir` | Remove an empty directory |
 | `rm -r` | Remove a directory and its contents recursively |
+
+---
 
 #### Archiv!
 
@@ -256,6 +271,8 @@ tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 | `tar -cvf project.tar project` | Create an archive `project.tar` from `project`
 | `tar -zcvf project.tar.gz project` | Create a *compressed* archive `project.tar` from `project`
 
+---
+
 #### History & command line recall
 
 | Syntax | Description |
@@ -269,6 +286,8 @@ tar [option] [output_file/dir/pattern] [input_file/dir/pattern]
 | | |
 | `fc <number(s)>` | Display command(s) from history; execute `<number>` afterwards |
 
+---
+
 ### Sort
 
 Sorts lines of text files
@@ -276,6 +295,8 @@ Sorts lines of text files
 | Syntax | Description |
 | ------ | ----------- |
 | sort -f |	Sort files ignoring upper an lowercase |
+
+---
 
 ### Alias
 
@@ -288,6 +309,8 @@ alias <shortcut>='<command><option>'
 | Syntax | Description |
 | ------ | ----------- |
 | alias | Show me all my aliases |
+
+---
 
 #### Command line completion
 
@@ -304,17 +327,20 @@ formula:
 | `~<TAB>` | Complete a username (e.g., root) |
 | `$<TAB>` | Complete with a shell variable |
 
+---
 
 ### Permissions! 
 
 A filedom flourishes more quickly with rules!
+
+---
 
 #### Permission sets
 
 There are what I call *letter file mode bits* and the normal *numerical file
 mode bits*.
 
-##### Object indicators
+**Object indicators**
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -322,7 +348,7 @@ mode bits*.
 | d	| Directory indicator	
 | l	| Symbolic link
 	
-##### File mode bits 
+**File mode bits** 
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -344,6 +370,8 @@ mode bits*.
 | `2`| Writeable |
 | `1`| Execute permission |
 | `0`| No permission |
+
+---
 
 #### chmod
 
@@ -372,6 +400,7 @@ chmod <option> <ugoa><+-><rwxst> <pattern>
 | `chmod 775 <dir>` | Default dir permission |
 | `chmod 777 <dir>` | Full open dir permission |
 
+---
 
 #### chown
 
@@ -392,6 +421,7 @@ Note: Here we make `<user>` *and* `<group>` the new owner of files
 | `chown` | Make a user/group new owner of some files | 
 | `chmod -R <dir>`  | Change file ownership recursively |
 
+---
 
 #### umask
 
@@ -416,6 +446,7 @@ umask <umask_value> ; touch/mkdir <file/dir>
 | `umask 002` | Default file/dir permission | 
 | `umask 022` | Root file/dir permission | 
 
+---
 
 ### Shell variables
 
@@ -465,11 +496,15 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | `$USER` | The user name |
 | `$OLDPWD` | The working directory before cd-ing into the current one |
 
+---
+
 ## Sourcing files
 
 | Syntax | Description |
 | ------ | ----------- |
 | source | Read and execute files from current shell |
+
+---
 
 ### Echo & file matching metacharacters
 
@@ -477,6 +512,8 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | ------ | ----------- |
 | `echo` | Print text on the screen (..useful to display the values of shell variables) |
 | `echo -n` |	Do not output the trailing newline |
+
+---
 
 ## File Re-direction metacharacters
 
@@ -486,6 +523,8 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | `<command> >> <file>` | Direct the output of `<command>` to `<file>` -- append at the end |
 | `<command> 2> <file>` | Redirect a `<command>`'s error message and output to `<file>` |
 | `<command> &> <file>` | Redirect a `<commands>`'s error message and output to `<file>` |
+
+---
 
 ### Search & Find!
 
@@ -497,81 +536,101 @@ anything within! This implies:
 | `find` |  Find files you have access to (e.g., user-readable files) |
 | `sudo find` |  Find all files |
 
+**File size characters**
+
+| Syntax | Description |
+| ------ | ----------- |
+| `b` | Bytes |
+| `k` | Kilobytes |
+| `M` | Megabyte |
+| `G` | Gigabyte |
+
+#### Between-file search!
+
+Note: There are (at least) two options `locate` and `find`. `locate` is faster,
+since it is no live file search. It locates command in the `mlocate` data base. 
+Thus you need to keep the data base up-to-date!
+
+---
+
+##### locate
+
+formula:
+
+```
+locate <option> <pattern> 
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `locate <string>` | Which searches for a string in the `mlocate` database |
+| `updatedb <string>` | Updates the mlocate database (i.e. this is done every day automatically, but if your downloading new stuff it can be useful to know how to update!) |
+
+---
+
+##### find
+
+formula:
+
+```
+find <path> <action> <pattern> 
+```
+
+Note: We call the one word options with a single `-` find *actions* 
+
+find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poing in the fs	
+
+| `find <pattern>` | Find `<pattern>` below my current directory | 
+|||
+| `find -ls` | Find and list long (Note: Gives you the permission set!) |
+|||
+| `find <path> -type d` |	Find only directories |
+| `find <path> -type f` |	Find only files |
+|||
+|`find -iname <pattern>`|	Find a case insensitive `<pattern>` below `<path>` |
+|`find -name <pattern>`|	Find a case sensitive `<pattern>` below `<path>` |
+|||
+| `find -size +<size1> -size -<size2>` | Find files between `<size1>` and `<size2>`
+| `find -size +<size>` | Find files above `<size>`| 
+| `find -size -<size>` | Find files below `<size>`| 
+|||
+| `find -perm <filemodebit>` | Find files that match the permission set as a whole |
+| `find -perm -<filemodebit>` | Find files that match *all*  permissions (i.e. user AND group AND others) |
+| `find -perm /<filemodebit>` | Find files that match *all*  permissions (i.e. user OR group OR others) |
+|||
+| `find -user <user>` | Find files by `<user>` (I.e.: the owner of the file) |
+| `find -user <user>` | Find files by `<user>` (I.e.: the owner of the file) |
+|||
+| `find -user <user>` | Find files by `<user>` (I.e.: the owner of the file) |
+| `find -group <group>` | Find files by `<group>`|
+|||
+| `find \(... -or ...\)` | Find by `...` or `...`|
+| `find \(... -and ...\)` | Find by `...` and `...`|
+| `find -not ...`| Find all files that are not `...` (e.g. owned by user/group) |		
+|||
+| `find -exec command {} \;` | Execute <command> on all files found |
+| `find -ok command {} \;` | Execute <command> on all files found and query if the action is permitted |
+|||
+| `find -cmin -<minutes>` | Find files that were changes x `<minutes>` ago |
+| `find -ctime -<days>` | Find file that were changes x `<days>` ago |
+| `find -amin -<minutes>` | Find files that were accessed x `<minutes>` ago |
+| `find -atime -<days>` | Find file that were accessed x `<days>` ago |
+| `find -mmin -<minutes>` | Find files whose meta data were accessed x `<minutes>` ago |
+| `find -mtime -<minutes>` | Find files whose meta data were accessed x `<days>` ago |
+
+**Useful examples**
+
+| `find -type f -perm /002`	| Find every `<file>` that is writeable for others (Note: useful to find files which should only be writeable for root) |
+| `find -type f -ok rm {} \;` | Find & delete all files that match a pattern |
 
 
-b	file size character	Bytes		find $HOME -size -2b	/home/steven/dead.letter <br>/home/steven/.profile&nbsp;	linux_01_code
 
-k	file size character	Kilobytes		find $HOME -size -2kb	/home/steven/.gitconfig <br>/home/steven/.lesshst&nbsp;	linux_01_code
 
-G	file size character	Giga Byte		sudo find -size +2G	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
 
-M	file size character	Megabyte		sudo find -size +2M	./Videos/Climber Kit MASTER.mp4&nbsp;	linux_01_code
-
-find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poing in the fs	find bash*	.bash_history <br>.bash_logout <br>.bash_profile <br>.bashrc&nbsp;	linux_01_code
-
-tr&nbsp;	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
 
 
 grep	command	Within ...\(^*\), show me all&nbsp;lines&nbsp;that match the [patterns]	\(^*\)a file, text, standard output	grep alias ~/.bash_aliases	<font color="#a40000">alias</font> rm='rm -iv' <br><font color="#a40000">alias</font> rmdir='rmdir -v'&nbsp;	linux_01_code
 
-help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
-
-
-
-locate	command	Search for a string in the mlocate database		locate .bashrc	/etc/skel/.bashrc	linux_01_code
-
-updatedb	root command	Update the database for locate\(^*\)	\(^*\)runs once every day automatically			linux_01_code
-
-
-
-
-find {{c1::-size}} {{c1::+<size>}}	action and argument	Find files above &lt;size&gt;		find -size +5G	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
-
-find {{c1::-type}} {{c1::f}} {{c1::-perm}} {{c1::/002}}	actions and arguments	Find every <file> that is writeable for &lt;others&gt;\(^*\)	\(^*\)regardless of how the other are set	find -type f -perm /002	./projects/stanmisc/rethinking/.basr <br>./projects/stanmisc/rethinking/ch_10.R	Cloze
-
-find <path> {{c1::-cmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of change		find . -cmin -1	./.local/state/wireplumber/restore-stream&nbsp;	Cloze
-
-find <path> {{c1::-mmin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of metadata access		find . -mmin -1	./.bash_history	Cloze
-
-find <path> {{c1::-perm}} {{c1::-&lt;filemodebit&gt;}}	action and arguments	Find files that match <i>all</i> &lt;perm&gt;issions	\(^*\)user AND group AND others	find . -perm -222 -type d -ls	./test_2&nbsp;	Cloze
-
-find <path> {{c1::-perm /&lt;filemodebit&gt;}}	action and argument	Find files that match <i>any</i> &lt;perm&gt;ission\(^*\)	\(^*\)user OR group OR others	find . -perm /664&nbsp;	./test_2<br>./test_3	Cloze
-
-find <path> {{c1::-type}} {{c1::d}}	action and argument	Find only directories		find . -type d	/home/steven/./baz&nbsp;	Cloze
-
-find <path> {{c1::-iname}} {{&lt;pattern&gt;}}	action and argument	Find a <i>case insensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -iname *pass*	find: ‘/etc/grub.d’: Permission denied&nbsp;	Cloze
-
-find <path> {{c1::-name}} {{c1::&lt;pattern&gt;}}	action and argument	Find a case <i>sensitive</i> &lt;pattern&gt; below &lt;path&gt;		find /etc -name passwd	find: ‘/etc/audit’: Permission denied&nbsp;	Cloze
-
-find <path> {{c1::-perm}} {{c1::&lt;filemodebit&gt;}}	action and argument	Find files that match the &lt;perm&gt;ission set as a whole		find /usr/bin -perm 755 -ls	714878&nbsp; -rwxr-xr-x root 29 17:59 /usr/bin/nmcli&nbsp;	Cloze
-
-find <path> {{c1::-not}} -user/-group &lt;user/group&gt;	action	Find all files that are <i>not</i>&nbsp;owned by user/group		find /var/spool -not -user root -ls	drwx------ /var/spool/abrt-upload&nbsp;	Cloze
-
-find <path> {{c1::-amin}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by minutes of access		find $HOME -cmin -1	/home/steven/.local/share/gnome-shell&nbsp;	Cloze
-
-find <path> {{c1::-ctime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of change		find $HOME -ctime -3	/home/steven/baz/test_1	Cloze
-
-find {{c1::-group}} {{<group>}}	action and argument	Find files by &lt;group&gt;		find $HOME -group steven	/home/steven/.bash_profile <br>/home/steven/.bash_aliases&nbsp;	Cloze
-
-find {{c1::-size}} {{c1::-<size>}}	action and argument	Find files <i>below</i> &lt;size&gt;		find $HOME -size -1M	/home/steven/Rlibs/4.1/StanHeaders/libs	Cloze
-
-find files {{c1::-user}} {{c1::<user>}}	action and argument	Find files by &lt;user&gt;\(^*\)	\(^*\)I.e.: the owner	find $HOME -user steven	/home/steven/.lesshst <br>/home/steven/.bash_history	Cloze
-
-find [options] {{c1::-exec}} {{c1::command}} {{c1:: {} }} {{c1:: \;}}	action and argument	Execute <command> on each file found		find $HOME -user steven -and -size +1G -exec echo "I found " {} \;	I found&nbsp; /home/steven/Videos/taichi/lesson1.mp4	Cloze
-
-find <path> -user &lt;user&gt; {{c1::-and}} -size &lt;size&gt;	action	Find all files that are owned by &lt;user&gt; <i>and</i> has &lt;size&gt;		find $HOME -user steven -and -size +1G&nbsp;	/home/steven/Videos/taichi/lesson1.mp4	Cloze
-
-find <path> {{c1::\(}} -user &lt;user&gt; {{c1::-or}} -group &lt;group&gt; {{c1::\ )}}	actions	Find all files that are owned by &lt;user&gt; <i>or</i> &lt;group&gt;		find $HOME \( -user steven -or -group steven \) -ls	...<br>/home/steven/.lesshst <br>/home/steven/.bash_history&nbsp;	Cloze
-
-find <path> {{c1::-atime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of access		find baz -atime -3	baz/ <br>baz/test_1	Cloze
-
-find <point>&nbsp;{{c1::-ls}}	action	Find and list long\(^*\)	\(^*\)find with permission set	find baz -ls	321224&nbsp; 0 drwxr-xr-x 1 root baz&nbsp;	Cloze
-
-find <path> {{c1::-mtime}} {{c1::&lt;(+/-)time&gt;}}	action and argument	Find files by day of metadata access		find baz -mtime -1	./.var/app/net.ankiweb.Anki/cache/tmp/mpv.st47dflo	Cloze
-
-find <path> {{c1::-type f}}	action and argument	Find only files		find baz -type f	baz/test_1&nbsp;	Cloze
-
-find baz [options] {{c1::-ok}} {{c1::command}} {{c1::{} }} {{c1::\;}}	action and argument	Execute <command> on each file found\(^*\)	\(^*\)query if its okay	find baz -type f -ok rm {} \;&nbsp;	&lt; rm ... baz/test_1 &gt; ? y <br>&lt; rm ... baz/test_2 &gt; ? y&nbsp;	Cloze
 
 {{c1::grep}} {{c1::-i}} "[pattern]" <file>	comman and option	Within &lt;file&gt;, <i>case-insensitively</i> show me all&nbsp;lines&nbsp;that match the [patterns]		grep -i "desktop" /etc/services	sco-dtmgr&nbsp; 617/tcp&nbsp; #<u>Desktop</u> Administration Server <br>sco-dtmgr&nbsp; 617/udp #<u>Desktop</u> Administration Server	Cloze
 
@@ -591,7 +650,6 @@ cut {{c1::-f<n>}} {{c1::-d'&lt;symbol&gt;'}} {{c1::-}}	arguments	Cut the &lt;n\(
 
 locate {{c1::-i}} {{c1::<file>}}	option and argument	Locate &lt;file&gt; ignoring case distinctions		locate -i dir_color	/etc/DIR_COLORS <br>/etc/DIR_COLORS.lightbgcolor&nbsp;	Cloze
 
-find {{c1::-size}} {{c1::+<size1>}} {{c1::-size}} {{c1::-&lt;size2&gt;}}	action and arguments	Find files <i>between</i> &lt;size1&gt; &amp; &lt;size2&gt;		sudo find -size +500M -size +2G&nbsp;	./Videos/Climber Kit MASTER.mp4&nbsp;	Cloze
 
 
 
@@ -605,7 +663,7 @@ find {{c1::-size}} {{c1::+<size1>}} {{c1::-size}} {{c1::-&lt;size2&gt;}}	action 
 
 
 
-
+tr&nbsp;	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
 
 mail	command	Send mail message to a local account
 
@@ -630,6 +688,8 @@ date	command	Show me the current date and time zone		date	Tue Feb 15 08:45:04 AM
 %D	date format	Date	%m/%d/%y	date '+%D'	11/25/21	linux_01_code
 
 
+
+help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
 
 
 
