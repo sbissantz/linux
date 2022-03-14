@@ -331,7 +331,7 @@ formula:
 
 ### Permissions! 
 
-A filedom flourishes more quickly with rules!
+A filedom flourishes more quickly under permission!
 
 ---
 
@@ -426,7 +426,6 @@ Note: Here we make `<user>` *and* `<group>` the new owner of files
 #### umask
 
     `umask` sets default file permissions
-
 
 formula:
 
@@ -570,6 +569,8 @@ locate <option> <pattern>
 
 ##### find
 
+    `find` finds a set of files within the file system live
+
 formula:
 
 ```
@@ -580,6 +581,8 @@ Note: We call the one word options with a single `-` find *actions*
 
 find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poing in the fs	
 
+| Syntax | Description |
+| ------ | ----------- |
 | `find <pattern>` | Find `<pattern>` below my current directory | 
 |||
 | `find -ls` | Find and list long (Note: Gives you the permission set!) |
@@ -624,52 +627,62 @@ find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poi
 | `find -type f -ok rm {} \;` | Find & delete all files that match a pattern |
 
 
+##### grep
+
+    `grep` starts a within file, text, or standard output search for matching lines
+
+Search formula:
+
+```
+grep <option> <pattern> <file>
+```
+
+Standard output formula:
+
+```
+<command> | grep <option> <pattern> 
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `grep -i "[pattern]"` | Within `file`, case-insensitively show me all lines that match `[patterns]` |	
+| `grep --color "[pattern]"` | Within `file`, show me all lines that match the `"[pattern]"` in color |
+| `grep -r "[pattern]" <dir>` | Within `dir` recursively find me all lines that match the [patterns] and all it's files |
+| `grep -v "[patterns]" <file>` | Within `file`, show me all lines; that *don't* match the `[patterns]` |	
+
+**Useful examples**
+
+| Syntax | Description |
+| ------ | ----------- |
+| `grep -rl "[pattern]" <dir>` | Within `dir` find me all files where all the lines match the `[pattern]` |
+
+
+##### cat
+
+    `cat` produces standard output concetanating fils 
+
+cat	command	Concetenate files to output		cat bashrc | less	
 
 
 
 
 
-grep	command	Within ...\(^*\), show me all&nbsp;lines&nbsp;that match the [patterns]	\(^*\)a file, text, standard output	grep alias ~/.bash_aliases	<font color="#a40000">alias</font> rm='rm -iv' <br><font color="#a40000">alias</font> rmdir='rmdir -v'&nbsp;	linux_01_code
 
 
-{{c1::grep}} {{c1::-i}} "[pattern]" <file>	comman and option	Within &lt;file&gt;, <i>case-insensitively</i> show me all&nbsp;lines&nbsp;that match the [patterns]		grep -i "desktop" /etc/services	sco-dtmgr&nbsp; 617/tcp&nbsp; #<u>Desktop</u> Administration Server <br>sco-dtmgr&nbsp; 617/udp #<u>Desktop</u> Administration Server	Cloze
-
-grep {{c1::--color}} "[patterns]" <file>	flag	Within &lt;file&gt;, show me all lines that match the "[pattern]"&nbsp;<i>in color</i>		grep -ri --color root /etc/sysconfig	/etc/sysconfig/kdump:# <font color="#a40000">root</font>	Cloze
-
-{{c1::grep}} {{c1::-r}} "[patterns]" <dir>	command, option and argument	Within &lt;dir&gt;\(^*\), <i>recursively</i>&nbsp;find me all lines that match the [patterns]	\(^*\)and all it's files	grep -ri peerdns /usr/share/doc/	/usr/share/do/setup.html ...option "usepeerdns"<br>/usr/share/doc/NEWS.md&nbsp;"PPPOPTIONS=usepeerdns"	Cloze
-
-{{c1::grep}} {{c1::-rl}} "[pattern]" <dir>	option&nbsp;	Within &lt;dir&gt;, find me all&nbsp;<i>files</i>\(^*\)&nbsp;where the lines match the [pattern]	\(^*\)suppressing the search pattern	grep -rl "dagitty" /stanmisc/rethinking	projects/stanmisc/rethinking/ch_11.R <br>projects/stanmisc/rethinking/ch_05.R <br>projects/stanmisc/rethinking/counterfactual_plot.R 	Cloze
-
-{{c1::grep}} {{c1::-v}} "[patterns]" <file>	option	Within &lt;file&gt;\(^*\), show me all&nbsp;lines&nbsp;that <i>don't</i> match the [patterns]		grep -vi desktop /etc/services	prosharevideo&nbsp;&nbsp; 5714/tcp&nbsp; # proshare conf video <br>prosharevideo&nbsp;&nbsp; 5714/udp # proshare conf video&nbsp;	Cloze
 
 cut {{c1::-f<n>}} {{c1::-d'&lt;symbol&gt;'}} {{c1::-}}	arguments	Cut the &lt;n\(^{th}\)&gt; field delimited by &lt;symbol&gt;\(^*\)	\(^*\)reading from standard output	grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	Cloze
 
-{{c1::grep}} {{c1::"[patterns]"}} {{c1::<file>}}	formula	Grep formula		grep desktop /etc/services	desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/tcp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA <br>desktop-dna&nbsp;&nbsp;&nbsp;&nbsp; 2763/udp&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Desktop DNA&nbsp;	Cloze
 
 [command] {{c1::| grep "[pattern]"}}	options	Find the lines that match a "[pattern]" in <i>standard</i> <i>output</i>		cat .bash_aliases | grep --color grep	alias <font color="#a40000">grep</font>='<font color="#a40000">grep</font> --color=auto'	Cloze
 
 locate {{c1::-i}} {{c1::<file>}}	option and argument	Locate &lt;file&gt; ignoring case distinctions		locate -i dir_color	/etc/DIR_COLORS <br>/etc/DIR_COLORS.lightbgcolor&nbsp;	Cloze
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-tr&nbsp;	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
+tr	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
 
 mail	command	Send mail message to a local account
 
 
-
-cat	command	Concetenate files to output		cat bashrc | less	# .bashrc <br> <br># Source global definitions <br>if [ -f /etc/bashrc ]; then <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . /etc/bashrc&nbsp;	linux_01_code
 
 
 
