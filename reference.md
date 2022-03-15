@@ -133,17 +133,43 @@ In the `ls` output you might find:
 
 ---
 
-### cat
+#### cat
+
+    `cat` produces standard output concetanating files
 
 | Syntax | Description |
 | ------ | ----------- |
-| `cat <file>` | Show me what `<file>` contains |
+| `cat <file>` | Show me what `<file>` contains (i.e., print the content of `<file>` as standard output to the screen) |
 
 **Useful Examples**
 
 | Syntax | Description |
 | ------ | ----------- |
-| `cat <file> | less` | Page through the content of a file |
+| `cat <file> | less` | Page through the content of file |
+| `cat .bashrc | wc -m` | Count the number of character `file` contains | 
+
+---
+
+#### date
+
+formula
+
+```
+date '+%...'
+```
+
+See: `man date` to specify (`%...`) the output of the date command. 
+
+
+| Syntax | Description |
+| ------ | ----------- |
+| `date` | Show me the current date and time zone |
+
+**Useful Examples**
+
+| Syntax | Description |
+| ------ | ----------- |
+| `%D` | Show me the date in the %m/%d/%y format |
 
 ---
 
@@ -523,6 +549,14 @@ For a full list, see: <https://www.gnu.org/software/bash/manual/bash.html#Shell-
 | `<command> 2> <file>` | Redirect a `<command>`'s error message and output to `<file>` |
 | `<command> &> <file>` | Redirect a `<commands>`'s error message and output to `<file>` |
 
+Note: Useful with `mail`!
+
+### Mail me!
+
+| Syntax | Description |
+| ------ | ----------- |
+| `mail` | Send mail message to a local account |
+
 ---
 
 ### Search & Find!
@@ -563,6 +597,7 @@ locate <option> <pattern>
 | Syntax | Description |
 | ------ | ----------- |
 | `locate <string>` | Which searches for a string in the `mlocate` database |
+| `locate -i <file>` | Locate &lt;file&gt; ignoring case distinctions |
 | `updatedb <string>` | Updates the mlocate database (i.e. this is done every day automatically, but if your downloading new stuff it can be useful to know how to update!) |
 
 ---
@@ -657,52 +692,60 @@ Standard output formula:
 | `grep -rl "[pattern]" <dir>` | Within `dir` find me all files where all the lines match the `[pattern]` |
 
 
-##### cat
+#### Command essentials
 
-    `cat` produces standard output concetanating fils 
+| Syntax | Annotation | Description |
+| ------ | ---------- | ----------- |
+| `;` (semicolon) |	Command expansion character	| Run a sequence of commands | 
+| `$` (dollar sign) | Command substitution | Run a sequence of commands | 
+| `&` (ampersand) | command manipulation | Have the command run in the bg |
 
-cat	command	Concetenate files to output		cat bashrc | less	
+Expansion formula:
 
+```
+<command_1> ; <command_2> ; ....
+```
 
+Substitution formula:
 
+```
+<command> $( <commands> ) 	
+```
 
+Manipulation formula:
 
+```
+<command> | <command> &
+```
 
+### Transforming characters, words and files
 
-
-cut {{c1::-f<n>}} {{c1::-d'&lt;symbol&gt;'}} {{c1::-}}	arguments	Cut the &lt;n\(^{th}\)&gt; field delimited by &lt;symbol&gt;\(^*\)	\(^*\)reading from standard output	grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	Cloze
-
-
-[command] {{c1::| grep "[pattern]"}}	options	Find the lines that match a "[pattern]" in <i>standard</i> <i>output</i>		cat .bash_aliases | grep --color grep	alias <font color="#a40000">grep</font>='<font color="#a40000">grep</font> --color=auto'	Cloze
-
-locate {{c1::-i}} {{c1::<file>}}	option and argument	Locate &lt;file&gt; ignoring case distinctions		locate -i dir_color	/etc/DIR_COLORS <br>/etc/DIR_COLORS.lightbgcolor&nbsp;	Cloze
-
-
-tr	command	Translate or delete characters		for file in * ; do<br>f=`echo $file | tr [:blank:] [_]`<br>[ "$file" = "$f" ] || mv -i -- "$file" "$f"<br>done	renamed 'hdjh hjkdhas' -> 'hdjh_hjkdhas'	linux_01_code
-
-mail	command	Send mail message to a local account
-
-
-
-
-
-
-
-mv	command	Move and rename a file		mv -v baz/foo baz/bar	renamed 'test' -> 'testi'	linux_01_code
-
-date	command	Show me the current date and time zone		date	Tue Feb 15 08:45:04 AM CET 2022	linux_01_code
-
-{{c1::date}} {{c1::'+%...'}}	formula	Date formula	see: man date for formats			Cloze
+| `tr` | Translate or delete characters		f
+| `cut` | Remove sections of lines of files and text
 
 
+**Useful examples**
 
-;	command expansion character	Run a sequence of commands		date ; echo "hello"	Thu Nov 18 09:04:50 AM CET 2021 <br>hello&nbsp;	linux_01_code
+```
+for file in * ; do
+f=`echo $file | tr [:blank:] [_]`
+[ "$file" = "$f" ] || mv -i -- "$file" "$f"
+done
+```
 
-%D	date format	Date	%m/%d/%y	date '+%D'	11/25/21	linux_01_code
+```
+grep /home /etc/passwd | cut -f6 -d':' -	
+```
+
+#### Counting characters, words and files
+
+| Syntax | Description |
+| ------ | ----------- |
+| `wc -w` | Print the word count | 
+| `wc -m` | Print the char count | 
 
 
 
-help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
 
 
 
@@ -711,16 +754,8 @@ help test	command	Get help with <i>test expression operators</i>		help test	File
 
 
 
-### Working with text files
-
-wc {{c1::-w}}	option	Print the word count				Cloze
 
 
-wc {{c1::-m}}	option	Print the char count		ls | wc -m	164	Cloze
-
-cut	command	Remove sections of lines of files and text		grep /home /etc/passwd | cut -f6 -d':' -	/home/steven	linux_01_code
-
-e
 ### Managing Running Processes
 
 and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
@@ -907,6 +942,10 @@ $0	shell parameter	The name used to invoke your script		#!/bin/bash<br>echo "the
 $?	shell parameter	The exit status of the last command		#!/bin/bash<br>echo "The exit status is: $?" <br>if [ $? -eq 0 ] ; then <br>&nbsp;&nbsp;&nbsp; echo "Script ran successfully!" <br>fi<br>$ ~/myscript	The exit status is: 0 <br>Script ran successfully!	linux_01_code
 
 $<n>	shell positional parameters	Match the &lt;n\(^{th}\)&gt; command-line argument		#!/bin/bash<br>echo "the first argument is $1"<br>$ ~/ myscript foo	the first argument is foo,	linux_01_code
+
+
+help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
+
 
 ${VAR}	shell scripting	The longform of $VAR		#!/bin/bash<br>read -p "Enter a word! " WORD <br>echo "<u>$WORD = ${WORD}</u>"	Enter a word! foo&nbsp;<br>foo = foo&nbsp;	linux_01_code
 
