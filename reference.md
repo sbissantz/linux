@@ -698,7 +698,7 @@ Standard output formula:
 | ------ | ---------- | ----------- |
 | `;` (semicolon) |	Command expansion character	| Run a sequence of commands | 
 | `$` (dollar sign) | Command substitution | Run a sequence of commands | 
-| `&` (ampersand) | command manipulation | Have the command run in the bg |
+| `&` (ampersand) | command manipulation | Have the command run in the `bg` |
 
 Expansion formula:
 
@@ -718,7 +718,7 @@ Manipulation formula:
 <command> | <command> &
 ```
 
-### Transforming characters, words and files
+### Transform characters, words and files
 
 | `tr` | Translate or delete characters		f
 | `cut` | Remove sections of lines of files and text
@@ -737,7 +737,7 @@ done
 grep /home /etc/passwd | cut -f6 -d':' -	
 ```
 
-#### Counting characters, words and files
+#### Count characters, words and files
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -745,45 +745,44 @@ grep /home /etc/passwd | cut -f6 -d':' -
 | `wc -m` | Print the char count | 
 
 
+### Managing Running Processes!
+
+#### Inspect running processes
+
+I familiarized with three ways to manage running processes:
+
+1. `ps`, `(re)nice`, and `fg/bg`
+2. `top`
+3. `gnome-system monitor`
+
+#### ps
+
+    ps snapshots all current processes
+
+| `ps` | Show me a snapshot of all running processes (time, PID, command) |
+| `ps u` | Show me a snapshot of all my users running processes (programs, resources, user) |
+| `ps aux` | Fully list all processes for *all* users on the system (especially root, and bg processes) | 
+
+Note: None of them will show you the nice values  that the
+
+
+**Standard Syntax**
+
+formula:
+
+```
+ps -eo <argument>
+```
+
+| `ps -e` | Show me *every* running process on the system (but exclude background processes) |
+| `ps -eo <argument>` | Show me *every* running (`fg`) process on the system in a given format |
+| `ps -eo comm` | Show me the command name of *every* running (`fg`) process on the system |
+| `ps -eo group` | Show me the group associated with *every* running (`fg`) process on the system |
+| `ps -eo pid` | Show me the process id of *every* running (`fg`) process on the system |
 
 
 
 
-
-
-
-
-
-
-
-### Managing Running Processes
-
-and (ampersand)	command&nbsp;	Have the command run in the bg		troff -me&nbsp; foo | lpr &amp;
-
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
-
-{{c1::k}} {{c1::<pid>}} {{c1::15}}	top	Kill the process &lt;pid&gt; cleanly				Cloze
-
-{{c1::k}} {{c1::<pid>}} {{c1::9}}	top command	Kill the process &lt;pid&gt; outright				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}} {{c1::0}}	top (root)	Renice the process &lt;pid&gt; to have <i>normal</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
-
-nice {{c1::-n}} {{c1::<nice>}} &lt;command&gt;	option and argument	Start a process with a given &lt;nice&gt; integer value		nice -n +5 updatedb &amp;&nbsp;		Cloze
-
-ps {{c1::-e}}	option	List every\(^*\) process on the system	\(^*\)excluding background processes	ps -e	&nbsp; &nbsp; PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME CMD <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00:00:01 systemd <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00:00:00 kthreadd&nbsp;	Cloze
-
-ps {{c1::-eo}} {{c1::comm}}	options and argument	Show me the name of the command for each process		ps -eo comm	xdg-dbus-proxy <br>bwrap&nbsp;	Cloze
-
-ps {{c1::-eo}} {{c1::group}}	options and argument	Show me the group associated with every running process		ps -eo group	steven <br>root	Cloze
-
-ps {{c1::-eo}} {{c1::pid}}	options and argument	See the pocess ID for every running process		ps -eo pid	PID <br>&nbsp; &nbsp;1 <br>&nbsp; &nbsp;2&nbsp;	Cloze
 
 ps -eo <arguments> {{c1::--sort=-&lt;argument&gt;}}	flag and argument	Sort by the highest &lt;argument&gt; first		ps -eo pid,user,rss --sort=-rss	Anki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; steven&nbsp;&nbsp; 539408 <br>packagekitd&nbsp;&nbsp;&nbsp;&nbsp; root&nbsp;&nbsp;&nbsp;&nbsp; 509696	Cloze
 
@@ -799,9 +798,49 @@ ps {{c1::-eo}} {{c1::user}}	options and argument	Show me the user name associate
 
 ps {{c1::-eo}} {{c1::vsz}}	options and argument	Show me the virtual memory\(^*\) allocated to each process	\(^*\)the amount of space allocated to a process	ps -eo vsz	5302384 <br>5340172	Cloze
 
-ps {{c1::u}}	option	List processes with user information\(^*\)	\(^*\)programs, ressources and user	ps -u	steven 31358&nbsp; 1.5&nbsp; 0.0 224616&nbsp; 0:00 bash <br>steven 31391&nbsp; 0.0&nbsp; 0.0 225564&nbsp; 03:30&nbsp;&nbsp; 0:00 ps -u&nbsp;	Cloze
 
-ps {{c1::aux}}	options	Fully list all\(^*\) processes for <i>all</i> users on the system	\(*\)including root and background processes	ps aux | less	USER PID %CPU %MEM VSZ RSS TTY ... TIME COMMAND&nbsp;<br>steven 3995 0.1&nbsp; 0.0 224616&nbsp; 6160&nbsp;pts/1&nbsp;0:00 bash&nbsp;<br>steven 4029 0.0&nbsp; 0.0 225568&nbsp; 3660 pts/1 0:00 ps u&nbsp;	Cloze
+#### Manage running processes
+
+
+
+### Inspect & manage running processes!
+
+#### top
+
+{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
+
+{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
+
+{{c1::k}} {{c1::<pid>}} {{c1::15}}	top	Kill the process &lt;pid&gt; cleanly				Cloze
+
+{{c1::k}} {{c1::<pid>}} {{c1::9}}	top command	Kill the process &lt;pid&gt; outright				Cloze
+
+{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
+
+{{c1::r}} {{c1::<pid>}} {{c1::0}}	top (root)	Renice the process &lt;pid&gt; to have <i>normal</i> priority				Cloze
+
+{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
+
+M	top command&nbsp;	Sort by memory usage\(^*\)	\(^*\)instead uf cpu			git_01_code
+
+P	top command	Sort by CPU\(^*\)	\(^*\)instead of memory			git_01_code
+
+R	top command	Reverse sort your output				git_01_code
+
+u <user>	top command	Show only&nbsp; &lt;user&gt;s processes				git_01_code
+
+r <pid>	top command	Renice a process\(^*\)	\(^*\).e.: give it less priority to the processor			git_01_code
+
+k <pid>	top command	Kill process with &lt;pid&gt;				git_01_code
+
+gnome-system-monitor	command	GUI for processes, ressources and fs				git_01_code
+
+
+#### gnome-system-monitor
+
+
+nice {{c1::-n}} {{c1::<nice>}} &lt;command&gt;	option and argument	Start a process with a given &lt;nice&gt; integer value		nice -n +5 updatedb &amp;&nbsp;		Cloze
+
 
 {{c1::nice}} {{c1::-n}} {{c1::<priority>}}&nbsp;{{c1::&lt;command&gt;}}	formula	Nice formula		ps u ; nice -n +5 updatedb and ; top		Cloze
 
@@ -827,20 +866,6 @@ fg {{c1::%--}}<div><span style="color: var(--field-fg); background: var(--field-
 fg {{c1::%<command>}}<br>bg {{c1::%&lt;command&gt;}}	argument	Bring &lt;command&gt; back to fg / run in bg		fg nvim	nvim	Cloze
 
 
-M	top command&nbsp;	Sort by memory usage\(^*\)	\(^*\)instead uf cpu			git_01_code
-
-P	top command	Sort by CPU\(^*\)	\(^*\)instead of memory			git_01_code
-
-R	top command	Reverse sort your output				git_01_code
-
-u <user>	top command	Show only&nbsp; &lt;user&gt;s processes				git_01_code
-
-r <pid>	top command	Renice a process\(^*\)	\(^*\).e.: give it less priority to the processor			git_01_code
-
-k <pid>	top command	Kill process with &lt;pid&gt;				git_01_code
-
-gnome-system-monitor	command	GUI for processes, ressources and fs				git_01_code
-
 Ctrl + S	gnome-system-monitor shortcut	Stop\(^*\) the process	\(^*\)I.e.: pause			git_01_code
 
 Ctrl + C	gnome-system-monitor shortcut	Continue the process				git_01_code
@@ -850,7 +875,6 @@ Ctr + E	gnome-system-monitor shortcut	End the process\(^*\)	\(^*\)terminate clea
 Ctrl + K	gnome-system-monitor shortcut	Kill a process\(^*\)	\(^*\)terminate outright (9)			git_01_code
 
 
-ps	command	List current processes		ps	31265 pts/0&nbsp;&nbsp;&nbsp; 00:00:00 bash <br>31297 pts/0&nbsp;&nbsp;&nbsp; 00:00:00 ps	linux_01_code
 
 + (STAT)	ps u	Process running in the foreground		ps u	steven&nbsp;&nbsp;&nbsp;&nbsp; 32777&nbsp; pts/0&nbsp; &nbsp;Ss&nbsp;&nbsp; 03:35&nbsp;&nbsp; 0:00 bash <br>steven&nbsp;&nbsp;&nbsp;&nbsp; 32812&nbsp; pts/0&nbsp; &nbsp;R+&nbsp;&nbsp; 03:35&nbsp;&nbsp; 0:00 ps u&nbsp;	linux_01_code
 
