@@ -759,12 +759,14 @@ I familiarized with three ways to manage running processes:
 
     ps snapshots all current processes
 
+| Syntax | Description |
+| ------ | ----------- |
 | `ps` | Show me a snapshot of all running processes (time, PID, command) |
 | `ps u` | Show me a snapshot of all my users running processes (programs, resources, user) |
-| `ps aux` | Fully list all processes for *all* users on the system (especially root, and bg processes) | 
+| `ps ux` | Fully list all (including background processes) my user processes running on your system |	
+| `ps aux` | Fully list all processes (including background processes) for *all* users (especially root) on the system | 
 
 Note: None of them will show you the nice values  that the
-
 
 **Standard Syntax**
 
@@ -774,32 +776,95 @@ formula:
 ps -eo <argument>
 ```
 
+| Syntax | Description |
+| ------ | ----------- |
 | `ps -e` | Show me *every* running process on the system (but exclude background processes) |
 | `ps -eo <argument>` | Show me *every* running (`fg`) process on the system in a given format |
 | `ps -eo comm` | Show me the command name of *every* running (`fg`) process on the system |
+| `ps -eo user` | Show me the group associated with *every* running (`fg`) process on the system |
 | `ps -eo group` | Show me the group associated with *every* running (`fg`) process on the system |
+| `ps -eo uid` | Show me the user ID (which identifies the user to the system) for every running process |
+| `ps -eo uid` | Show me the group ID (which identifies the group to the system) for every running process |
 | `ps -eo pid` | Show me the process id of *every* running (`fg`) process on the system |
-
-
-
-
-
-ps -eo <arguments> {{c1::--sort=-&lt;argument&gt;}}	flag and argument	Sort by the highest &lt;argument&gt; first		ps -eo pid,user,rss --sort=-rss	Anki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; steven&nbsp;&nbsp; 539408 <br>packagekitd&nbsp;&nbsp;&nbsp;&nbsp; root&nbsp;&nbsp;&nbsp;&nbsp; 509696	Cloze
-
-ps -eo <arguments> {{c1::--sort=&lt;argument&gt;}}	flag and argument	Sort by lowest &lt;argument&gt; first		ps -eo pid,user,rss --sort=rss	root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kworker<br>steven&nbsp;&nbsp;&nbsp;&nbsp; 180 bwrap&nbsp;	Cloze
-
-ps {{c1::-eo}} {{c1::rss}}	options and argument	Show me the resident memory\(^*\) used for each process	\(^*\)the memory actually used by a process	ps -eo rss	39884 <br> 1096&nbsp;	Cloze
-
-ps {{c1::-eo}} {{c1::uid}}	argument	Show me the user ID\(^*\) for every running process	\(^*\)identifies the user to the system	ps -eo uid	&nbsp; &nbsp; 0 <br>&nbsp; 998 <br>&nbsp; 193	Cloze
-
-ps {{c1::-eo}} {{c1::gid}}	options and argument	Show me the <i>group ID</i>\(^*\) for every running process	\(^*\)identifies the group to the system	ps -eo uid	&nbsp; 996 <br>&nbsp; 193 <br>&nbsp; &nbsp; 0	Cloze
-
-ps {{c1::-eo}} {{c1::user}}	options and argument	Show me the user name associated with every running process		ps -eo user	root <br>colord <br>root&nbsp;	Cloze
-
-ps {{c1::-eo}} {{c1::vsz}}	options and argument	Show me the virtual memory\(^*\) allocated to each process	\(^*\)the amount of space allocated to a process	ps -eo vsz	5302384 <br>5340172	Cloze
-
+| `ps -eo rss` | Show me the resident memory (the memory actually used by a process) used for each process
+| `ps -eo vsz` | Show me the virtual memory (the amount of space allocated to a process) allocated |
+| `ps -eo <argument> --sort=<argument>` | ...and sort by the lowest `<argument>` |
+| `ps -eo <argument> --sort=-<argument>` | ...and sort by the highest `<argument>` |
 
 #### Manage running processes
+
+To manage running process you need to know how to put them in the background
+and bring them back to the foreground. Despite that, you need to be fluent in
+signaling processes.
+
+##### fg & bg 
+
+| Syntax | Description |
+| ------ | ----------- |
+| `fg %<command>` | Bring `<command>` back to `fg` |
+| `bg %<command>` | Put `<command>` in the `bg` |
+| `fg %--` | Bring the penultimate back to the `fg` |
+| `bg %--` | Run the penultimate command in the `bg` |
+| `fg %<n>` | Bring the `<n>`-th command back to the `fg` |
+| `bg %<n>` | Put the `<n>`-th command in the `bg` |
+| `fg %?<pattern>` | Bring a command including `<pattern>` back to `fg` (Note: string must be unambiguous) |
+| `bg %?<pattern>` | Run a command including `<pattern>` in the `bg` (Note: string must be unambiguous) |
+
+##### Signals!
+
+| Name | Number | Description |
+| ------ | ---- | ----------- |
+| `SIGHUP` | `1` | Reread a processes config file |
+| `SIGTERM` | `9` | Kill a process immediately |
+| `SIGTERM` | `15` | Terminate a process cleanly |
+| `SIGSTOP` | `17` |	Stop a process |
+| `SIGCONT` | `19` |	Kill a process |
+
+##### kill
+
+    "Signals" (applies a *signal* to) a process identifier 
+
+Number formula:
+
+```
+kill <SIGNAL_number> <PID>
+```
+
+Name formula:
+
+```
+kill -<SIGNAL_name> <PID>
+```
+
+**Useful examples**
+
+```
+kill -SIGKILL 19381
+kill 9 19381
+```
+
+##### killall
+
+    "Signals" (applies a *signal* to) a process name 
+
+Number formula:
+
+```
+killall <SIGNAL-number> <command>
+```
+
+Name formula:
+
+```
+killall -<SIGNAL_name> <command>
+```
+
+**Useful examples**
+
+```
+killall -SIGTERM nvim
+killall 15 nvim 
+```
 
 
 
@@ -838,32 +903,16 @@ gnome-system-monitor	command	GUI for processes, ressources and fs				git_01_code
 
 #### gnome-system-monitor
 
-
-nice {{c1::-n}} {{c1::<nice>}} &lt;command&gt;	option and argument	Start a process with a given &lt;nice&gt; integer value		nice -n +5 updatedb &amp;&nbsp;		Cloze
+nice -n +5 updatedb &amp;&nbsp;		Cloze
+nice {{c1::-n}} {{c1::<nice>}} &lt;command&gt;	option and argument	Start a process with a given &lt;nice&gt; integer value
 
 
 {{c1::nice}} {{c1::-n}} {{c1::<priority>}}&nbsp;{{c1::&lt;command&gt;}}	formula	Nice formula		ps u ; nice -n +5 updatedb and ; top		Cloze
 
 {{c1::renice}} {{c1::-n}} {{c1::<priority>}}&nbsp;{{c1::&lt;PID&gt;}}	formula	Renice formula	Alter the processes (&lt;PID&gt;) &lt;priority&gt;	ps u ;&nbsp;renice -n +5 78678 ; top		Cloze
 
-ps {{c1::ux}}	options	Fully\(^*\) list <i>user</i> processes running on your system	\(^*\)all infos and including background processes	ps ux | less	USER PID %CPU %MEM VSZ RSS TTY ... TIME COMMAND <br>steven 3995 0.1&nbsp; 0.0 224616&nbsp; 6160&nbsp;pts/1&nbsp;0:00 bash <br>steven 4029 0.0&nbsp; 0.0 225568&nbsp; 3660 pts/1 0:00 ps u 	Cloze
 
 
-
-{{c1::kill}} {{c1::<signal>}} {{c1::&lt;pid&gt;}}	kill formula	Kill formula		kill -SIGHUP 104321	[1]&nbsp; + hangup &nbsp; &nbsp; nvim	Cloze
-
-{{c1::killall}} {{c1::<signal>}} {{c1::&lt;name&gt;}}	formula	Killall formula		killall nvim	[2]&nbsp; + terminated&nbsp; nvim	Cloze
-
-
-PID	ps u	Process Identifier\(^*\)	\(^*\)unique			linux_01_code
-
-fg {{c1::%?<pattern>}}<br>bg {{c1::%?&lt;pattern&gt;}}	argument	Bring command including &lt;pattern&gt; back to fg\(^*\) / run in bg	\(^*\)string must be unambiguous!	bg %?im	nvim	Cloze
-
-fg {{c1::%<n>}}<br>bg {{c1::%&lt;n&gt;}}	argument	Bring job &lt;n&gt; back to the / run in bg		bg %1	nvim	Cloze
-
-fg {{c1::%--}}<div><span style="color: var(--field-fg); background: var(--field-bg);">bg {{c1::%--}}</span></div>	argument	Bring the penultimate&nbsp;command back to fg / run in bg		fg %--	nvim	Cloze
-
-fg {{c1::%<command>}}<br>bg {{c1::%&lt;command&gt;}}	argument	Bring &lt;command&gt; back to fg / run in bg		fg nvim	nvim	Cloze
 
 
 Ctrl + S	gnome-system-monitor shortcut	Stop\(^*\) the process	\(^*\)I.e.: pause			git_01_code
@@ -892,13 +941,6 @@ SIGCONT(19)	signal	Continue after stop		<div>kill -19 18666</div>		linux_01_code
 
 jobs	command	Check which processes run in the background		jobs	[1]+&nbsp; Stopped&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvim <br>[2]-&nbsp; Done&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sudo find /usr -print > /tmp/allusrfiles&nbsp;	linux_01_code
 
-SIGHUP (1)	signal	Reread a processes config file		kill -1 1833	<div>[1]&nbsp; + hangup &nbsp; &nbsp; nvim</div>	linux_01_code
-
-SIGTERM (15)	signal	Terminate a process cleanly		kill -15 10432	<div>[1]&nbsp; + terminated&nbsp; nvim</div>	linux_01_code
-
-SIGSTOP (17)	signal	Stop the process		kill -17 18764		linux_01_code
-
-SIGKILL (9)	signal	Kill a process immediately		kill -9 1432	<div>[1]&nbsp; + killed &nbsp; &nbsp; nvim&nbsp;</div>	linux_01_code
 
 kill	command	Signal\(^*\) a proccess by PID	\(^*\)SIGHUP(1), SIGKILL(9), SIGTERM(15), SIGSTOP(19)	kill -SIGHUP 104321	[1]&nbsp; + hangup &nbsp; &nbsp; nvim	linux_01_code
 
