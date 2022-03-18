@@ -791,6 +791,23 @@ ps -eo <argument>
 | `ps -eo <argument> --sort=<argument>` | ...and sort by the lowest `<argument>` |
 | `ps -eo <argument> --sort=-<argument>` | ...and sort by the highest `<argument>` |
 
+**Useful output identifier**
+
+`ps` can give the following output:
+
+| Syntax | Description |
+| ------ | ----------- |
+| `+ (STAT)` | Process running in the foreground |
+| `- (STAT)` | Process running in the background |
+| `RSS` | Resident Set Size (i.e.	"Used size of the program in memory!")" |
+| `TIME` | Cumulative System time used |
+
+## jobs
+
+| Syntax | Description |
+| ------ | ----------- |
+| `jobs` | Show me which processes run in the background |
+
 #### Manage running processes
 
 To manage running process you need to know how to put them in the background
@@ -798,6 +815,8 @@ and bring them back to the foreground. Despite that, you need to be fluent in
 signaling processes.
 
 ##### fg & bg 
+
+    Rund a process in the foreground or background
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -817,12 +836,13 @@ signaling processes.
 | `SIGHUP` | `1` | Reread a processes config file |
 | `SIGTERM` | `9` | Kill a process immediately |
 | `SIGTERM` | `15` | Terminate a process cleanly |
-| `SIGSTOP` | `17` |	Stop a process |
-| `SIGCONT` | `19` |	Kill a process |
+| `SIGSTOP` | `17` | Stop a process |
+| `SIGCONT` | `19` | Continue a process |
+
 
 ##### kill
 
-    "Signals" (applies a *signal* to) a process identifier 
+    "Signal" (applies a *signal* to) by a process by identifier 
 
 Number formula:
 
@@ -845,7 +865,7 @@ kill 9 19381
 
 ##### killall
 
-    "Signals" (applies a *signal* to) a process name 
+    "Signal" (applies a *signal* to) a process by name 
 
 Number formula:
 
@@ -866,89 +886,84 @@ killall -SIGTERM nvim
 killall 15 nvim 
 ```
 
+##### nice
 
+    `Starts process with a given priority`
+
+formula:
+
+```
+nice -n <+-><priority> <command>
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `nice -n +<n>` | Start a process with the given nice integer `<n>` |
+
+##### nice
+
+    `Alter the priority of a given process`
+
+formula:
+
+```
+nice -n <+-><priority> <PID>
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `renice -n +<PID>` | Add `<n>` to the processes priority |
+| `renice -n -<PID>` | Subtract `<n>` from the processes priority |
+
+    The nicer rule: The nicer a process is; the less CPU attraction it gets!
+
+
+##### cgroups
+
+`cgroups` is an advanced concept. More precisely, it is a tool to limit the
+usage by selected pocesses,	i.e.: cpu assignment (cpuset), processor
+schedueling (cpi).
+
+
+| Syntax | Description |
+| ------ | ----------- |
+| `man cgroups` | Show me the `cgroups` man page |
 
 ### Inspect & manage running processes!
 
 #### top
 
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
-
-{{c1::k}} {{c1::<pid>}} {{c1::15}}	top	Kill the process &lt;pid&gt; cleanly				Cloze
-
-{{c1::k}} {{c1::<pid>}} {{c1::9}}	top command	Kill the process &lt;pid&gt; outright				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::1}}&nbsp;<br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::19}} #lowest	top (root)	Renice the process &lt;pid&gt; to have <i>low</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}} {{c1::0}}	top (root)	Renice the process &lt;pid&gt; to have <i>normal</i> priority				Cloze
-
-{{c1::r}} {{c1::<pid>}}&nbsp;{{c1::-1}} <br>...<br>{{c2::r}} {{c2::&lt;pid&gt;}}&nbsp;{{c2::-20}} #highest	top (root)	Renice the process &lt;pid&gt; to have <i>high</i> priority				Cloze
-
-M	top command&nbsp;	Sort by memory usage\(^*\)	\(^*\)instead uf cpu			git_01_code
-
-P	top command	Sort by CPU\(^*\)	\(^*\)instead of memory			git_01_code
-
-R	top command	Reverse sort your output				git_01_code
-
-u <user>	top command	Show only&nbsp; &lt;user&gt;s processes				git_01_code
-
-r <pid>	top command	Renice a process\(^*\)	\(^*\).e.: give it less priority to the processor			git_01_code
-
-k <pid>	top command	Kill process with &lt;pid&gt;				git_01_code
-
-gnome-system-monitor	command	GUI for processes, ressources and fs				git_01_code
-
+| Key combo | Description |
+| ------ | ----------- |
+| `k <PID> 9` | Kill the process `<PID>` outright |
+| `k <PID> 15` | Kill the process `<PID>` cleanly |
+| | |
+| `r <PID> -20` | Renice the process `<PID>` to have highest priority |
+| `...` | `...` |
+| `r <PID> -1` | Renice the process `<PID>` to have high priority |
+| `r <PID> 0` | Renice the process `<PID>` to have normal priority |
+| `r <PID> 1` | Renice the process `<PID>` to have low priority |
+| `...` | `...` |
+| `r <PID> 19` | Renice the process `<PID>` to have lowest priority |
+| | |
+| `M` |	Sort by memory usage (instead of CPU) |
+| `P` |	Sort by CPU usage (instead of memory usage) |
+| `R` |	Reverse sort your output |
+| | |
+| `u <user>` | Show only `<user>` processes |
+| `g <group>` | Show only `<group>` processes |
 
 #### gnome-system-monitor
 
-nice -n +5 updatedb &amp;&nbsp;		Cloze
-nice {{c1::-n}} {{c1::<nice>}} &lt;command&gt;	option and argument	Start a process with a given &lt;nice&gt; integer value
+If you use `Gnome` as DE you can also use a comprehensive tool for processes,
+ressources and fs: the `gnome-system-monitor`.
 
-
-{{c1::nice}} {{c1::-n}} {{c1::<priority>}}&nbsp;{{c1::&lt;command&gt;}}	formula	Nice formula		ps u ; nice -n +5 updatedb and ; top		Cloze
-
-{{c1::renice}} {{c1::-n}} {{c1::<priority>}}&nbsp;{{c1::&lt;PID&gt;}}	formula	Renice formula	Alter the processes (&lt;PID&gt;) &lt;priority&gt;	ps u ;&nbsp;renice -n +5 78678 ; top		Cloze
-
-
-
-
-
-Ctrl + S	gnome-system-monitor shortcut	Stop\(^*\) the process	\(^*\)I.e.: pause			git_01_code
-
-Ctrl + C	gnome-system-monitor shortcut	Continue the process				git_01_code
-
-Ctr + E	gnome-system-monitor shortcut	End the process\(^*\)	\(^*\)terminate cleanly (15)			git_01_code
-
-Ctrl + K	gnome-system-monitor shortcut	Kill a process\(^*\)	\(^*\)terminate outright (9)			git_01_code
-
-
-
-+ (STAT)	ps u	Process running in the foreground		ps u	steven&nbsp;&nbsp;&nbsp;&nbsp; 32777&nbsp; pts/0&nbsp; &nbsp;Ss&nbsp;&nbsp; 03:35&nbsp;&nbsp; 0:00 bash <br>steven&nbsp;&nbsp;&nbsp;&nbsp; 32812&nbsp; pts/0&nbsp; &nbsp;R+&nbsp;&nbsp; 03:35&nbsp;&nbsp; 0:00 ps u&nbsp;	linux_01_code
-
-RSS	ps u	Resident Set Size	"Used size of the program in memory!"	ps u	&nbsp; &nbsp; USER&nbsp; &nbsp; PID&nbsp; &nbsp;VSZ&nbsp;&nbsp; RSS&nbsp; &nbsp;&nbsp;<br>steven 1605 374124 5768&nbsp;	linux_01_code
-
-TIME	ps u	Cumulative System time used		ps u	USER&nbsp; &nbsp;PID TIME COMMAND <br>steven&nbsp; 1605&nbsp; 0.0&nbsp; 0.0&nbsp; /usr/libexec/&nbsp;	linux_01_code
-
-renice	command	Alter the processes' (<PID>) &lt;priority&gt;		renice -n -5 20284 ; top	94711 steven <u>15</u>&nbsp; &nbsp;0&nbsp; 225964 top	linux_01_code
-
-fg	command	Run a process in the foreground		fg	nvim	linux_01_code
-
-bg	command	Run a process in the background		bg	[1]+ nvim and <br>[1]+&nbsp; Stopped&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvim&nbsp;	linux_01_code
-
-SIGCONT(19)	signal	Continue after stop		<div>kill -19 18666</div>		linux_01_code
-
-jobs	command	Check which processes run in the background		jobs	[1]+&nbsp; Stopped&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvim <br>[2]-&nbsp; Done&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sudo find /usr -print > /tmp/allusrfiles&nbsp;	linux_01_code
-
-
-kill	command	Signal\(^*\) a proccess by PID	\(^*\)SIGHUP(1), SIGKILL(9), SIGTERM(15), SIGSTOP(19)	kill -SIGHUP 104321	[1]&nbsp; + hangup &nbsp; &nbsp; nvim	linux_01_code
-
-killall	command, argumnts	<signal>\(^*\) a process by &lt;name&gt;	\(^*\)SIGHUP(1), SIGKILL(9), SIGTERM(15), SIGSTOP(19)	killall nvim	<div>[2]&nbsp; + terminated&nbsp; nvim<br></div>	linux_01_code
-
-cgroups	advanced concept	Tool to limit resource\(^*\) usage by selected pocesses	\(^*\)I.e.: cpu assignment (cpuset), processor schedueling (cpi)	man cgroups		linux_01_code
-
-nice	command&nbsp;	Start a process (<command>) with a given &lt;priority&gt;\(^*\)	\(^*\)I.e: nice value	nice -n +5 updatedb and	<div>[3] 18911</div>	linux_01_code
+| Key combo | Description |
+| ------ | ----------- |
+| `Ctrl + S` |	Stop the process (i.e., pause it) |
+| `Ctrl + C` |	Continue the process |
+| `Ctrl + K` |	Kill the process (i.e., terminate it outright -- SIGKILL (9)) |
+| `Ctrl + E` |	End the process (i.e., terminate it cleanly -- SIGTERM (15)) |
 
 ### Writing simple shell scripts
 
