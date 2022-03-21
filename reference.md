@@ -965,8 +965,91 @@ ressources and fs: the `gnome-system-monitor`.
 | `Ctrl + K` |	Kill the process (i.e., terminate it outright -- SIGKILL (9)) |
 | `Ctrl + E` |	End the process (i.e., terminate it cleanly -- SIGTERM (15)) |
 
-### Writing simple shell scripts
+### Shell scripting!
 
+There are basically two ways to launch a shell script:
+
+| Syntax | Description |
+| ------ | ----------- |
+| bash `<script>` | Launches the shell `<script>` from the console |
+| `#!/bin/bash` | Identifier within the script | 
+
+Note: Please make sure, the script is executable! E.g., using `chmod +x <file>`
+
+    Important: Bash generally uses *untyped variables*. This means variables
+    are strings unless you `declare` it otherwise!
+
+#### Misc
+
+| Syntax | Description |
+| ------ | ----------- |
+| `\` (backslash) |	Interpret one char literally |		
+| `#` (pound sign) | Comment |
+| `'` (single quote)| Put somethings in single quotes interprets a set of characters literally |	
+| `(backtick)` | Put something in backticks	runs a command only when a variable is set not each time the variable is read. This improves efficiency! (e.g., putting `date` in backticks at the start of the script) |	
+
+
+### Fundamental
+
+formula:
+
+```
+NAME=value
+```
+	
+| Syntax | Description |
+| ------ | ----------- |
+| `NAME=value` | Assign variable `<NAME>` the `<VALUE>` `no spaces!`|
+
+
+#### Shell (positional) parameters
+
+| `$@` | Give me all arguments entered at the command line |
+| `$#` | Give me the the n° paramaters in my script |
+| `$0` | Give me the name used to invoke my script |		
+| `$?` | Give me the exit status of the last command |
+| `$<n>` | Give me the value of the `n-th` command-line argument |
+
+
+**Examples**
+
+```
+    # Give me all arguments entered at the command line!
+    #!/bin/bash
+    echo "all arguments are: $@"<br>$ 
+    $ ~/myscript foo bar	
+    all arguments are: foo bar
+
+    # Give me the the n° paramaters in my script |
+    #!/bin/bash
+    echo "My script was given $# parameters"
+    $ ~/myscript foo bar	
+    My script was given 2 parameters	linux_01_code
+
+    # Give me the name used to invoke my script
+    #!/bin/bash
+    $ echo "the command is called '$0'"
+    ~/ myscript foo	
+    the command is called '/home/steven/myscript`	
+
+    # Give me the exit status of the last command
+	#!/bin/bash
+    echo "The exit status is: $?" <br>
+    if [ $? -eq 0 ] ; then
+    echo "Script ran successfully!" 
+    fi
+    $ ~/myscript	
+    The exit status is: 0 Script ran successfully!	
+
+    #Give me the value of the `n-th` command-line argument
+    #!/bin/bash
+    echo "the first argument is $1 the second $2"
+    $ ~/ myscript foo bar	
+    the first argument is foo, the second bar
+```
+
+
+	
 
 '$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
 
@@ -977,19 +1060,11 @@ bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM 
 expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	BIGNUM=1024<br>RESULT=`expr $BIGNUM / 16` ; echo $RESULT	64	linux_01_code
 
 
-Execute a shell script	2 ways to launch a shell script	<ol><li>{{c1::bash <script>}}</li><li>{{c2::#!/bin/bash}}</li></ol>		Cloze		
-
-Execute a shell script	2 ways to launch a shell script	<ol><li>{{c1::bash <script>}}</li><li>{{c2::#!/bin/bash}}</li></ol>		Cloze		
-
-Untyped variables	"Bash uses untyped variables"	1. {{c1::Variable are strings}}<br>2. ..{{c2::unless you 'declare' it otherwise}}		Cloze		
-
-"Bash uses untyped variables"	Untyped variables	1. {{c1::Variable are strings}}<br>2. ..{{c2::unless you 'declare' it otherwise}}		Cloze		
-
-\ (backslash)	shell scripting	Interpret one char literally		TODAY=$(date '+%D') ; echo "\$HOME" $TODAY&nbsp;	$HOME 12/24/21	linux_01_code
-
-`#`	shell scripting	comment		#!/bin/bash<br># Start the programm		linux_01_code
+read {{c1::-p}} {{c1::"prompt msg"}} {{c1::<variable(s)>}}	argument	Prompt for infos, read and store them in &lt;variable(s)&gt;		#!/bin/bash<br><u>read -p </u>"Enter: name &amp; adjective " <u>NAME ADJ</u><br>echo "$NAME is $ADJ"<br>$ ~/myscript <br>Enter a name and an adjective Bart hair	Bart is hairy&nbsp;	Cloze
 
 read <variable(s)>	bash command	Read command-line input and store it in &lt;variable(s)&gt;		#!/bin/bash<br><u>read&nbsp;WORD</u><br>echo "$WORD, $WORD!"<br>$ ~/myfile	bye <br>bye, bye!	linux_01_code
+
+
 
 
 if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>else<br>{{c1::elif [ cond ] ; then}}<br>&nbsp; expr2<br>else<br>&nbsp; expr3<br>fi	conditional execution	else..if statement	Spaces are mandatory!	filename="$HOME"<br>if [ -f "$filename" ] ; then<br>echo "$filename" is a regular file<br>elif [ -d "$filename" ] ; then<br>echo "$filename is a directory"<br>else<br>echo "idk what $filename is"<br>fi&nbsp;	/home/steven is a directory	Cloze
@@ -997,7 +1072,6 @@ if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>else<br>{{c1::elif [ cond ] ; then}}
 [ {{c1::!}} {{c1::cond}} ]	test expression operator	Not [cond]!		if [ ! -e "$TODOLIST" ] ; then <br>&nbsp;&nbsp;&nbsp; touch ~/.todolist&nbsp;<br>&nbsp; &nbsp; echo "touched todolist"<br>fi	touched todolist	Cloze
 {{c1::[ cond ]}} {{c1::and&amp;}} {{c1::<action>}}	test expression operator	If [cond]=TRUE then &lt;action&gt;		#!/bin/bash<br>[ $# -ge 3 ] &amp;&amp; echo "There are &gt;=3 cmd-line args"&nbsp;<br>$ ./myscript test test test	There are &gt;=3 cmd-line args	Cloze
 
-read {{c1::-p}} {{c1::"prompt msg"}} {{c1::<variable(s)>}}	argument	Prompt for infos, read and store them in &lt;variable(s)&gt;		#!/bin/bash<br><u>read -p </u>"Enter: name &amp; adjective " <u>NAME ADJ</u><br>echo "$NAME is $ADJ"<br>$ ~/myscript <br>Enter a name and an adjective Bart hair	Bart is hairy&nbsp;	Cloze
 
 {{c1::case}} {{c1::VAR}} {{c1::in}}<br>{{c1::Result1)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::Result2)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::*)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::esac}}	command	Nested if..then..else\(^*\)	\(^*\) case command = switch command	#!/bin/bash<br>case `date +%a` in<br>&nbsp;&nbsp;&nbsp; "Mon")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "It's monday!" ;;<br>&nbsp;&nbsp;&nbsp; "Tue" | "Wed")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "It's tuesday or Wednesday!" ;;<br>&nbsp;&nbsp;&nbsp; *)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "blubb" ;;<br>esac	It's tuesday or Wednesday!	Cloze
 
@@ -1014,25 +1088,9 @@ read {{c1::-p}} {{c1::"prompt msg"}} {{c1::<variable(s)>}}	argument	Prompt for i
 {{c1::while}} {{c1::[ cond ]}}<br>{{c1::do}}<br>&nbsp; &nbsp; &nbsp;{{c1::body}}<br>{{c1::done}}	loop	while...do...\(^*\)	\(^*\) while TRUE do... ; if FALSE stop	#!/bin/bash<br>N=0<br>while [ $N -lt 10 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123456789	Cloze
 
 
-$@	shell parameter	All arguments entered at the command line		#!/bin/bash<br>echo "all arguments are: $@"<br>$ ~/myscript foo bar	all arguments are: foo bar&nbsp;	linux_01_code
-
-$#	shell positional parameters	Get the n° paramaters your script was given		#!/bin/bash<br>echo "My script was given $# parameters"<br>$&nbsp;~/myscript foo bar	My script was given 2 parameters	linux_01_code
-
-$0	shell parameter	The name used to invoke your script		#!/bin/bash<br>echo "the command is called '$0'"<br>$ ~/ myscript foo	the command is called '/home/steven/myscript'	linux_01_code
-
-$?	shell parameter	The exit status of the last command		#!/bin/bash<br>echo "The exit status is: $?" <br>if [ $? -eq 0 ] ; then <br>&nbsp;&nbsp;&nbsp; echo "Script ran successfully!" <br>fi<br>$ ~/myscript	The exit status is: 0 <br>Script ran successfully!	linux_01_code
-
-$<n>	shell positional parameters	Match the &lt;n\(^{th}\)&gt; command-line argument		#!/bin/bash<br>echo "the first argument is $1"<br>$ ~/ myscript foo	the first argument is foo,	linux_01_code
-
-
 help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
 
-
 ${VAR}	shell scripting	The longform of $VAR		#!/bin/bash<br>read -p "Enter a word! " WORD <br>echo "<u>$WORD = ${WORD}</u>"	Enter a word! foo&nbsp;<br>foo = foo&nbsp;	linux_01_code
-
-' (single quote)	shell scripting	Interpret a set of characters literally		echo '$HOME * date +D'	'$HOME * `date +D`'	linux_01_code
-
-` (backtick)	shell scripting	Run <command> only when varibale is set\(^*\)	\(^*\)not each time the variable is read (efficiency!)	echo "$HOME * `date`"		linux_01_code
 
 ${var:-value}	bash parameter expansion	If <var> is empty or unset, expand it to &lt;value&gt;		FOO="Example" ; FOO=${FOO:-"Not Set"} ; echo $FOO	Example	linux_01_code
 
@@ -1046,21 +1104,20 @@ ${var%%pattern}	bash parameter expansion	Chop\(^*\) the&nbsp;<i>longest</i>&nbsp
 
 <sting> = <string>;	test expression operator	Are both strings equal?		STRING="friday"<br>if [ "$STRING" = "friday" ] ; then<br>echo "Yippie, it's friday!"&nbsp;<br>fi	Yippie, it's friday!&nbsp;	linux_01_code
 
-NAME=value	shell scripting	Assign variable <NAME> a &lt;value&gt;\(^*\)	\(^*\)no spaces!	TODAY=$(date)<br>echo $TODAY		linux_01_code
 
 $((--I))	shell script arithmetic	Incrementally decrease <I> by 1		I=0 ; echo "I - 1 = $((--I))"&nbsp;	I - 1 = 0	linux_01_code
 
 $((I++))	shell script arithmetic	Incrementally increase <I> by 1		I=0 ; echo "I + 1 = $((++I))"	I + 1 = 1	linux_01_code
 
-bash {{c1::-x}} <script>	option	Display each command executed\(^*\)	\(^*\)set near beginning of the script	bash -x test	+ echo hello <br>hello	Cloze
 
 {{c1::if}} {{c1::[ cond ]}} {{c1::;}} {{c1::then}}<br>&nbsp; &nbsp;{{c1::expr}}<br>{{c1::fi}}	conditional execution	If...then statement	Spaces are mandatory!	MYVAR=1<br>if [ $MYVAR -eq 1 ] ; then<br>&nbsp; &nbsp;echo "MYVAR is set to 1"<br>fi	MYVAR is set to 1&nbsp;	Cloze
 
 if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>{{c1::else}}<br>&nbsp; &nbsp;expr2<br>fi	conditional execution	If...then...else statement	Spaces are mandatory!	MYVAR=2<br>if [ $MYVAR = 1 ] ; then<br>&nbsp; &nbsp;echo "MYVAR = 1"<br>else<br>&nbsp; &nbsp;echo "MYVAR != 1"<br>fi	MYVAR != 1	Cloze
 
 
+#### Debugging
 
-
+bash {{c1::-x}} <script>	option	Display each command executed\(^*\)	\(^*\)set near beginning of the script	bash -x test	+ echo hello <br>hello	Cloze
 
 
 ## shortcuts
