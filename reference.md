@@ -985,11 +985,76 @@ Note: Please make sure, the script is executable! E.g., using `chmod +x <file>`
 | ------ | ----------- |
 | `\` (backslash) |	Interpret one char literally |		
 | `#` (pound sign) | Comment |
-| `'` (single quote)| Put somethings in single quotes interprets a set of characters literally |	
-| `(backtick)` | Put something in backticks	runs a command only when a variable is set not each time the variable is read. This improves efficiency! (e.g., putting `date` in backticks at the start of the script) |	
+| `'` (single quotes)| Put somethings in single quotes interprets a set of characters literally |	
+| `(backticks)` | Put something in backticks	runs a command only when a variable is set not each time the variable is read. This improves efficiency! |	
 
+**Useful examples**
 
-### Fundamental
+```
+#!/bin/bash
+# Executes date only once!
+MYDATE=`date %D`
+
+...script...
+
+```
+
+##### Reading command-line input
+
+| Syntax | Description |
+| ------ | ----------- |
+| `read <variable(s)>` | Read command-line input and store it in `<variable(s)>`		
+| `read -p "prompt msg" <variable(s)>` | Prompt for infos, read and store them in `<variable(s)>`
+
+**Useful examples**
+
+```
+#!/bin/bash
+read WORD
+echo "$WORD, $WORD!"
+$ ~/myfile
+
+#!/bin/bash
+read -p "Enter: name & adjective " NAME ADJ
+echo "$NAME is $ADJ"
+$ ~/myscript 
+Enter a name and an adjective 
+Bart hair
+```
+
+#### Arithmetic
+
+| Syntax | Description |
+| ------ | ----------- |
+| `'$[arithmetic - operation]'` | Pass arithmetic result to a command |
+| `let` | Evaluate arithmetic expressions |
+| `bc` | Arbitrary precision calculator	|
+| `expr` | Evaluate (logical/mathematical) expressions	
+
+**Useful examples**
+
+```
+# Pass arithmetic result to a command
+echo $[5-3]	2	
+
+# Evaluate arithmetic expressions
+# No spaces!	
+BIGNUM=1024
+let RESULT=$BIGNUM/16 ;
+echo $RESULT
+
+BIGNUM=1024<br>
+RESULT=`echo "$BIGNUM / 16" | bc` ;
+echo RESULT	
+
+# Evaluate (logical/mathematical) expressions
+# Requires whitespaces!
+BIGNUM=1024
+RESULT=`expr $BIGNUM / 16` ; 
+echo $RESULT
+```
+
+#### Fundamentals
 
 formula:
 
@@ -1048,44 +1113,109 @@ NAME=value
     the first argument is foo, the second bar
 ```
 
+#### Conditional execution
 
-	
+##### if...then...
 
-'$[arithmetic - operation]'	echo command	Pass arithmetic result to a command		echo $[5-3]	2	linux_01_code
+```
+if [ cond ] ; then
+    expr1
+```
 
-let	command	Evaluate arithmetic expressions	No spaces!	BIGNUM=1024<br>let RESULT=$BIGNUM/16 ; echo $RESULT	64	linux_01_code
+Note: Spaces in `[ cond ]` are mandatory
 
-bc	command	Arbitrary precision calculator		BIGNUM=1024<br>RESULT=`echo "$BIGNUM / 16" | bc` ; <br>echo RESULT	64	linux_01_code
+##### if...then...else
 
-expr	command	Evaluate (logical/mathematical) expressions	Requires whitespaces!	BIGNUM=1024<br>RESULT=`expr $BIGNUM / 16` ; echo $RESULT	64	linux_01_code
+```
+if [ cond ] ; then
+    expr1
+else
+
+elif [ cond ] ; then
+    expr2
+else
+    expr3
+fi	
+
+```
+
+Note: Spaces in `[ cond ]` are mandatory!
+
+##### Alternative one-line if...then...else
+
+`[ cond ] && <action> || <action>`
 
 
-read {{c1::-p}} {{c1::"prompt msg"}} {{c1::<variable(s)>}}	argument	Prompt for infos, read and store them in &lt;variable(s)&gt;		#!/bin/bash<br><u>read -p </u>"Enter: name &amp; adjective " <u>NAME ADJ</u><br>echo "$NAME is $ADJ"<br>$ ~/myscript <br>Enter a name and an adjective Bart hair	Bart is hairy&nbsp;	Cloze
+##### for...do...
 
-read <variable(s)>	bash command	Read command-line input and store it in &lt;variable(s)&gt;		#!/bin/bash<br><u>read&nbsp;WORD</u><br>echo "$WORD, $WORD!"<br>$ ~/myfile	bye <br>bye, bye!	linux_01_code
+```
+for VAR in LIST
+do
+    body
+done
+```
+
+##### until...do...
+
+Until TRUE do ... ; if TRUE stop!
+
+```
+until [ cond ]
+do
+    body
+done
+```
+
+Note: Spaces in `[ cond ]` are mandatory
+
+##### while...do...
+
+while TRUE do ... ; if FALSE stop!
+
+```
+while [ cond ]
+do
+    body
+done
+```
+
+Note: Spaces in `[ cond ]` are mandatory!
+
+##### case
+
+Nested if-then-else statements
+
+```
+case VAR in
+Result1)
+     body;;
+Result2)
+    body;;
+...
+*)
+    body;;
+esac
+```
+
+Note: Spaces in `[ cond ]` are mandatory!
 
 
 
 
-if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>else<br>{{c1::elif [ cond ] ; then}}<br>&nbsp; expr2<br>else<br>&nbsp; expr3<br>fi	conditional execution	else..if statement	Spaces are mandatory!	filename="$HOME"<br>if [ -f "$filename" ] ; then<br>echo "$filename" is a regular file<br>elif [ -d "$filename" ] ; then<br>echo "$filename is a directory"<br>else<br>echo "idk what $filename is"<br>fi&nbsp;	/home/steven is a directory	Cloze
+
+
 
 [ {{c1::!}} {{c1::cond}} ]	test expression operator	Not [cond]!		if [ ! -e "$TODOLIST" ] ; then <br>&nbsp;&nbsp;&nbsp; touch ~/.todolist&nbsp;<br>&nbsp; &nbsp; echo "touched todolist"<br>fi	touched todolist	Cloze
+
 {{c1::[ cond ]}} {{c1::and&amp;}} {{c1::<action>}}	test expression operator	If [cond]=TRUE then &lt;action&gt;		#!/bin/bash<br>[ $# -ge 3 ] &amp;&amp; echo "There are &gt;=3 cmd-line args"&nbsp;<br>$ ./myscript test test test	There are &gt;=3 cmd-line args	Cloze
 
 
-{{c1::case}} {{c1::VAR}} {{c1::in}}<br>{{c1::Result1)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::Result2)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::*)}}<br>{{c1:: body }} {{c1::;;}}<br>{{c1::esac}}	command	Nested if..then..else\(^*\)	\(^*\) case command = switch command	#!/bin/bash<br>case `date +%a` in<br>&nbsp;&nbsp;&nbsp; "Mon")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "It's monday!" ;;<br>&nbsp;&nbsp;&nbsp; "Tue" | "Wed")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "It's tuesday or Wednesday!" ;;<br>&nbsp;&nbsp;&nbsp; *)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "blubb" ;;<br>esac	It's tuesday or Wednesday!	Cloze
+	
 
-{{c1::[ cond ]}} {{c1::and&amp;}} {{c1::<action>}} {{c1::||}} {{c1::&lt;action&gt;}}	test expression operator	Alternative one-line if...then...else		#!/bin/bash<br>dirname = /home/steven/baz<br>[ -e $dirname ] &amp;&amp; echo "$dirname exists!" || mkdir $dirname&nbsp;	/home/steven/baz exists! 	Cloze
 
 {{c1::[ cond ]}} {{c1::||}} {{c1::<action>}}	test expression operator	If [cond]=FALSE then &lt;action&gt;		#!/bin/bash<br>dirname="/home/steven/baz"<br>[ -d "$dirname" ] || mkdir&nbsp; "$dirname"	/home/steven/baz	Cloze
 
 [ {{c1::-n}}&nbsp;{{c1::string}} ]	tets expression operator	Is the length of <string> &gt;0 bytes?&nbsp;		#!/bin/bash<br>FILE="~/foo.txt"<br>if [ -n "$FILE" ] ; then<br>echo "$FILE is greater than 0 bytes"<br>fi	~/foo.txt is greater than 0 bytes&nbsp;	Cloze
-
-{{c1::for}} {{c1::VAR}} {{c1::in}} {{c1::LIST}}<br>{{c1::do}}<br>&nbsp; &nbsp; &nbsp;{{c1::body}}<br>{{c1::done}}	loop	for...do...loop		#!/bin/bash<br>for NUMBER in 0 1 2 3<br>do<br>&nbsp;&nbsp;&nbsp; let RESULT=$RANDOM+$NUMBER<br>&nbsp;&nbsp;&nbsp; echo $RESULT<br>done	22483 <br>16128 <br>27922 <br>10390	Cloze
-
-{{c1::until}} {{c1::[ cond ]}}<br>{{c1::do}}<br>&nbsp; &nbsp; {{c1::&nbsp;body}}<br>{{c1::done}}	loop	until...do...\(^*\)	\(^*\)until TRUE...do ; if TRUE stop!	#!/bin/bash<br>N=0<br>until [ $N -ge 10 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123456789	Cloze
-
-{{c1::while}} {{c1::[ cond ]}}<br>{{c1::do}}<br>&nbsp; &nbsp; &nbsp;{{c1::body}}<br>{{c1::done}}	loop	while...do...\(^*\)	\(^*\) while TRUE do... ; if FALSE stop	#!/bin/bash<br>N=0<br>while [ $N -lt 10 ] ; do<br>&nbsp;&nbsp;&nbsp; echo -n $N<br>&nbsp;&nbsp;&nbsp; let N=$N+1<br>done	123456789	Cloze
 
 
 help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
