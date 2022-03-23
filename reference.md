@@ -37,6 +37,23 @@ Being able to help yourself is a loyal companion! It comes in the form of the
 
 ---
 
+### Important Shorcuts 
+
+| Syntax | Description |
+| ------ | ----------- |
+| `Ctrl + Z` | Stop an active program
+| `Ctrl + L` | Clear the screen (Note: Useful when `bg` processes generate output |
+| `Ctrl + D` | Quit from shell |
+| `Ctrl + Alt + F[1-6]` | Switch between virtual consoles [1-6] |
+
+#### Fedora, Gnome 40
+
+| Syntax | Description |
+| ------ | ----------- |
+|` Ctrl + Alt + Tab` | Select different views |
+
+---
+
 ### General user and machine info 
 
 To find out about yourself--and in Linux the machine your working with--,
@@ -661,6 +678,7 @@ find	command	Find user-readable files/dirs\(^*\) live&nbsp;	\(^*\)below that poi
 | `find -type f -perm /002`	| Find every `<file>` that is writeable for others (Note: useful to find files which should only be writeable for root) |
 | `find -type f -ok rm {} \;` | Find & delete all files that match a pattern |
 
+---
 
 ##### grep
 
@@ -691,6 +709,7 @@ Standard output formula:
 | ------ | ----------- |
 | `grep -rl "[pattern]" <dir>` | Within `dir` find me all files where all the lines match the `[pattern]` |
 
+---
 
 #### Command essentials
 
@@ -718,6 +737,8 @@ Manipulation formula:
 <command> | <command> &
 ```
 
+---
+
 ### Transform characters, words and files
 
 | `tr` | Translate or delete characters		f
@@ -744,6 +765,7 @@ grep /home /etc/passwd | cut -f6 -d':' -
 | `wc -w` | Print the word count | 
 | `wc -m` | Print the char count | 
 
+---
 
 ### Managing Running Processes!
 
@@ -754,6 +776,8 @@ I familiarized with three ways to manage running processes:
 1. `ps`, `(re)nice`, and `fg/bg`
 2. `top`
 3. `gnome-system monitor`
+
+---
 
 #### ps
 
@@ -814,6 +838,8 @@ To manage running process you need to know how to put them in the background
 and bring them back to the foreground. Despite that, you need to be fluent in
 signaling processes.
 
+---
+
 ##### fg & bg 
 
     Rund a process in the foreground or background
@@ -839,6 +865,7 @@ signaling processes.
 | `SIGSTOP` | `17` | Stop a process |
 | `SIGCONT` | `19` | Continue a process |
 
+---
 
 ##### kill
 
@@ -863,6 +890,8 @@ kill -SIGKILL 19381
 kill 9 19381
 ```
 
+---
+
 ##### killall
 
     "Signal" (applies a *signal* to) a process by name 
@@ -886,6 +915,8 @@ killall -SIGTERM nvim
 killall 15 nvim 
 ```
 
+---
+
 ##### nice
 
     `Starts process with a given priority`
@@ -899,6 +930,8 @@ nice -n <+-><priority> <command>
 | Syntax | Description |
 | ------ | ----------- |
 | `nice -n +<n>` | Start a process with the given nice integer `<n>` |
+
+---
 
 ##### nice
 
@@ -917,6 +950,7 @@ nice -n <+-><priority> <PID>
 
     The nicer rule: The nicer a process is; the less CPU attraction it gets!
 
+---
 
 ##### cgroups
 
@@ -928,6 +962,8 @@ schedueling (cpi).
 | Syntax | Description |
 | ------ | ----------- |
 | `man cgroups` | Show me the `cgroups` man page |
+
+---
 
 ### Inspect & manage running processes!
 
@@ -953,6 +989,8 @@ schedueling (cpi).
 | `u <user>` | Show only `<user>` processes |
 | `g <group>` | Show only `<group>` processes |
 
+---
+
 #### gnome-system-monitor
 
 If you use `Gnome` as DE you can also use a comprehensive tool for processes,
@@ -964,6 +1002,8 @@ ressources and fs: the `gnome-system-monitor`.
 | `Ctrl + C` |	Continue the process |
 | `Ctrl + K` |	Kill the process (i.e., terminate it outright -- SIGKILL (9)) |
 | `Ctrl + E` |	End the process (i.e., terminate it cleanly -- SIGTERM (15)) |
+
+---
 
 ### Shell scripting!
 
@@ -978,6 +1018,16 @@ Note: Please make sure, the script is executable! E.g., using `chmod +x <file>`
 
     Important: Bash generally uses *untyped variables*. This means variables
     are strings unless you `declare` it otherwise!
+
+---
+
+#### Debugging
+
+| Syntax | Description |
+| ------ | ----------- |
+| `bash -x <script>` | Display each command executed (Note: set it near beginning of the script) |
+
+---
 
 #### Misc
 
@@ -998,6 +1048,8 @@ MYDATE=`date %D`
 ...script...
 
 ```
+
+---
 
 ##### Reading command-line input
 
@@ -1021,6 +1073,7 @@ $ ~/myscript
 Enter a name and an adjective 
 Bart hair
 ```
+---
 
 #### Arithmetic
 
@@ -1029,7 +1082,10 @@ Bart hair
 | `'$[arithmetic - operation]'` | Pass arithmetic result to a command |
 | `let` | Evaluate arithmetic expressions |
 | `bc` | Arbitrary precision calculator	|
-| `expr` | Evaluate (logical/mathematical) expressions	
+| `expr` | Evaluate (logical/mathematical) expressions |
+| `$((--I))` | Incrementally decrease `<I>` by 1 |
+| `$((I++))` | Incrementally increase `<I>` by 1 |
+
 
 **Useful examples**
 
@@ -1052,7 +1108,11 @@ echo RESULT
 BIGNUM=1024
 RESULT=`expr $BIGNUM / 16` ; 
 echo $RESULT
+
+I=0 ; echo "I + 1 = $((++I))"	
+I=0 ; echo "I - 1 = $((--I))"
 ```
+---
 
 #### Fundamentals
 
@@ -1066,6 +1126,7 @@ NAME=value
 | ------ | ----------- |
 | `NAME=value` | Assign variable `<NAME>` the `<VALUE>` `no spaces!`|
 
+---
 
 #### Shell (positional) parameters
 
@@ -1113,6 +1174,8 @@ NAME=value
     the first argument is foo, the second bar
 ```
 
+---
+
 #### Conditional execution
 
 ##### if...then...
@@ -1120,6 +1183,7 @@ NAME=value
 ```
 if [ cond ] ; then
     expr1
+fi
 ```
 
 Note: Spaces in `[ cond ]` are mandatory
@@ -1141,10 +1205,13 @@ fi
 
 Note: Spaces in `[ cond ]` are mandatory!
 
+---
+
 ##### Alternative one-line if...then...else
 
 `[ cond ] && <action> || <action>`
 
+---
 
 ##### for...do...
 
@@ -1154,6 +1221,7 @@ do
     body
 done
 ```
+---
 
 ##### until...do...
 
@@ -1168,6 +1236,8 @@ done
 
 Note: Spaces in `[ cond ]` are mandatory
 
+---
+
 ##### while...do...
 
 while TRUE do ... ; if FALSE stop!
@@ -1180,6 +1250,8 @@ done
 ```
 
 Note: Spaces in `[ cond ]` are mandatory!
+
+---
 
 ##### case
 
@@ -1199,71 +1271,87 @@ esac
 
 Note: Spaces in `[ cond ]` are mandatory!
 
+---
 
+#### Test expression operators 
 
+| Syntax | Description |
+| ------ | ----------- |
+| `help test` | Get help on test expression operators | 
+| | |
+| `[ ! cond ]` | Not [cond]!		
+| `[ cond ] && <action>` | If [cond]=TRUE then `<action>` |		
+| `[ cond ] || <action>` | If [cond]=TRUE then `<action>` |		
+| `[ -n ;string ]` | Is the length of <string> 0 bytes? 
+| `<sting> = <string>` | Are both *strings* equal?	
 
+**Useful examples**
 
+```
+#!/bin/bash
+if [ ! -e "$TODOLIST" ] ; then 
+touch ~/.todolist
+echo "touched todolist"
+fi
 
+#!/bin/bash
+[ $# -ge 3 ] && echo "There are more than 3 cmd-line args"
 
-[ {{c1::!}} {{c1::cond}} ]	test expression operator	Not [cond]!		if [ ! -e "$TODOLIST" ] ; then <br>&nbsp;&nbsp;&nbsp; touch ~/.todolist&nbsp;<br>&nbsp; &nbsp; echo "touched todolist"<br>fi	touched todolist	Cloze
+#!/bin/bash
+[ $# -ge 3 ] || echo "There are less than 3 cmd-line args"
 
-{{c1::[ cond ]}} {{c1::and&amp;}} {{c1::<action>}}	test expression operator	If [cond]=TRUE then &lt;action&gt;		#!/bin/bash<br>[ $# -ge 3 ] &amp;&amp; echo "There are &gt;=3 cmd-line args"&nbsp;<br>$ ./myscript test test test	There are &gt;=3 cmd-line args	Cloze
+#!/bin/bash
+FILE="~/foo.txt"
+if [ -n "$FILE" ] ; then
+echo "$FILE is greater than 0 bytes"
+fi
 
+#!/bin/bash
+STRING="friday"
+if [ "$STRING" = "friday" ] ; then
+echo "Yippie, it's friday!"
+fi	
+```
+---
 
-	
+#### Bash parameter expansion
 
+| `${VAR}` | The longform of $VAR |		
+| `{var:-value}` | If <var> is empty or unset, expand it to `<value>` |
+| `${var#pattern}` | Chop the `<shortest>` match for `<pattern>` from the *front* of `<vars>` value	|
+| `${var##pattern}`| Chop the `<longest>` match for `<pattern>` from the *front* of `<vars>` value |
+| `${var%pattern}`| Chop the `<shortest>` match for `<pattern>` from the *end* of `<vars>` value |
+| `${var%%pattern}`| Chop the `<longest>` match for `<pattern>` from the *end* of `<vars>` value |
 
-{{c1::[ cond ]}} {{c1::||}} {{c1::<action>}}	test expression operator	If [cond]=FALSE then &lt;action&gt;		#!/bin/bash<br>dirname="/home/steven/baz"<br>[ -d "$dirname" ] || mkdir&nbsp; "$dirname"	/home/steven/baz	Cloze
+**Useful examples**
 
-[ {{c1::-n}}&nbsp;{{c1::string}} ]	tets expression operator	Is the length of <string> &gt;0 bytes?&nbsp;		#!/bin/bash<br>FILE="~/foo.txt"<br>if [ -n "$FILE" ] ; then<br>echo "$FILE is greater than 0 bytes"<br>fi	~/foo.txt is greater than 0 bytes&nbsp;	Cloze
+```
+#!/bin/bash
+read -p "Enter a word!" WORD 
+echo "$WORD = ${WORD}"	
 
+#!/bin/bash
+FOO="Example" ; FOO=${FOO:-"Not Set"}
+echo $FOO
 
-help test	command	Get help with <i>test expression operators</i>		help test	File operators: <br>&nbsp;-a FILE&nbsp; &nbsp;True if file exists. <br>&nbsp;-b FILE&nbsp; &nbsp;True if file is block special. <br>&nbsp;-c FILE&nbsp; &nbsp;True if file is character special.	linux_01_code
+#!/bin/bash
+MYFILE=/home/steven/foo.txt
+<br>FILE=${MYFILE##*/} ; echo $FILE
 
-${VAR}	shell scripting	The longform of $VAR		#!/bin/bash<br>read -p "Enter a word! " WORD <br>echo "<u>$WORD = ${WORD}</u>"	Enter a word! foo&nbsp;<br>foo = foo&nbsp;	linux_01_code
+#!/bin/bash
+MYPATH=/home/steven/foo.txt
+DIR=${MYPATH%/*} ; echo $DIR
 
-${var:-value}	bash parameter expansion	If <var> is empty or unset, expand it to &lt;value&gt;		FOO="Example" ; FOO=${FOO:-"Not Set"} ; echo $FOO	Example	linux_01_code
+#!/bin/bash
+MYPATH=/home/steven/foo.txt
+EXTENSION=${MYPATH#*.} ; echo $EXTENSION
 
-${var##pattern}	bash parameter expansion	Chop\(^*\) the <i>longest</i> match for <pattern> from the <i>front</i> of &lt;var&gt;s value	\(^*\)abhacken	MYFILE=/home/steven/foo.txt&nbsp;<br>FILE=${MYFILE##*/} ; echo $FILE	foo.txt	linux_01_code
+#!/bin/bash
+MYPATH=home/steven/foo.txt
+MYHOME=${MYPATH%%/*} ; echo $MYHOME	
+```
 
-${var%pattern}	bash parameter expansion	Chop\(^*\) the&nbsp;<i>shortest</i>&nbsp;match for <pattern> from the&nbsp;<i>end</i>&nbsp;of &lt;var&gt;s value	\(^*\)abhacken	MYPATH=/home/steven/foo.txt<br>DIR=${MYPATH%/*} ; echo $DIR	/home/steven	linux_01_code
-
-${var#pattern}	bash parameter expansion	Chop\(^*\) the&nbsp;<i>shortest</i>&nbsp;match for <pattern> from the&nbsp;<i>front</i>&nbsp;of &lt;var&gt;s value	\(^*\)abhacken	MYPATH=/home/steven/foo.txt<br>EXTENSION=${MYPATH#*.} ; echo $EXTENSION	txt	linux_01_code
-
-${var%%pattern}	bash parameter expansion	Chop\(^*\) the&nbsp;<i>longest</i>&nbsp;match for <pattern> from the&nbsp;<i>end</i>&nbsp;of &lt;var&gt;s value	\(^*\)abhacken	MYPATH=home/steven/foo.txt<br>MYHOME=${MYPATH%%/*} ; echo $MYHOME	home	linux_01_code
-
-<sting> = <string>;	test expression operator	Are both strings equal?		STRING="friday"<br>if [ "$STRING" = "friday" ] ; then<br>echo "Yippie, it's friday!"&nbsp;<br>fi	Yippie, it's friday!&nbsp;	linux_01_code
-
-
-$((--I))	shell script arithmetic	Incrementally decrease <I> by 1		I=0 ; echo "I - 1 = $((--I))"&nbsp;	I - 1 = 0	linux_01_code
-
-$((I++))	shell script arithmetic	Incrementally increase <I> by 1		I=0 ; echo "I + 1 = $((++I))"	I + 1 = 1	linux_01_code
-
-
-{{c1::if}} {{c1::[ cond ]}} {{c1::;}} {{c1::then}}<br>&nbsp; &nbsp;{{c1::expr}}<br>{{c1::fi}}	conditional execution	If...then statement	Spaces are mandatory!	MYVAR=1<br>if [ $MYVAR -eq 1 ] ; then<br>&nbsp; &nbsp;echo "MYVAR is set to 1"<br>fi	MYVAR is set to 1&nbsp;	Cloze
-
-if [ cond ] ; then<br>&nbsp; &nbsp;expr1<br>{{c1::else}}<br>&nbsp; &nbsp;expr2<br>fi	conditional execution	If...then...else statement	Spaces are mandatory!	MYVAR=2<br>if [ $MYVAR = 1 ] ; then<br>&nbsp; &nbsp;echo "MYVAR = 1"<br>else<br>&nbsp; &nbsp;echo "MYVAR != 1"<br>fi	MYVAR != 1	Cloze
-
-
-#### Debugging
-
-bash {{c1::-x}} <script>	option	Display each command executed\(^*\)	\(^*\)set near beginning of the script	bash -x test	+ echo hello <br>hello	Cloze
-
-
-## shortcuts
-
-Ctrl + Alt + Tab	Shortcut	<div>Select different views<br></div>				linux_01_code
-
-Ctrl + D	shortcut	Quit from shell				linux_01_code
-
-Ctrl + Alt + F[1-6]	Shortcut	Switch between virtual consoles [1-6]				linux_01_code
-
-Ctrl + Z	shell shortcut	Stop an active program			[1]+&nbsp; Stopped&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvim&nbsp;	linux_01_code
-
-Ctrl + L	shell shortcut&nbsp;	Clear the screen\(^*\)	\(^*\)useful when bg processes generate output			linux_01_code
-
-
-
+---
 
 --------------------------------------------------------------------------------
 
