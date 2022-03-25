@@ -1316,6 +1316,8 @@ fi
 
 #### Bash parameter expansion
 
+| Syntax | Description |
+| ------ | ----------- |
 | `${VAR}` | The longform of $VAR |		
 | `{var:-value}` | If <var> is empty or unset, expand it to `<value>` |
 | `${var#pattern}` | Chop the `<shortest>` match for `<pattern>` from the *front* of `<vars>` value	|
@@ -1353,16 +1355,40 @@ MYHOME=${MYPATH%%/*} ; echo $MYHOME
 
 ---
 
---------------------------------------------------------------------------------
+## Becoming a Linux System Administrator
+
+
+### Directories & files
+
+I got most of the information from the Linux foundation page
+(https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html). Since Fedora uses
+the File System Hierarchy Standards (FHS) its a great source.
+
+| Syntax | Description |
+| ------ | ----------- |
+| `/` | Root (directory) of the fs |	
+|||
+| /root | Home directory for the root user |
+| `/var` | Variable data files	(e.g. administrative and logging data, spool directories &amp; files) |
+| `/mnt` | (Mount point for temporarily mounted filesystems) |
+| `/opt` | Add-on application software packages (3rd-party) |
+| `/media` | Mount point for removeable media |
+| `/srv` |	Data for system services |
+| `/tmp` | Temporary files	(i.e., lock files and temporry data storage) |
+| `/lib` | Essential shared libraries and kernel modules (e.g., the C programming code library needed to boot the system and run the commands in the root filesystem) | 
+| `/proc` | Pseudo filesystem documenting the kernel and processes as text files (i.e., the information base for commands displaying running processes) |
+| `/sbin`	|  Sytem binaries (i.e., commands to boot, restore, recover or repair the system -- in addition to binaries in /bin)	| 
+| `/usr`	| (Multi-)user utilities and applications (i.e., everything available to the Linux use, like binaries, their documentation, libraries, header files)
+| `/bin` | Essential user command binaries (i.e., commands for the system admin and non-privileged users, like bash, csh, cp, mv, rm, cat, ls) |
+| `/boot` |	Static bootloader files	(e.g. Linux kernel, initrd)	
+| `/dev` |	Device files (e.g., disks, cpu, memory, udevd) |
+| `/etc` |	Host-specific system configurations	(i.e., the major location of system-wide config files |
 
 
 
 
 
-
-
-
-## directories & files
+/lib/modules	system directory	Kernel modules		ls /lib/modules | tail	5.15.8-200.fc35.x86_64/	linux_01_code
 
 {{c1::httpd}} {{c1::-t}}	command and option	Check the sanity of Apache config\(^*\)	\(^*\)before the web server is started			Cloze
 
@@ -1390,26 +1416,9 @@ run/media/<user>	dynamic system directory	Mountpoint for USB devices	\(^*\)inste
 
 /var/www	system directory	Web server directory				linux_01_code
 
-/var	system directory (II)	Variable data files	e.g. administrative and logging data, spool directories &amp; files,			linux_01_code
-
-/mnt	system directory (II)	Mount point for temporarily mounted filesystems				linux_01_code
-
-/opt	system directory (II)	Add-on application software packages\(^*\)	\(^*\)3rd-party			linux_01_code
-
-/media	system directory (II)	Mount point for removeable media				linux_01_code
-
-/srv	system directory (II)	<i>Data</i> for system services				linux_01_code
-
-/tmp	system directory (II)	Temporary files	\(^*\)lock files and temporry data storage			linux_01_code
-
-/root	system directory (II)	Home directory for the root user				linux_01_code
 
 /etc/default/grub	system file (III)	Configures <i>update-grub</i>\(^*\)&nbsp;	\(^*\)for generating&nbsp;<em>/boot/grub/grub.cfg</em>			linux_01_code
 
-
-/bin	system directory (II)	Essential user command binaries\(^*\)	\(^*\)I.e.: Commands for the system admin&nbsp;<i>and</i>&nbsp;non-privileged users (e.g.; bash, csh, cp, mv, rm, cat, ls). That's why in contrast to /usr/bin, the binaries in this directory are essential.	<a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s04.html">https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s04.html</a>		linux_01_code
-
-/boot	system directory (II)	Static bootloader files	(e.g. Linux kernel, initrd)	<a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s05.html">https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s05.html</a>		linux_01_code
 
 /etc/profile	system file	(System-wide) commands the log-in shell executes	Execute: @1st login<br>Overwritten: by ~/.profile<br><br>Use: location of mailbox, size of history files (i.e., system-wide environment variables)&nbsp;and startup programs	<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://gnu.org/software/bash/manual/bash.html#Shell-Variables</a>		linux_01_code
 
@@ -1430,12 +1439,6 @@ run/media/<user>	dynamic system directory	Mountpoint for USB devices	\(^*\)inste
 
 /dev/shm	dynamic system directory	The system's virtual memory file system		df	tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8131940&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 752&nbsp;&nbsp; 8131188&nbsp;&nbsp; 1% /dev/shm&nbsp;<br>/dev/nvme0n1p3 481666048 44402684 436272804&nbsp; 10% /home <br>/dev/nvme0n1p2&nbsp;&nbsp;&nbsp; 999320&nbsp;&nbsp; 249504&nbsp;&nbsp;&nbsp; 681004&nbsp; 27% /boot	linux_01_code
 
-/	system directory (I)	Root (directory) of the fs	Fedora uses the File System Hierarchy Standard<br><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html">https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html</a>	ls /	bin/ dev/&nbsp; home/&nbsp; lib64@&nbsp;&nbsp;&nbsp;&nbsp; media/&nbsp; opt/&nbsp;&nbsp;&nbsp; root/&nbsp; sbin@&nbsp; sys/&nbsp; usr/ <br>boot/&nbsp; etc/&nbsp; lib@&nbsp;&nbsp; lost+found/&nbsp; mnt/&nbsp;&nbsp;&nbsp;&nbsp; proc/&nbsp;&nbsp;&nbsp; run/&nbsp;&nbsp; srv/&nbsp;&nbsp; tmp/&nbsp; var/<br><div></div>	linux_01_code
-
-/dev	system directory (II)	Device files	e.g., disks, cpu, memory (~<b>udevd</b>)<br><br><a href="https://docs.fedoraproject.org/en-US/Fedora/14/html/Storage_Administration_Guide/s1-filesystem-fhs.html">https://docs.fedoraproject.org/en-US/Fedora/14/html/Storage_Administration_Guide/s1-filesystem-fhs.html</a>	ls /dev	nvme0n1 sda cpu/ mem	linux_01_code
-
-/etc	system directory (II)	Host-specific system configurations	I.e.: the major location of&nbsp;<i>system-wide</i>&nbsp;config files<br><br><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s07.html">https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s07.html</a>	ls /etc	kernel lvm cups cockpit nfs.conf	linux_01_code
-
 /etc/cups	system directory	Global config files for CUPS	e.g., default print server	ls /etc/cups	classes.conf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>client.conf	linux_01_code
 
 tail	command	Output only the <i>last</i> parts of a file/standard output\(^*\)	\(^*\)default is 10	ls /etc/modules | tail	5.14.16-301.fc35.x86_64/ <br>5.14.17-301.fc35.x86_64/ <br>5.14.18-300.fc35.x86_64/&nbsp;	linux_01_code
@@ -1447,16 +1450,6 @@ head	command&nbsp;	Output only the <i>first</i> parts of a file/standard output\
 /etc/systemd	system directory	Configuration files for Systemd		ls /etc/systemd	journald.conf coredump.conf	linux_01_code
 
 /etc/X11	system directory	Global config files for the X window system (xorg)		ls /etc/X11	xinit/&nbsp; Xmodmap&nbsp; xorg.conf.d/&nbsp; Xresources&nbsp; Xsession.d/&nbsp;	linux_01_code
-
-/lib	system directory (II)	Essential shared libraries and kernel modules	e.g. the C programming code library needed to boot the system and run the commands in the root filesystem	ls /lib	grub&nbsp; &nbsp;modeprobe.d&nbsp; &nbsp; systemd&nbsp; &nbsp; rpm	linux_01_code
-
-/lib/modules	system directory	Kernel modules		ls /lib/modules | tail	5.15.8-200.fc35.x86_64/	linux_01_code
-
-/proc	system directory (II)	Pseudo fs documenting the kernel and processes as text files	I.e.: The information base for commands displaying running processes	ls /proc&nbsp;	/&nbsp;&nbsp;&nbsp;&nbsp; 17/&nbsp;&nbsp;&nbsp; 2025/&nbsp;&nbsp; 29848/ cpuinfo	linux_01_code
-
-/sbin	system directory (II)	Sytem binaries	\(^*\)I.e. commands to boot, restore, recover or repair the system (in addition to binaries in /bin)	ls /sbin	fsck.8.gz<br>swapon*&nbsp;	linux_01_code
-
-/usr	system directory (II)	(Multi-)user utilities and applications	I.e.: Everything available to the Linux user<br>E.g. binaries, their documentation, libraries, header files	ls /usr	bin/&nbsp; games/&nbsp; lib/&nbsp; libexec/&nbsp; sbin/&nbsp;&nbsp; src/ <br>etc/&nbsp; include/&nbsp; lib64/&nbsp; local/&nbsp; &nbsp;share/&nbsp; tmp@&nbsp;	linux_01_code
 
 /usr/sbin	system directory	Commands to manage the user accounts, holding files open, daemon processes, printers, service requests		ls /usr/sbin	wpa_supplicant* <br>mkfs.ext3*<br>cupsd<br>sshd	linux_01_code
 
