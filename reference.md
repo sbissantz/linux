@@ -1383,8 +1383,39 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `/boot` |	Static bootloader files	(e.g. Linux kernel, initrd)	
 | `/dev` |	Device files (e.g., disks, cpu, memory, udevd) |
 | `/etc` |	Host-specific system configurations	(i.e., the major location of system-wide config files |
+|||
+| `/etc/cron*` | Place, where services and applications generally add cron job files	\(^*\)<b>cron.d/</b> cron.daily cron.weekly cron.montly			linux_01_code
+| `/etc/crontab` | Set time for running automated tasks and varibles (Note: associated with the cron facility |
+| `/etc/cups` | Global config files for CUPS (e.g., default print server) |
+| `/etc/default/grub` | Configures <i>update-grub</i>\(^*\)&nbsp;	\(^*\)for generating&nbsp;<em>/boot/grub/grub.cfg</em>			linux_01_code
+| `/etc/exports` |	Lists local directories which can be shared via NFS |
+| `/etc/fstab` | Decides where to mount all partitions available to the system |
+| `/etc/hosts` | Maps IP addresses to their hostnames (i.e., to store private networks and names of computers on LAN) |
+| `/etc/hostname` | Sets the hostname for the machine |	
+| `/etc/passwd` | Contains user account info (e.g., home, shell..)
+| `/etc/shells` | Lists all avalable shells	|
+| `/etc/systemd` | Configuration files for Systemd |
+| `/etc/skel` |	Global configs copied to any *new* user's /home/user (i.e., when he/she is added to the system) |
+| `/etc/sudoers` | Manages (root) users and group priveleges using sudo	|	
+| `/etc/xinetd.conf` | Configures xinetd |
+| `/etc/X11` | Config files for the X window system (xorg) |	
+| `/etc/X11/xorg.conf` | Makes your computer usable with X |
+|||
+| `/etc/bashrc`	| (System-wide) commands every non-login shell executes	- executes: @1st login, opening<br>- overwritten by ~/.bashrc			linux_01_code
+| `/etc/profile` | (System-wide) commands the log-in shell executes	(Execute: @1st login & overwritten: by `~/.profile`. Use: location of mailbox, size of history files; i.e., system-wide environment variables) and startup programs |	
+| `/etc/profile.d` | Dir from which /etc/profile gathers shell settings (execute: @1st log in |
+|||
+| `/var/ftp` | FTP directory |
+| `/var/www` | Web server directory |
+| `/var/log/boot.log` | Boot messages gathered by rsyslogd (Note: replaced by Systemd) |
+| `/var/log/messages` | General system infos gathered by rsyslogd (Note: replaced by Systemd) |
+| `/var/log/secure` | Security related messages gathered by rsyslogd (Note: replaced by Systemd) |
 
+run/media/<user>	dynamic system directory	Mountpoint for USB devices	\(^*\)instead of /mnt			linux_01_code
 
+/usr/sbin	system directory	Commands to manage the user accounts, holding files open, daemon processes, printers, service requests		ls /usr/sbin	wpa_supplicant* <br>mkfs.ext3*<br>cupsd<br>sshd	linux_01_code
+
+/usr/share/man/man8	system folder	A list of all administrative commands	I.e.: Intented for the system administrator	ls /usr/share/man/man8 | less	clock.8.gz <br>cockpit-tls.8.gz&nbsp;	linux_01_code
 
 
 
@@ -1394,52 +1425,14 @@ the File System Hierarchy Standards (FHS) its a great source.
 
 testparm	command	Check the sanity of samba.conf				linux_01_code
 
-/etc/cron*	system directories	Place, where services and applications generally add cron job files	\(^*\)<b>cron.d/</b> cron.daily cron.weekly cron.montly			linux_01_code
-
-/etc/crontab	system file	Set time for running automated tasks and varibles\(^*\)	\(^*\)associated with the cron facility			linux_01_code
-
-/etc/exports	system file	Lists local directories which can be shared via NFS				linux_01_code
-
-/etc/xinetd.conf	system file	Configures xinetd				linux_01_code
-
-/etc/X11/xorg.conf	system file	Makes your computer usable with X				linux_01_code
-
-/var/log/boot.log	system file	Boot messages gathered by rsyslogd\(^*\)	\(^*\)replaced by systemd			linux_01_code
-
-/var/log/messages	system file	General system infos gathered by rsyslogd\(^*\)	\(^*\)replaced by systemd			linux_01_code
-
-/var/log/secure	system file	Security related messages gathered by rsyslogd				linux_01_code
-
-run/media/<user>	dynamic system directory	Mountpoint for USB devices	\(^*\)instead of /mnt			linux_01_code
-
-/var/ftp	sytem directory	FTP directory				linux_01_code
-
-/var/www	system directory	Web server directory				linux_01_code
-
-
-/etc/default/grub	system file (III)	Configures <i>update-grub</i>\(^*\)&nbsp;	\(^*\)for generating&nbsp;<em>/boot/grub/grub.cfg</em>			linux_01_code
-
-
-/etc/profile	system file	(System-wide) commands the log-in shell executes	Execute: @1st login<br>Overwritten: by ~/.profile<br><br>Use: location of mailbox, size of history files (i.e., system-wide environment variables)&nbsp;and startup programs	<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://gnu.org/software/bash/manual/bash.html#Shell-Variables</a>		linux_01_code
+/home	system directory	User Home Directories	Major location of&nbsp;<i>personal</i>&nbsp;config files	ls ~/.*	.R .ssh .local .vim&nbsp;	linux_01_code
 
 ~/.bash_profile	system file	(User) commands the log-in shell executes	Execute: @1st log-in<br>Use: enviornment variables	<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://gnu.org/software/bash/manual/bash.html#Shell-Variables</a>		linux_01_code
-
-
-/etc/fstab	system file	Decides where to mount all partitions available to the system		cat /etc/fstab	/dev/nvme0n1p3 / btrfs&nbsp;&nbsp; subvol=root,compress=zstd:1 0 0	linux_01_code
-
-/etc/hostname	system file	Sets the hostname for the machine		cat /etc/hostname	eryn	linux_01_code
-
-/etc/hosts	system file	Maps IP addresses to their hostnames\(^*\)	\(^*\)to store private networks and names of computers on LAN	cat /etc/hosts	127.0.0.1&nbsp; localhost4 localhost4.localdomain4 <br>::1&nbsp; &nbsp; &nbsp; &nbsp; localhost6 localhost6.localdomain6	linux_01_code
-
-/etc/passwd	system file	Contains user account info	e.g., home, shell..	cat /etc/passwd | grep "root"	root:x:0:0:root:/root:/bin/bash&nbsp;<br>steven:x:1000:1000:Steven :/home/steven:/bin/bash	linux_01_code
-
-/etc/shells	system file	Lists all avalable shells		cat /etc/shells	/bin/sh <br>/bin/bash <br>/bin/tmux&nbsp;	linux_01_code
 
 
 
 /dev/shm	dynamic system directory	The system's virtual memory file system		df	tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8131940&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 752&nbsp;&nbsp; 8131188&nbsp;&nbsp; 1% /dev/shm&nbsp;<br>/dev/nvme0n1p3 481666048 44402684 436272804&nbsp; 10% /home <br>/dev/nvme0n1p2&nbsp;&nbsp;&nbsp; 999320&nbsp;&nbsp; 249504&nbsp;&nbsp;&nbsp; 681004&nbsp; 27% /boot	linux_01_code
 
-/etc/cups	system directory	Global config files for CUPS	e.g., default print server	ls /etc/cups	classes.conf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>client.conf	linux_01_code
 
 tail	command	Output only the <i>last</i> parts of a file/standard output\(^*\)	\(^*\)default is 10	ls /etc/modules | tail	5.14.16-301.fc35.x86_64/ <br>5.14.17-301.fc35.x86_64/ <br>5.14.18-300.fc35.x86_64/&nbsp;	linux_01_code
 
@@ -1447,27 +1440,13 @@ head	command&nbsp;	Output only the <i>first</i> parts of a file/standard output\
 
 
 
-/etc/systemd	system directory	Configuration files for Systemd		ls /etc/systemd	journald.conf coredump.conf	linux_01_code
-
-/etc/X11	system directory	Global config files for the X window system (xorg)		ls /etc/X11	xinit/&nbsp; Xmodmap&nbsp; xorg.conf.d/&nbsp; Xresources&nbsp; Xsession.d/&nbsp;	linux_01_code
-
-/usr/sbin	system directory	Commands to manage the user accounts, holding files open, daemon processes, printers, service requests		ls /usr/sbin	wpa_supplicant* <br>mkfs.ext3*<br>cupsd<br>sshd	linux_01_code
-
-/usr/share/man/man8	system folder	A list of all administrative commands	I.e.: Intented for the system administrator	ls /usr/share/man/man8 | less	clock.8.gz <br>cockpit-tls.8.gz&nbsp;	linux_01_code
 
 
-/etc/skel	system directory	Global configs copied to any <i>new</i> user's <i>/home/user</i>\(^*\)	\(^*\)i.e.: when he/she is added to the system	ls -a /etc/skel	.bash_logout&nbsp; .bash_profile&nbsp; .bashrc	linux_01_code
 
-/home	system directory	User Home Directories	Major location of&nbsp;<i>personal</i>&nbsp;config files	ls ~/.*	.R .ssh .local .vim&nbsp;	linux_01_code
 
 
 /dev/sd<...>	dynamic system directory	USB devices		lsblk	sda&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8:0&nbsp;&nbsp;&nbsp; 1&nbsp; &nbsp; &nbsp;15G&nbsp; 0 Massstorage	linux_01_code
 
-/etc/sudoers	system file	Manages (root) users and group priveleges using sudo		sudo cat /etc/sudoers | grep "root"	## Allow root to run any commands anywhere  <br>root&nbsp;&nbsp;&nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp;&nbsp; ALL&nbsp;	linux_01_code
-
-/etc/profile.d	system directory	Dir from which /etc/profile gathers shell settings	execute: first log in			linux_01_code
-
-/etc/bashrc	system file	(System-wide) commands every non-login shell executes	- executes: @1st login, opening<br>- overwritten by ~/.bashrc			linux_01_code
 
 ~/.bashrc	system file	(User) commands every non-login shell executes	Executes: @login, opening<br>Use: aliases			linux_01_code
 
