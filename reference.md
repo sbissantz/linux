@@ -167,6 +167,22 @@ In the `ls` output you might find:
 
 ---
 
+#### tail & head
+
+| Syntax | Description |
+| ------ | ----------- |
+| `tail` | Output only the last parts of a file/standard output (default is 10) |
+| `head` | Output only the first parts of a file/standard output (default is 10) |
+
+**Useful Examples**
+
+```
+ls /etc/modules | tail
+journalctl --list-boots | head
+```
+
+---
+
 #### date
 
 formula
@@ -1364,11 +1380,12 @@ I got most of the information from the Linux foundation page
 (https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html). Since Fedora uses
 the File System Hierarchy Standards (FHS) its a great source.
 
-| Syntax | Description |
+| File/Dir | Description |
 | ------ | ----------- |
 | `/` | Root (directory) of the fs |	
 |||
-| /root | Home directory for the root user |
+| `/root` | Home directory for the root user |
+| `/home` |	User Home Directories (i.e., major location of *personal* config files) |
 | `/var` | Variable data files	(e.g. administrative and logging data, spool directories &amp; files) |
 | `/mnt` | (Mount point for temporarily mounted filesystems) |
 | `/opt` | Add-on application software packages (3rd-party) |
@@ -1401,8 +1418,11 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `/etc/X11` | Config files for the X window system (xorg) |	
 | `/etc/X11/xorg.conf` | Makes your computer usable with X |
 |||
-| `/etc/bashrc`	| (System-wide) commands every non-login shell executes	- executes: @1st login, opening<br>- overwritten by ~/.bashrc			linux_01_code
-| `/etc/profile` | (System-wide) commands the log-in shell executes	(Execute: @1st login & overwritten: by `~/.profile`. Use: location of mailbox, size of history files; i.e., system-wide environment variables) and startup programs |	
+| `~/.bash_profile`| (User) commands the log-in shell executes (executes: @1st log-in, use: enviornment variables) |
+| `~/.bashrc` |	(User) commands every non-login shell executes	(executes: @login, openin, use: aliases) |
+| `~/.bash_logout` | (User) commands executed each time you log out |
+| `/etc/bashrc`	| (System-wide) commands every non-login shell executes	(executes: @1st login, opening<br>- overwritten by `~/.bashrc)` |
+| `/etc/profile` | (System-wide) commands the log-in shell executes	(executes: @1st login & overwritten: by `~/.profile`. Use: location of mailbox, size of history files; i.e., system-wide environment variables) and startup programs |	
 | `/etc/profile.d` | Dir from which /etc/profile gathers shell settings (execute: @1st log in |
 |||
 | `/var/ftp` | FTP directory |
@@ -1410,33 +1430,27 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `/var/log/boot.log` | Boot messages gathered by rsyslogd (Note: replaced by Systemd) |
 | `/var/log/messages` | General system infos gathered by rsyslogd (Note: replaced by Systemd) |
 | `/var/log/secure` | Security related messages gathered by rsyslogd (Note: replaced by Systemd) |
+|||
+| `run/media/<user>` | Mountpoint for USB devices (instead of `/mnt` |
+|||
+| `/usr/sbin` |	Commands to manage the user accounts, holding files open, daemon processes, printers, service requests |	
+| `/usr/share/man/man8`	| A list of all administrative commands	(i.e., intented for the system administrator) |
+| `usr/local/bin` | Directories to add my commands (directories are usually added to $PATH, can overwrite commands of the same name) |
+| `usr/local/sbin`| Directories to add my commands (directories are usually added to $PATH, can overwrite commands of the same name) |
+|||
+| `/opt/bin` | 3rd party commands (not included with the Linux distro) |
+|||
+| `/lib/modules` | Kernel modules |	
+|||
+| `/dev/shm` |	The system's virtual memory file system |
+| `/dev/sd<...>` |	USB devices |
 
-run/media/<user>	dynamic system directory	Mountpoint for USB devices	\(^*\)instead of /mnt			linux_01_code
+#### Checking the sanity of directories & files
 
-/usr/sbin	system directory	Commands to manage the user accounts, holding files open, daemon processes, printers, service requests		ls /usr/sbin	wpa_supplicant* <br>mkfs.ext3*<br>cupsd<br>sshd	linux_01_code
-
-/usr/share/man/man8	system folder	A list of all administrative commands	I.e.: Intented for the system administrator	ls /usr/share/man/man8 | less	clock.8.gz <br>cockpit-tls.8.gz&nbsp;	linux_01_code
-
-
-
-/lib/modules	system directory	Kernel modules		ls /lib/modules | tail	5.15.8-200.fc35.x86_64/	linux_01_code
-
-{{c1::httpd}} {{c1::-t}}	command and option	Check the sanity of Apache config\(^*\)	\(^*\)before the web server is started			Cloze
-
-testparm	command	Check the sanity of samba.conf				linux_01_code
-
-/home	system directory	User Home Directories	Major location of&nbsp;<i>personal</i>&nbsp;config files	ls ~/.*	.R .ssh .local .vim&nbsp;	linux_01_code
-
-~/.bash_profile	system file	(User) commands the log-in shell executes	Execute: @1st log-in<br>Use: enviornment variables	<a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables">https://gnu.org/software/bash/manual/bash.html#Shell-Variables</a>		linux_01_code
-
-
-
-/dev/shm	dynamic system directory	The system's virtual memory file system		df	tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8131940&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 752&nbsp;&nbsp; 8131188&nbsp;&nbsp; 1% /dev/shm&nbsp;<br>/dev/nvme0n1p3 481666048 44402684 436272804&nbsp; 10% /home <br>/dev/nvme0n1p2&nbsp;&nbsp;&nbsp; 999320&nbsp;&nbsp; 249504&nbsp;&nbsp;&nbsp; 681004&nbsp; 27% /boot	linux_01_code
-
-
-tail	command	Output only the <i>last</i> parts of a file/standard output\(^*\)	\(^*\)default is 10	ls /etc/modules | tail	5.14.16-301.fc35.x86_64/ <br>5.14.17-301.fc35.x86_64/ <br>5.14.18-300.fc35.x86_64/&nbsp;	linux_01_code
-
-head	command&nbsp;	Output only the <i>first</i> parts of a file/standard output\(^*\)	\(^*\)default is 10	journalctl --list-boots | head&nbsp;	-52 e26fdjdahjhdas 2021-09-07 14:42:45 CEST&nbsp;	linux_01_code
+| Syntax | Description |
+| ------ | ----------- |
+| `httpd -t` |	Check the sanity of Apache config (before the web server is started) |
+| `testparm` |	Check the sanity of samba.conf |
 
 
 
@@ -1444,20 +1458,6 @@ head	command&nbsp;	Output only the <i>first</i> parts of a file/standard output\
 
 
 
-
-/dev/sd<...>	dynamic system directory	USB devices		lsblk	sda&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8:0&nbsp;&nbsp;&nbsp; 1&nbsp; &nbsp; &nbsp;15G&nbsp; 0 Massstorage	linux_01_code
-
-
-~/.bashrc	system file	(User) commands every non-login shell executes	Executes: @login, opening<br>Use: aliases			linux_01_code
-
-~/.bash_logout	system file	(User) commands executed each time you log out				linux_01_code
-
-
-<ol><li>{{c1::usr/local/bin}}</li><li>{{c1::usr/local/sbin}}</li></ol>	system directory	Directories to add my commands	\(^* \because\) directories are usually added to $PATH, can overwrite commands of the same name	ls /usr/local/bin		Cloze
-
-<ol><li>{{c1::/usr/local/bin}}</li><li>{{c1::/usr/local/sbin}}</li><li>{{c2::/opt/bin}}</li></ol>	system directories	3rd party commands\(^*\)	\(^*\)not included with the Linux distro	ls /usr/local/bin		Cloze
-
-system directories	<ol><li>{{c1::/usr/local/bin}}</li><li>{{c1::/usr/local/sbin}}</li><li>{{c2::/opt/bin}}</li></ol>	3rd party commands\(^*\)	\(^*\)not included with the Linux distro	ls /usr/local/bin		Cloze
 
 
 
