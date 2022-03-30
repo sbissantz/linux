@@ -985,8 +985,10 @@ schedueling (cpi).
 
 #### top
 
+    `top` is a 	real time TUI for processes
+
 | Key combo | Description |
-| ------ | ----------- |
+| `h` | Get help options |
 | `k <PID> 9` | Kill the process `<PID>` outright |
 | `k <PID> 15` | Kill the process `<PID>` cleanly |
 | | |
@@ -1453,15 +1455,7 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `testparm` |	Check the sanity of samba.conf |
 
 
-
-
-
-
-
-
-
-
-## Becoming someone else
+### Becoming someone else
 
 | Syntax | Description |
 | ------ | ----------- |
@@ -1472,9 +1466,35 @@ the File System Hierarchy Standards (FHS) its a great source.
 | logout | logout from a shell |
 | exit | Quit from a shell |
 
+sudo	command	Get root permissions temporarily		sudo su	[root@eryn steven]#	linux_01_code
 
-## System Admin
+sudo su	commands	Open a root shell		sudo su	[root@eryn steven]#&nbsp;&nbsp;	linux_01_code
 
+
+
+passwd_timeout=<n>	/etc/sudoers	Change the "sudo five minute rule"\(^*\) to &lt;n&gt; minutes	\(^*\)once the password is entered, do as much sudos as you like for 5min	sudo /usr/bin/visudo &gt;&gt; echo "passwd_timeout=0"		linux_01_code
+
+
+/usr/bin/visudo	root command	Edit the /etc/sudoers file		sudo visudo	#Be root user, without needing the root password.<br>root&nbsp;&nbsp;&nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp;&nbsp; ALL&nbsp;	linux_01_code
+
+
+
+lspci {{c1::-v...v}}	flag	Get more...more verbose output	e.g. drivers			Cloze
+
+fdisk	command	Create or manipulate partition (table)s				linux_01_code
+
+lscpu	command&nbsp;	List processor infos		lscpu	Architecture: x86_64<br>CPU(s): 4&nbsp;<br>Model name: Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz&nbsp;	linux_01_code
+
+lsmod	command	List loaded modules\(^*\)	\(^*\)I.e: code to flexible extent the kernel	lsmod | grep intel	intel_xhci_usb_role_switch&nbsp;&nbsp;&nbsp; 16384&nbsp; 0 <br>intel_pch_thermal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20480&nbsp; 0&nbsp;	linux_01_code
+
+lspci	command	List PCI devices	e.g. Audio, USB, VGA	lspci | head	00:00.0 Host bridge: <br>Intel Xeon E3-1200 v6/7th Gen Core Processor <br>Host Bridge/DRAM Registers<br>00:02.0 VGA: Intel Corporation HD Graphics<br>00:14.0 USB: Intel Corporation Sunrise Point-LP	linux_01_code
+
+lsusb	command	List USB devices	e.g. keyboard, mouse, usb drives	lsusb	Bus 002 Device 001: ID 1d6b:<br>0003 Linux Foundation 3.0 root hub	linux_01_code
+
+modinfo	command	Info about loaded modules		modinfo e100 (ethernet)	filename:&nbsp; /lib/modules/5.15.13-200.fc35.x86_64/kernel/drivers/net/ethernet/intel/e100.ko.xz<br>firmware:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e100/d102e_ucode.bin&nbsp;<br>license:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPL v2&nbsp;	linux_01_code
+
+
+mount	command	List mounted file systems		mount	proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)	linux_01_code
 
 
 
@@ -1504,34 +1524,10 @@ inst.repo=<code>\(^*\)	boot option	Identify software repository location	\(^*\)<
 
 inst.vncconnect=hostname[:port]	boot option	Connect to VNC <i>client</i> <hostname> (and optional &lt;port&gt;)		inst.vncconnect=192.168.0.99:1		linux_01_code
 
-journalctl	command	View <i>all</i> messages from the systemd journal		journalctl | less	Sep 07 14:33:35 fedora kernel: Linux version 5.11.12-300	linux_01_code
 
 lsblk	command	List block devices\(^*\)	\(^*\)Hard disks, USB, CD-ROMs	lsblk	sda&nbsp; &nbsp;8:0&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 0B&nbsp; 0 disk  <br>zram0&nbsp; 252:0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 8G&nbsp; 0 disk [SWAP] <br>nvme0n1&nbsp; 259:0&nbsp;&nbsp;&nbsp; 0 476.9G&nbsp; 0 disk  <br>├─nvme0n1p1 259:1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 600M&nbsp; 0 part /boot/efi&nbsp;	linux_01_code
 
 
-lscpu	command&nbsp;	List processor infos		lscpu	Architecture: x86_64<br>CPU(s): 4&nbsp;<br>Model name: Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz&nbsp;	linux_01_code
-
-lsmod	command	List loaded modules\(^*\)	\(^*\)I.e: code to flexible extent the kernel	lsmod | grep intel	intel_xhci_usb_role_switch&nbsp;&nbsp;&nbsp; 16384&nbsp; 0 <br>intel_pch_thermal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20480&nbsp; 0&nbsp;	linux_01_code
-
-lspci	command	List PCI devices	e.g. Audio, USB, VGA	lspci | head	00:00.0 Host bridge: <br>Intel Xeon E3-1200 v6/7th Gen Core Processor <br>Host Bridge/DRAM Registers<br>00:02.0 VGA: Intel Corporation HD Graphics<br>00:14.0 USB: Intel Corporation Sunrise Point-LP	linux_01_code
-
-lsusb	command	List USB devices	e.g. keyboard, mouse, usb drives	lsusb	Bus 002 Device 001: ID 1d6b:<br>0003 Linux Foundation 3.0 root hub	linux_01_code
-
-modinfo	command	Info about loaded modules		modinfo e100 (ethernet)	filename:&nbsp; /lib/modules/5.15.13-200.fc35.x86_64/kernel/drivers/net/ethernet/intel/e100.ko.xz<br>firmware:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e100/d102e_ucode.bin&nbsp;<br>license:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPL v2&nbsp;	linux_01_code
-
-modprobe <module>	root command	Load a &lt;module&gt;\(^*\) temporarily	\(^*\)subdir of /lib/modules!	modprobe parport		linux_01_code
-
-mount	command	List mounted file systems		mount	proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)	linux_01_code
-
-rmmod <module>	root command	Remove requested &lt;module&gt; from the current kernel\(^*\)	\(^*\)if its not busy!	rmmod parport_pc		linux_01_code
-
-passwd_timeout=<n>	/etc/sudoers	Change the "sudo five minute rule"\(^*\) to &lt;n&gt; minutes	\(^*\)once the password is entered, do as much sudos as you like for 5min	sudo /usr/bin/visudo &gt;&gt; echo "passwd_timeout=0"		linux_01_code
-
-sudo	command	Get root permissions temporarily		sudo su	[root@eryn steven]#	linux_01_code
-
-sudo su	commands	Open a root shell		sudo su	[root@eryn steven]#&nbsp;&nbsp;	linux_01_code
-
-/usr/bin/visudo	root command	Edit the /etc/sudoers file		sudo visudo	#Be root user, without needing the root password.<br>root&nbsp;&nbsp;&nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp;&nbsp; ALL&nbsp;	linux_01_code
 
 <user>&nbsp; &nbsp; ALL=(ALL)&nbsp; &nbsp; ALL	sudoers formula	Give &lt;user&gt; full root privileges\(^*\) with its user password	\(^*\)no need not the root password to gain privileges!	sudo visudo	root&nbsp; &nbsp; &nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp; ALL<br>steve&nbsp; &nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp; ALL	linux_01_code
 
@@ -1540,62 +1536,62 @@ sudo su	commands	Open a root shell		sudo su	[root@eryn steven]#&nbsp;&nbsp;	linu
 
 F12 / F1	Shortcut	<div>Boot into BIOS<br></div>				linux_01_code
 
-inst.xdriver=vesa	boot option	Use standard vesa video driver				linux_01_code
 
-inst.resolution=1024x768	boot option	Use 1024x768 resolution				linux_01_code
-
-inst.vnc	boot option	Run installation as VNC server				linux_01_code
-
-inst.vncpassword=<password>	boot option	Client uses &lt;password&gt; to connect to installer\(^*\)	\(^*\)at least 8 characters!			linux_01_code
-
-rescue	boot option	Run the kernel to open Linux rescue mode\(^*\)	\(^\)instead of installing			linux_01_code
-
-fdisk	command	Create or manipulate partition (table)s				linux_01_code
-
-h	top command	Get help options		h	Z,B,E,e&nbsp;&nbsp; Global: 'Z' colors; 'B' bold;<br>&nbsp; l,t,m,I&nbsp;&nbsp; Toggle: 'l' load avg; 't'	git_01_code
-
-top	command	Real time TUI for processes		top	2576 steven 20 0 198264 S&nbsp;Anki&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <br>2915 steven 20 91176&nbsp; 67332 S QtWebEngineProc	git_01_code
-
-
-gnome-disks	command	Gnome Disk Utility\(^*\)	\(^*\)manage, partition and add fs'			linux_01_code
-
-echo "modprobe <module>" &gt;&gt; any_startup_script	/any/startup_script	Load a module permanently				linux_01_code
-
-vmlinuz	boot option	Kompressed kernel				linux_01_code
-
-initrd=initrd.img	boot option	Inital ram disk\(^*\)	\(^*\)modules and tools to start the installer			linux_01_code
-
-text	boot option	Run installation in plain-text mode				linux_01_code
 
 root:x:0:0:root:{{c1::/root}}:/bin/bash	/etc/passwd	Root home directory		cat /etc/passwd | grep "root"		Cloze
 
 root:x:0:{{c1::0}}:root:/root:/bin/bash	/etc/passwd	Root GID		cat /etc/passwd | root		Cloze
 
-journalctl {{c1::_SYSTEMD_UNIT}}{{c1::=}}{{c1::service}}	option and argument	Show messages for specific service		journalctl _SYSTEMD_UNIT=sshd.service	Jan 13 08:12:53 eryn sshd[867]: Server listening on 0.0.0.0 port 22. <br>Jan 13 08:12:53 eryn sshd[867]: Server listening on :: port 22.	Cloze
-
-journalctl {{c1::-a}}	option	Show all fields\(^*\)	\(^*\)even if they include unprintable characters or are very long.	journalctl -a	Sep 07 14:33:35 fedora kernel: Linux version 5.11.12-300.fc34.x86_64 (mockbuild@bkernel01.iad2.fedoraproject.org) <br>(gcc (GCC) 11.0.1 20210324 (Red Hat 11.0.1-0), <br>GNU ld version 2.35.1-41.fc34) #1 SMP Wed Apr 7 1>&nbsp;	Cloze
-
-journalctl {{c1::-b}} {{c1::<boot_id>}}	flag and argument	View messages from a particular boot		journalctl -b e26fd4fb29bf4160bb52dbb0b66b7bc8	Sep 07 14:33:35 fedora kernel: Linux version 5.11.12-300.fc34.x86_64&nbsp;<br>Sep 07 14:33:35 fedora kernel: Command line: <br>BOOT_IMAGE=(hd1,gpt2)/vmlinuz-5.11.12-300.fc34.x86_64 root&gt;	Cloze
-
-journalctl {{c1::-f}}	option	Follow syslog messages as they come in		journalctl -f	Jan 24 09:38:42 eryn gnome-terminal-[124095]: <br>void terminal_screen_shell_preexec(VteTerminal*): <br>assertion '!priv->between_preexec_and_precmd' failed	Cloze
-
-journalctl {{c1::-k}}&nbsp;	option	See only kernel messages		journalctl -k	Jan 13 08:12:48 eryn kernel: Linux version 5.15.13-200.fc35.x86_64<br>Jan 13 08:12:48 eryn kernel: Command line: <br>BOOT_IMAGE=(hd0,gpt2)/vmlinuz-5.15.13-200.fc35.x86_64 root=U> <br>Jan 13 08:12:48 eryn kernel: <br>x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'&nbsp;	Cloze
-
-journalctl {{c1::PRIORITY=0}}	argument	Show only emergency syslog messages		journalctl PRIORITY=0	-- No entries --&nbsp;	Cloze
-
-journalctl {{c1::PRIORITY}}{{c1::=}}{{c1::<0-7>}}	option and argument	Show messages from a particular syslog log level (0-7)	e.g.: 0-7	journalctl PRIORITY=1	Nov 03 07:47:23 eryn sendmail[42944]: <br>unable to qualify my own domain name (eryn) -- using short name	Cloze
-
-journalctl {{c1::--list-boots}}	flag	List the boot IDs for each time the system was booted		journalctly --list-boots | head	-52 e26fd4fb29bf4160bb52db 2021-09-07 14:33:35 <br>-51 92ed1188e406448797379 2021-09-07 14:42:56&nbsp;	Cloze
 
 
-modinfo {{c1::-d}} {{c1::<modul>}}&nbsp;	option and argument	Get a description for a &lt;modul&gt;\(^*\)	\(^*\)most helpful if available	modinfo -d e100	Intel(R) PRO/100 Network Driver&nbsp;	Cloze
 
-modinfo {{c1::-n}} {{c1::<module>}}	option and argument	Get the file behind a &lt;module&gt;		modinfo -e e100	/lib/modules/5.15.13-200.fc35.x86_64/kernel/drivers/net/ethernet/intel/e100.ko.xz	Cloze
 
-modprobe {{c1::-r}} {{c1::<module>}}	option and argument&nbsp;	Remove &lt;module&gt; -- plus <i>dependencies</i> -- from the current kernel\(^*\)	\(^*\)if it's not busy!	modprobe -r parport_pc		Cloze
+### Cockpit
 
 {{c1::systemctl}} {{c1::enable}} {{c1::--now}} {{c1::cockpit.socket}}	snippet	Enable cockpit.socket -- now!		systemctl enable --now cockpit.socket		Cloze
 
+gnome-disks	command	Gnome Disk Utility\(^*\)	\(^*\)manage, partition and add fs'			linux_01_code
+
+
+### Booting (boot options)
+
+| Syntax | Description |
+| ------ | ----------- |
+| vmlinuz | Specifies the Kompressed kernel |
+| `initrd=initrd.img` | Inital ram disk (..modules and tools to start the installer) |
+| `text` |	Run installation in plain-text mode |
+| `inst.xdriver=vesa` |	Use standard vesa video driver |
+| `inst.resolution=1024x768` | Use 1024x768 resolution |
+| `inst.vnc` | Run installation as VNC server |
+| `inst.vncpassword=<password>` | Client uses <password> to connect to installer (..must be at least 8 characters long!) |
+| `rescue` | Run the kernel to open Linux rescue mode (..instead of installing) |
+
+### Systemd
+
+| Syntax | Description |
+| ------ | ----------- |
+| `journalctl` | View all messages from the Systemd journal |
+| `journalctl -f` | Follow syslog messages as they come in |
+| `journalctl _SYSTEMD_UNIT=<service>.service` | Show messages for specific a <service>	|
+| `journalctl -a` | Show all fields (..even if they include unprintable characters or are very long) |
+| `journalctl -b <boot_id>` |	View messages from a particular boot |	
+| `journalctl -k` | See only kernel messages |
+| `journalctl PRIORITY=<0-7>` | Show messages from a particular syslog log level (0-7) |
+| `journalctl PRIORITY=0` | Show only emergency syslog messages |
+| `journalctl --list-boots` | List the boot IDs for each time the system was booted |
+
+### Modules
+
+| Syntax | Description |
+| ------ | ----------- |
+| `modprobe <module>` | Load a <module> temporarily |
+| `echo "modprobe <module>" >> any_startup_script` | Load a module permanently |
+|||
+| `rmmod <module>` | Remove the requested <module> from the current kernel (..if its not busy!)
+| `modprobe -r <module>` | Remove all modules -- plus dependencies -- from the current kernel (..if it's not busy!) |
+|||
+| `modinfo -d <modul>` | Get a description for a module (most helpful info -- if available! |
+| `modinfo -n <module>` |	Get the file behind a module |
 
 ln {{c1::-s}}	option	Make symbolic links&nbsp;	..instead of hard links			Cloze
 
@@ -1603,10 +1599,10 @@ who {{c1::-u}}	option	Show users logged in	steven tty2 2021-11-09 07:37 00:36 42
 
 who {{c1::-H}}	argument	Print line of column headings	NAME&nbsp;&nbsp;&nbsp;&nbsp; LINE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COMMENT			Cloze
 
+
+
 root:x:{{c1::0}}:0:root:/root:/bin/bash&nbsp;	/etc/passwd	Root UID				Cloze
 
-
-lspci {{c1::-v...v}}	flag	Get more...more verbose output	e.g. drivers			Cloze
 
 
 /usr \(\rightarrow\) /usr	Assign Partition to Directory	<ol><li>{{c1::Attackers can't remove/replace system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
@@ -1614,4 +1610,4 @@ lspci {{c1::-v...v}}	flag	Get more...more verbose output	e.g. drivers			Cloze
 Assign Partition to Directory	/usr \(\rightarrow\) /usr	<ol><li>{{c1::Attackers can't remove/replace system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
 
 
-"Bash uses untyped variables"
+
