@@ -1447,6 +1447,8 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `/dev/shm` |	The system's virtual memory file system |
 | `/dev/sd<...>` |	USB devices |
 
+---
+
 #### Checking the sanity of directories & files
 
 | Syntax | Description |
@@ -1454,11 +1456,13 @@ the File System Hierarchy Standards (FHS) its a great source.
 | `httpd -t` |	Check the sanity of Apache config (before the web server is started) |
 | `testparm` |	Check the sanity of samba.conf |
 
+---
 
 ### Becoming someone else
 
 | Syntax | Description |
 | ------ | ----------- |
+| sudo | Get root permissions temporarily |
 | su | Open a shell as a new user |
 | sudo su | Open a shell as root (Attention: permanently!) |
 | su - <user> | Open a shell as <user> |
@@ -1466,16 +1470,29 @@ the File System Hierarchy Standards (FHS) its a great source.
 | logout | logout from a shell |
 | exit | Quit from a shell |
 
-sudo	command	Get root permissions temporarily		sudo su	[root@eryn steven]#	linux_01_code
+---
 
-sudo su	commands	Open a root shell		sudo su	[root@eryn steven]#&nbsp;&nbsp;	linux_01_code
+## Editing the sudoers file
+
+| Syntax | Description |
+| ------ | ----------- |
+|`sudo visudo`| Change the `/etc/sudoers` file |
+
+Change the sudo five minute rule: once the password is entered, do as much
+sudos as you like for 5 min. To change that to `<n>` minutes, add the following
+snippet to `/etc/sudoers`:
+
+```
+passwd_timeout=<n>
+```
+
+..to force a password every time someone does enter `sudo`, use:
+
+```
+passwd_timeout=0
+```
 
 
-
-passwd_timeout=<n>	/etc/sudoers	Change the "sudo five minute rule"\(^*\) to &lt;n&gt; minutes	\(^*\)once the password is entered, do as much sudos as you like for 5min	sudo /usr/bin/visudo &gt;&gt; echo "passwd_timeout=0"		linux_01_code
-
-
-/usr/bin/visudo	root command	Edit the /etc/sudoers file		sudo visudo	#Be root user, without needing the root password.<br>root&nbsp;&nbsp;&nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp;&nbsp; ALL&nbsp;	linux_01_code
 
 
 
