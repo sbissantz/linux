@@ -1492,32 +1492,38 @@ passwd_timeout=<n>
 passwd_timeout=0
 ```
 
+### Root privileges
 
+Full root privileges with my user password. I.e.: no need for an extra root
+password.
 
+```
+<user>  ALL=(ALL) ALL
+```
 
+Full root privileges without a password at all. 
 
-lspci {{c1::-v...v}}	flag	Get more...more verbose output	e.g. drivers			Cloze
+```
+<user>  ALL=(ALL) NOPASSWD:ALL
+```
 
-fdisk	command	Create or manipulate partition (table)s				linux_01_code
+---
 
-lscpu	command&nbsp;	List processor infos		lscpu	Architecture: x86_64<br>CPU(s): 4&nbsp;<br>Model name: Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz&nbsp;	linux_01_code
+## Maschine info
 
-lsmod	command	List loaded modules\(^*\)	\(^*\)I.e: code to flexible extent the kernel	lsmod | grep intel	intel_xhci_usb_role_switch&nbsp;&nbsp;&nbsp; 16384&nbsp; 0 <br>intel_pch_thermal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20480&nbsp; 0&nbsp;	linux_01_code
-
-lspci	command	List PCI devices	e.g. Audio, USB, VGA	lspci | head	00:00.0 Host bridge: <br>Intel Xeon E3-1200 v6/7th Gen Core Processor <br>Host Bridge/DRAM Registers<br>00:02.0 VGA: Intel Corporation HD Graphics<br>00:14.0 USB: Intel Corporation Sunrise Point-LP	linux_01_code
-
-lsusb	command	List USB devices	e.g. keyboard, mouse, usb drives	lsusb	Bus 002 Device 001: ID 1d6b:<br>0003 Linux Foundation 3.0 root hub	linux_01_code
-
-modinfo	command	Info about loaded modules		modinfo e100 (ethernet)	filename:&nbsp; /lib/modules/5.15.13-200.fc35.x86_64/kernel/drivers/net/ethernet/intel/e100.ko.xz<br>firmware:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e100/d102e_ucode.bin&nbsp;<br>license:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPL v2&nbsp;	linux_01_code
-
-
-mount	command	List mounted file systems		mount	proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)	linux_01_code
-
-
-
-dmesg	command	List detected hardware and drivers loaded	e.g. kernel, boot_image, usb, ethernet	dmesg | grep "wlp4s0"&nbsp;	[94262.147773] wlp4s0: authenticate with 18:82:8c:c1:0a:be <br>[94262.169543] wlp4s0: send auth to 18:82:8c:c1:0a:be (try 1/3)&nbsp;	linux_01_code
-
-df	command	Report file system disk space usage\(^*\)	\(^*\)and mountpoints	df	/dev/nvme0n1p3&nbsp; 44402668 436272820&nbsp; 10% /home <br>/dev/nvme0n1p2&nbsp; 249504&nbsp;&nbsp;&nbsp; 681004&nbsp; 27% /boot <br>/dev/nvme0n1p1&nbsp; 23444&nbsp;&nbsp;&nbsp; 589740&nbsp;&nbsp; 4% /boot/efi&nbsp;	linux_01_code
+| Syntax | Description |
+| ------ | ----------- |
+| `lsusb` |	List USB devices (e.g. keyboard, mouse, usb drives) |
+| `lspci` |	List PCI devices (e.g. Audio, USB, VGA)	|
+| `lspci -v...v` |	Get more verbose output on PCI devices |
+| `lscpu` | List processor infos |
+| `lsblk` |	List block devices (i.e.: hard disks, USB, CD-ROMs) |
+| `mount` | List mounted file systems |
+| `lsmod` |	List loaded modules (i.e.: code to flexible extent the kernel) |
+| `modinfo` | Info about loaded modules |	
+| `dmesg` |	List detected hardware and drivers loaded (e.g.: kernel, boot_image, usb, ethernet |	
+| `df` | Report the file system disk space usage and the mountpoints |
+| `fdisk` |	Create or manipulate partition (table)s |
 
 
 at	command	Run a command at a specific time		echo "command_to_be_run" | at 6:50	"hello"	linux_01_code
@@ -1530,8 +1536,6 @@ http://<ip_addr>:9090	web address	Cockpit		firefox https://192.168.2.143:9090		l
 
 {{c1::ip}} {{c1::addr}}	command	Get device's IP address	Note: ifconfig is opbsolete	ifconfig	3: wlp4s0: noqueue state UP group default qlen 1000 <br>&nbsp;&nbsp;&nbsp; link/ether bc:a8:a6:d0:a8:22 brd ff:ff:ff:ff:ff:ff <br>&nbsp;&nbsp;&nbsp; inet <u>192.168.2.143</u>/24	Cloze
 
-
-
 grubby	root command	Changes kernel boot parameters	\(^*\)recommended way	grubby --args=<NEW_PARAMETER> --update-kernel=/boot/vmlinuz-5.11.13-300.fc34.x86_64		linux_01_code
 
 
@@ -1542,14 +1546,8 @@ inst.repo=<code>\(^*\)	boot option	Identify software repository location	\(^*\)<
 inst.vncconnect=hostname[:port]	boot option	Connect to VNC <i>client</i> <hostname> (and optional &lt;port&gt;)		inst.vncconnect=192.168.0.99:1		linux_01_code
 
 
-lsblk	command	List block devices\(^*\)	\(^*\)Hard disks, USB, CD-ROMs	lsblk	sda&nbsp; &nbsp;8:0&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 0B&nbsp; 0 disk  <br>zram0&nbsp; 252:0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 8G&nbsp; 0 disk [SWAP] <br>nvme0n1&nbsp; 259:0&nbsp;&nbsp;&nbsp; 0 476.9G&nbsp; 0 disk  <br>├─nvme0n1p1 259:1&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 600M&nbsp; 0 part /boot/efi&nbsp;	linux_01_code
 
 
-
-<user>&nbsp; &nbsp; ALL=(ALL)&nbsp; &nbsp; ALL	sudoers formula	Give &lt;user&gt; full root privileges\(^*\) with its user password	\(^*\)no need not the root password to gain privileges!	sudo visudo	root&nbsp; &nbsp; &nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp; ALL<br>steve&nbsp; &nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp; ALL	linux_01_code
-
-
-<user>&nbsp; &nbsp; ALL=(ALL)&nbsp; &nbsp; NOPASSWD: ALL	sudoers formula	Give &lt;user&gt; full root access without any password at all		sudo visudo	root&nbsp; &nbsp; &nbsp; ALL=(ALL)&nbsp;&nbsp;&nbsp; ALL<br>steve&nbsp; &nbsp; ALL=(ALL)&nbsp; &nbsp;NOPASSWD: ALL	linux_01_code
 
 F12 / F1	Shortcut	<div>Boot into BIOS<br></div>				linux_01_code
 
