@@ -1,5 +1,15 @@
 # Command reference for Linux 
 
+---
+
+## An essential
+
+| Shorcut | Description |
+| ------ | ----------- |
+| `F12 / F1` | Boot into BIOS | 
+
+---
+
 ## Becoming a Linux Power User
 
 ---
@@ -1524,62 +1534,63 @@ Full root privileges without a password at all.
 | `dmesg` |	List detected hardware and drivers loaded (e.g.: kernel, boot_image, usb, ethernet |	
 | `df` | Report the file system disk space usage and the mountpoints |
 | `fdisk` |	Create or manipulate partition (table)s |
+| gnome-disks | Start the gnome disk utility (manage, partition and add fs') |
+| `ip addr` | Get device's IP address |
 
+---
 
-at	command	Run a command at a specific time		echo "command_to_be_run" | at 6:50	"hello"	linux_01_code
+## Cockpit
 
-passwd_timeout=0	/etc/sudoers	Force root/user to always enter sudo\(^*\)	\(^*\)no time-out for password	echo "passwd_timeout=0" >&gt; /etc/sudoers		linux_01_code
+| Syntax | Description |
+| ------ | ----------- |
+| http://<ip_addr>:9090 | Web address |
+| `ip addr` | Get device's IP address (Note `ifconfig` is obsolete)  |
+| `systemctl enable --now cockpit.socket` | Enable cockpit.socket -- now! |
 
-du	command	Estimate file space usage		find $Home -size +1G -exec du {} \;	1089072&nbsp;&nbsp;&nbsp; ./Videos/taichi/lesson1.mp4&nbsp;	linux_01_code
+**Useful Examples**
 
-http://<ip_addr>:9090	web address	Cockpit		firefox https://192.168.2.143:9090		linux_01_code
+I generally use:
 
-{{c1::ip}} {{c1::addr}}	command	Get device's IP address	Note: ifconfig is opbsolete	ifconfig	3: wlp4s0: noqueue state UP group default qlen 1000 <br>&nbsp;&nbsp;&nbsp; link/ether bc:a8:a6:d0:a8:22 brd ff:ff:ff:ff:ff:ff <br>&nbsp;&nbsp;&nbsp; inet <u>192.168.2.143</u>/24	Cloze
+```
+firefox https://192.168.2.143:9090
+```
 
-grubby	root command	Changes kernel boot parameters	\(^*\)recommended way	grubby --args=<NEW_PARAMETER> --update-kernel=/boot/vmlinuz-5.11.13-300.fc34.x86_64		linux_01_code
-
-
-inst.ks=<code>\(^*\)	boot option	Identify a kickstart file	\(^*\)<a href="https://access.redhat.com/documentation/en-en/red_hat_enterprise_linux/5/html/installation_guide/s1-kickstart2-startinginstall">https://access.redhat.com/documentation/en-en/red_hat_enterprise_linux/5/html/installation_guide/s1-kickstart2-startinginstall</a>	inst.ks=ftp://ftp.example.com/allks/ks.cfg		linux_01_code
-
-inst.repo=<code>\(^*\)	boot option	Identify software repository location	\(^*\)<a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-anaconda-boot-options">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-anaconda-boot-options</a>	inst.repo=hd:dev/sda1:/myrepo		linux_01_code
-
-inst.vncconnect=hostname[:port]	boot option	Connect to VNC <i>client</i> <hostname> (and optional &lt;port&gt;)		inst.vncconnect=192.168.0.99:1		linux_01_code
-
-
-
-
-
-F12 / F1	Shortcut	<div>Boot into BIOS<br></div>				linux_01_code
-
-
-
-root:x:0:0:root:{{c1::/root}}:/bin/bash	/etc/passwd	Root home directory		cat /etc/passwd | grep "root"		Cloze
-
-root:x:0:{{c1::0}}:root:/root:/bin/bash	/etc/passwd	Root GID		cat /etc/passwd | root		Cloze
-
-
-
-
-
-### Cockpit
-
-{{c1::systemctl}} {{c1::enable}} {{c1::--now}} {{c1::cockpit.socket}}	snippet	Enable cockpit.socket -- now!		systemctl enable --now cockpit.socket		Cloze
-
-gnome-disks	command	Gnome Disk Utility\(^*\)	\(^*\)manage, partition and add fs'			linux_01_code
-
+---
 
 ### Booting (boot options)
 
 | Syntax | Description |
 | ------ | ----------- |
-| vmlinuz | Specifies the Kompressed kernel |
+| `vmlinuz` | Specifies the Kompressed kernel |
 | `initrd=initrd.img` | Inital ram disk (..modules and tools to start the installer) |
 | `text` |	Run installation in plain-text mode |
 | `inst.xdriver=vesa` |	Use standard vesa video driver |
 | `inst.resolution=1024x768` | Use 1024x768 resolution |
 | `inst.vnc` | Run installation as VNC server |
+| `inst.vncconnect=hostname[:port]` | Connect to VNC client <hostname> (and optional [port])		
 | `inst.vncpassword=<password>` | Client uses <password> to connect to installer (..must be at least 8 characters long!) |
 | `rescue` | Run the kernel to open Linux rescue mode (..instead of installing) |
+| `grubby` | Changes kernel boot parameters (Note: recommended way) |
+| `inst.ks=<code>` | Identify a kickstart file |
+| `inst.repo=<code>` | Identify software repository location |
+
+For `code`s see: 
+- https://access.redhat.com/documentation/en-en/red_hat_enterprise_linux/5/html/installation_guide/s1-kickstart2-startinginstall
+- https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-anaconda-boot-options
+
+**Useful Examples**
+
+```
+inst.vncconnect=192.168.0.99:1
+```
+
+### Assign partition to directory
+
+A separate partition for...
+- `/var` prevents attacks on FTP & web server from corrupting/filling up the hard disk
+- `/boot` ensures the info in /boot is accessible to the BIOS
+- `/usr` prevents attackers from removing/replacing system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
+- `/usr` allows to share `/usr` over the network (NFS, Samba)
 
 ### Systemd
 
@@ -1608,21 +1619,10 @@ gnome-disks	command	Gnome Disk Utility\(^*\)	\(^*\)manage, partition and add fs'
 | `modinfo -d <modul>` | Get a description for a module (most helpful info -- if available! |
 | `modinfo -n <module>` |	Get the file behind a module |
 
-ln {{c1::-s}}	option	Make symbolic links&nbsp;	..instead of hard links			Cloze
+### Misc
 
-who {{c1::-u}}	option	Show users logged in	steven tty2 2021-11-09 07:37 00:36 4265 (tty2)			Cloze
-
-who {{c1::-H}}	argument	Print line of column headings	NAME&nbsp;&nbsp;&nbsp;&nbsp; LINE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COMMENT			Cloze
-
-
-
-root:x:{{c1::0}}:0:root:/root:/bin/bash&nbsp;	/etc/passwd	Root UID				Cloze
-
-
-
-/usr \(\rightarrow\) /usr	Assign Partition to Directory	<ol><li>{{c1::Attackers can't remove/replace system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
-
-Assign Partition to Directory	/usr \(\rightarrow\) /usr	<ol><li>{{c1::Attackers can't remove/replace system apps with corrupted versions}}<br></li><li>{{c2::Share /usr over the network (NFS, Samba)}}<br></li></ol>		Cloze		
-
-
+| Syntax | Description |
+| ------ | ----------- |
+| `at` | Run a command at a specific time |
+| `du` | Estimate the file space usage |	
 
